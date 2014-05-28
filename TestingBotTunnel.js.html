@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: TestingBotTunnel.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: TestingBotTunnel.js</h1>
+
+    
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @module digdug/TestingBotTunnel
+ */
+
+var Tunnel = require('./Tunnel');
+var util = require('./util');
+var request = require('dojo/request');
+var ioQuery = require('dojo/io-query');
+var fs = require('fs');
+var os = require('os');
+var urlUtil = require('url');
+var pathUtil = require('path');
+
+/**
+ * A TestingBot tunnel.
+ *
+ * @constructor module:digdug/TestingBotTunnel
+ * @extends module:digdug/Tunnel
+ */
+function TestingBotTunnel() {
+	this.apiKey = process.env.TESTINGBOT_KEY;
+	this.apiSecret = process.env.TESTINGBOT_SECRET;
+	this.fastFailDomains = [];
+	Tunnel.apply(this, arguments);
+}
+
+var _super = Tunnel.prototype;
+TestingBotTunnel.prototype = util.mixin(Object.create(_super), /** @lends module:digdug/TestingBotTunnel# */ {
+	constructor: TestingBotTunnel,
+
+	/**
+	 * The TestingBot API key.
+	 *
+	 * @type {string}
+	 */
+	apiKey: null,
+
+	/**
+	 * The TestingBot API secret.
+	 *
+	 * @type {string}
+	 */
+	apiSecret: null,
+
+	directory: './testingbot/',
+
+	executable: 'java',
+
+	/**
+	 * A list of regular expressions corresponding to domains whose connections should fail immediately if the VM
+	 * attempts to make a connection to them.
+	 *
+	 * @type {string[]}
+	 */
+	fastFailDomains: null,
+
+	/**
+	 * A filename where additional logs from the tunnel should be output.
+	 *
+	 * @type {string}
+	 */
+	logFile: null,
+
+	url: 'http://testingbot.com/downloads/testingbot-tunnel.zip',
+
+	/**
+	 * Whether or not to use rabbIT compression for the tunnel connection.
+	 *
+	 * @type {boolean}
+	 */
+	useCompression: false,
+
+	/**
+	 * Whether or not to use the default local Jetty proxy for the tunnel.
+	 *
+	 * @type {boolean}
+	 */
+	useJettyProxy: true,
+
+	/**
+	 * Whether or not to use the default remote Squid proxy for the VM.
+	 *
+	 * @type {boolean}
+	 */
+	useSquidProxy: true,
+
+	/**
+	 * Whether or not to re-encrypt data encrypted by self-signed certificates.
+	 *
+	 * @type {boolean}
+	 */
+	useSsl: false,
+
+	get clientAuth() {
+		return this.apiKey + ':' + this.apiSecret;
+	},
+
+	get isDownloaded() {
+		return fs.existsSync(pathUtil.join(this.directory, 'testingbot-tunnel/testingbot-tunnel.jar'));
+	},
+
+	_makeArgs: function (readyFile) {
+		var args = [
+			'-jar', 'testingbot-tunnel/testingbot-tunnel.jar',
+			this.apiKey,
+			this.apiSecret,
+			'-P', this.port,
+			'-f', readyFile
+		];
+
+		this.fastFailDomains.length &amp;&amp; args.push('-F', this.fastFailDomains.join(','));
+		this.logFile &amp;&amp; args.push('-l', this.logFile);
+		this.useJettyProxy || args.push('-x');
+		this.useSquidProxy || args.push('-q');
+		this.useCompression &amp;&amp; args.push('-b');
+		this.useSsl &amp;&amp; args.push('-s');
+		this.verbose &amp;&amp; args.push('-d');
+
+		if (this.proxy) {
+			var proxy = urlUtil.parse(this.proxy);
+
+			proxy.hostname &amp;&amp; args.unshift('-Dhttp.proxyHost=', proxy.hostname);
+			proxy.port &amp;&amp; args.unshift('-Dhttp.proxyPort=', proxy.port);
+		}
+
+		return args;
+	},
+
+	sendJobState: function (jobId, data) {
+		var payload = {};
+
+		data.success != null &amp;&amp; (payload['test[success]'] = data.success ? 1 : 0);
+		data.status &amp;&amp; (payload['test[status_message]'] = data.status);
+		data.name &amp;&amp; (payload['test[name]'] = data.name);
+		data.extra &amp;&amp; (payload['test[extra]'] = JSON.stringify(data.extra));
+		data.tags &amp;&amp; data.tags.length &amp;&amp; (payload.groups = data.tags.join(','));
+
+		payload = ioQuery.objectToQuery(payload);
+
+		return request.put('https://api.testingbot.com/v1/tests/' + jobId, {
+			data: payload,
+			handleAs: 'text',
+			headers: {
+				'Content-Length': Buffer.byteLength(payload, 'utf8'),
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			password: this.apiSecret,
+			username: this.apiKey
+		}).response.then(function (response) {
+			if (response.text) {
+				var data = JSON.parse(response.text);
+
+				if (data.error) {
+					throw new Error(data.error);
+				}
+				else if (!data.success) {
+					throw new Error('Job data failed to save.');
+				}
+			}
+			else {
+				throw new Error('Server reported ' + response.status + ' with no other data.');
+			}
+		});
+	},
+
+	_start: function () {
+		var readyFile = pathUtil.join(os.tmpdir(), 'testingbot-' + Date.now());
+		var child = this._makeChild(readyFile);
+		var process = child.process;
+		var dfd = child.deferred;
+
+		// Polling API is used because we are only watching for one file, so efficiency is not a big deal, and the
+		// `fs.watch` API has extra restrictions which are best avoided
+		fs.watchFile(readyFile, { persistent: false, interval: 1007 }, function () {
+			fs.unwatchFile(readyFile);
+			dfd.resolve();
+		});
+
+		var self = this;
+		var lastMessage;
+		this._handles.push(
+			util.on(process.stderr, 'data', function (data) {
+				data.split('\n').forEach(function (message) {
+					if (message.indexOf('INFO: ') === 0) {
+						message = message.slice('INFO: '.length);
+						// the tunnel produces a lot of repeating messages during setup when the status is pending;
+						// deduplicate them for sanity
+						if (message !== lastMessage) {
+							self.emit('status', message);
+							lastMessage = message;
+						}
+					}
+				});
+			})
+		);
+
+		return child;
+	}
+});
+
+module.exports = TestingBotTunnel;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Index</a></h2><h3>Modules</h3><ul><li><a href="BrowserStackTunnel.html">digdug/BrowserStackTunnel</a></li><li><a href="NullTunnel.html">digdug/NullTunnel</a></li><li><a href="SauceLabsTunnel.html">digdug/SauceLabsTunnel</a></li><li><a href="TestingBotTunnel.html">digdug/TestingBotTunnel</a></li><li><a href="Tunnel.html">digdug/Tunnel</a></li></ul><h3>Events</h3><ul><li><a href="BrowserStackTunnel.html#event:downloadprogress">downloadprogress</a></li><li><a href="BrowserStackTunnel.html#event:status">status</a></li><li><a href="BrowserStackTunnel.html#event:stderr">stderr</a></li><li><a href="BrowserStackTunnel.html#event:stdout">stdout</a></li><li><a href="SauceLabsTunnel.html#event:downloadprogress">downloadprogress</a></li><li><a href="SauceLabsTunnel.html#event:status">status</a></li><li><a href="SauceLabsTunnel.html#event:stderr">stderr</a></li><li><a href="SauceLabsTunnel.html#event:stdout">stdout</a></li><li><a href="TestingBotTunnel.html#event:downloadprogress">downloadprogress</a></li><li><a href="TestingBotTunnel.html#event:status">status</a></li><li><a href="TestingBotTunnel.html#event:stderr">stderr</a></li><li><a href="TestingBotTunnel.html#event:stdout">stdout</a></li><li><a href="Tunnel.html#event:downloadprogress">downloadprogress</a></li><li><a href="Tunnel.html#event:status">status</a></li><li><a href="Tunnel.html#event:stderr">stderr</a></li><li><a href="Tunnel.html#event:stdout">stdout</a></li></ul><h3><a href="global.html">Global</a></h3>
+</nav>
+
+<br clear="both">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha5</a> on Wed May 28 2014 19:06:20 GMT-0400 (EDT)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
