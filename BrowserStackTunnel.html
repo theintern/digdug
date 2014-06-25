@@ -305,6 +305,77 @@ system at runtime.</p>
         
             
 <dt>
+    <h4 class="name" id="auth"><span class="type-signature"></span>auth<span class="type-signature"> :string</span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>An HTTP authorization string to use when initiating connections to this tunnel.</p>
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">string</span>
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="Tunnel.html#auth">module:digdug/Tunnel#auth</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line135">line 135</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
     <h4 class="name" id="automateOnly"><span class="type-signature"></span>automateOnly<span class="type-signature"> :boolean</span></h4>
 
     
@@ -372,27 +443,17 @@ supported.</p>
         
             
 <dt>
-    <h4 class="name" id="clientAuth"><span class="type-signature"></span>clientAuth<span class="type-signature"> :string</span></h4>
+    <h4 class="name" id="clientUrl"><span class="type-signature"></span>clientUrl<span class="type-signature"></span></h4>
 
     
 </dt>
 <dd>
     
     <div class="description">
-        <p>An HTTP authorization string to use when initiating connections to this tunnel.</p>
+        <p>The URL that a WebDriver client should used to interact with this service.</p>
     </div>
     
 
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">string</span>
-
-
-            </li>
-        </ul>
     
 
     
@@ -406,7 +467,7 @@ supported.</p>
     
     <dt class="inherited-from">Inherited From:</dt>
     <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="Tunnel.html#clientAuth">module:digdug/Tunnel#clientAuth</a>
+        <a href="Tunnel.html#clientUrl">module:digdug/Tunnel#clientUrl</a>
     </li></dd>
     
 
@@ -423,7 +484,7 @@ supported.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line135">line 135</a>
+        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line244">line 244</a>
     </li></ul></dd>
     
 
@@ -638,7 +699,7 @@ not exist.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line230">line 230</a>
+        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line248">line 248</a>
     </li></ul></dd>
     
 
@@ -665,7 +726,8 @@ not exist.</p>
 <dd>
     
     <div class="description">
-        <p>The hostname where the WebDriver server should be exposed by the tunnel.</p>
+        <p>The host on which a WebDriver client can access the service provided by this tunnel. This may or may not be
+the host where the tunnel application is running.</p>
     </div>
     
 
@@ -709,7 +771,7 @@ not exist.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line158">line 158</a>
+        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line159">line 159</a>
     </li></ul></dd>
     
 
@@ -780,7 +842,7 @@ not exist.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line242">line 242</a>
+        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line260">line 260</a>
     </li></ul></dd>
     
 
@@ -851,7 +913,7 @@ not exist.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line166">line 166</a>
+        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line167">line 167</a>
     </li></ul></dd>
     
 
@@ -922,7 +984,7 @@ not exist.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line174">line 174</a>
+        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line175">line 175</a>
     </li></ul></dd>
     
 
@@ -993,7 +1055,7 @@ not exist.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line182">line 182</a>
+        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line183">line 183</a>
     </li></ul></dd>
     
 
@@ -1079,6 +1141,67 @@ not exist.</p>
         
             
 <dt>
+    <h4 class="name" id="pathname"><span class="type-signature"></span>pathname<span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>The path that a WebDriver client should use to access the service provided by this tunnel.</p>
+    </div>
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="Tunnel.html#pathname">module:digdug/Tunnel#pathname</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line188">line 188</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
     <h4 class="name" id="platform"><span class="type-signature"></span>platform<span class="type-signature"> :string</span></h4>
 
     
@@ -1131,7 +1254,7 @@ system at runtime.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line190">line 190</a>
+        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line196">line 196</a>
     </li></ul></dd>
     
 
@@ -1202,7 +1325,68 @@ system at runtime.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line197">line 197</a>
+        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line203">line 203</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="protocol"><span class="type-signature"></span>protocol<span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>The protocol (e.g., http) that a WebDriver client should use to access the service provided by this tunnel.</p>
+    </div>
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="Tunnel.html#protocol">module:digdug/Tunnel#protocol</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line208">line 208</a>
     </li></ul></dd>
     
 
@@ -1273,7 +1457,7 @@ system at runtime.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line204">line 204</a>
+        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line215">line 215</a>
     </li></ul></dd>
     
 
@@ -1476,7 +1660,7 @@ system at runtime.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line211">line 211</a>
+        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line222">line 222</a>
     </li></ul></dd>
     
 
@@ -1547,7 +1731,7 @@ system at runtime.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line218">line 218</a>
+        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line229">line 229</a>
     </li></ul></dd>
     
 
@@ -1684,7 +1868,7 @@ system at runtime.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line225">line 225</a>
+        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line236">line 236</a>
     </li></ul></dd>
     
 
@@ -1758,7 +1942,7 @@ override this method to provide the appropriate command-line arguments.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line329">line 329</a>
+        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line347">line 347</a>
     </li></ul></dd>
     
 
@@ -1859,7 +2043,7 @@ create the tunnel process.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line345">line 345</a>
+        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line363">line 363</a>
     </li></ul></dd>
     
 
@@ -1960,7 +2144,7 @@ method to provide the appropriate options for the tunnel software.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line411">line 411</a>
+        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line429">line 429</a>
     </li></ul></dd>
     
 
@@ -2062,7 +2246,7 @@ launch detection logic.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line496">line 496</a>
+        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line514">line 514</a>
     </li></ul></dd>
     
 
@@ -2163,7 +2347,7 @@ method should be reimplemented by other tunnel launchers to implement correct sh
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line559">line 559</a>
+        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line577">line 577</a>
     </li></ul></dd>
     
 
@@ -2311,7 +2495,7 @@ appropriate file permissions on the downloaded executable.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line263">line 263</a>
+        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line281">line 281</a>
     </li></ul></dd>
     
 
@@ -2480,7 +2664,7 @@ appropriate file permissions on the downloaded executable.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line424">line 424</a>
+        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line442">line 442</a>
     </li></ul></dd>
     
 
@@ -2556,7 +2740,7 @@ appropriate file permissions on the downloaded executable.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line435">line 435</a>
+        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line453">line 453</a>
     </li></ul></dd>
     
 
@@ -2654,7 +2838,7 @@ appropriate file permissions on the downloaded executable.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line523">line 523</a>
+        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line541">line 541</a>
     </li></ul></dd>
     
 
@@ -3147,7 +3331,7 @@ appropriate file permissions on the downloaded executable.</p>
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha8</a> on Sat Jun 14 2014 02:38:28 GMT+0000 (UTC)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha8</a> on Wed Jun 25 2014 13:00:32 GMT-0400 (EDT)
 </footer>
 
 <script> prettyPrint(); </script>
