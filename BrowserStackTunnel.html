@@ -210,11 +210,16 @@ environment variable.</p>
     
 
     
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy">
+            <li>the value of the BROWSERSTACK_ACCESS_KEY environment variable</li>
+        </ul></dd>
+    
 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="BrowserStackTunnel.js.html">BrowserStackTunnel.js</a>, <a href="BrowserStackTunnel.js.html#line36">line 36</a>
+        <a href="BrowserStackTunnel.js.html">BrowserStackTunnel.js</a>, <a href="BrowserStackTunnel.js.html#line37">line 37</a>
     </li></ul></dd>
     
 
@@ -313,7 +318,8 @@ system at runtime.</p>
 <dd>
     
     <div class="description">
-        <p>An HTTP authorization string to use when initiating connections to the tunnel.</p>
+        <p>An HTTP authorization string to use when initiating connections to the tunnel. This value of this property is
+defined by Tunnel subclasses.</p>
     </div>
     
 
@@ -357,7 +363,7 @@ system at runtime.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line135">line 135</a>
+        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line136">line 136</a>
     </li></ul></dd>
     
 
@@ -420,11 +426,16 @@ supported.</p>
     
 
     
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy">
+            <li>true</li>
+        </ul></dd>
+    
 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="BrowserStackTunnel.js.html">BrowserStackTunnel.js</a>, <a href="BrowserStackTunnel.js.html#line44">line 44</a>
+        <a href="BrowserStackTunnel.js.html">BrowserStackTunnel.js</a>, <a href="BrowserStackTunnel.js.html#line46">line 46</a>
     </li></ul></dd>
     
 
@@ -495,7 +506,7 @@ supported.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line244">line 244</a>
+        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line252">line 252</a>
     </li></ul></dd>
     
 
@@ -523,7 +534,7 @@ supported.</p>
     
     <div class="description">
         <p>The directory where the tunnel software will be extracted. If the directory does not exist, it will be
-created.</p>
+created. This value is set by the tunnel subclasses.</p>
     </div>
     
 
@@ -567,7 +578,7 @@ created.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line143">line 143</a>
+        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line144">line 144</a>
     </li></ul></dd>
     
 
@@ -594,7 +605,7 @@ created.</p>
 <dd>
     
     <div class="description">
-        <p>The executable to spawn in order to create a tunnel.</p>
+        <p>The executable to spawn in order to create a tunnel. This value is set by the tunnel subclasses.</p>
     </div>
     
 
@@ -638,7 +649,7 @@ created.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line150">line 150</a>
+        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line151">line 151</a>
     </li></ul></dd>
     
 
@@ -709,7 +720,7 @@ created.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line256">line 256</a>
+        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line264">line 264</a>
     </li></ul></dd>
     
 
@@ -777,11 +788,16 @@ the host where the tunnel application is running.</p>
     
 
     
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy">
+            <li>localhost</li>
+        </ul></dd>
+    
 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line158">line 158</a>
+        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line160">line 160</a>
     </li></ul></dd>
     
 
@@ -852,7 +868,7 @@ the host where the tunnel application is running.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line268">line 268</a>
+        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line276">line 276</a>
     </li></ul></dd>
     
 
@@ -923,7 +939,7 @@ the host where the tunnel application is running.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line166">line 166</a>
+        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line168">line 168</a>
     </li></ul></dd>
     
 
@@ -994,7 +1010,7 @@ the host where the tunnel application is running.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line174">line 174</a>
+        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line176">line 176</a>
     </li></ul></dd>
     
 
@@ -1065,7 +1081,7 @@ the host where the tunnel application is running.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line182">line 182</a>
+        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line184">line 184</a>
     </li></ul></dd>
     
 
@@ -1127,11 +1143,16 @@ the host where the tunnel application is running.</p>
     
 
     
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy">
+            <li>false</li>
+        </ul></dd>
+    
 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="BrowserStackTunnel.js.html">BrowserStackTunnel.js</a>, <a href="BrowserStackTunnel.js.html#line55">line 55</a>
+        <a href="BrowserStackTunnel.js.html">BrowserStackTunnel.js</a>, <a href="BrowserStackTunnel.js.html#line58">line 58</a>
     </li></ul></dd>
     
 
@@ -1198,11 +1219,16 @@ the host where the tunnel application is running.</p>
     
 
     
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy">
+            <li>/wd/hub/</li>
+        </ul></dd>
+    
 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line189">line 189</a>
+        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line192">line 192</a>
     </li></ul></dd>
     
 
@@ -1274,7 +1300,7 @@ system at runtime.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line197">line 197</a>
+        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line200">line 200</a>
     </li></ul></dd>
     
 
@@ -1341,11 +1367,16 @@ system at runtime.</p>
     
 
     
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy">
+            <li>4444</li>
+        </ul></dd>
+    
 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line204">line 204</a>
+        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line208">line 208</a>
     </li></ul></dd>
     
 
@@ -1372,7 +1403,7 @@ system at runtime.</p>
 <dd>
     
     <div class="description">
-        <p>The protocol (e.g., http) that a WebDriver client should use to access the service provided by the tunnel.</p>
+        <p>The protocol (e.g., 'http') that a WebDriver client should use to access the service provided by the tunnel.</p>
     </div>
     
 
@@ -1412,11 +1443,16 @@ system at runtime.</p>
     
 
     
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy">
+            <li>http</li>
+        </ul></dd>
+    
 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line211">line 211</a>
+        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line216">line 216</a>
     </li></ul></dd>
     
 
@@ -1483,11 +1519,16 @@ system at runtime.</p>
     
 
     
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy">
+            <li>null</li>
+        </ul></dd>
+    
 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line218">line 218</a>
+        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line224">line 224</a>
     </li></ul></dd>
     
 
@@ -1549,11 +1590,16 @@ system at runtime.</p>
     
 
     
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy">
+            <li>null</li>
+        </ul></dd>
+    
 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="BrowserStackTunnel.js.html">BrowserStackTunnel.js</a>, <a href="BrowserStackTunnel.js.html#line62">line 62</a>
+        <a href="BrowserStackTunnel.js.html">BrowserStackTunnel.js</a>, <a href="BrowserStackTunnel.js.html#line66">line 66</a>
     </li></ul></dd>
     
 
@@ -1615,11 +1661,16 @@ system at runtime.</p>
     
 
     
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy">
+            <li>true</li>
+        </ul></dd>
+    
 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="BrowserStackTunnel.js.html">BrowserStackTunnel.js</a>, <a href="BrowserStackTunnel.js.html#line69">line 69</a>
+        <a href="BrowserStackTunnel.js.html">BrowserStackTunnel.js</a>, <a href="BrowserStackTunnel.js.html#line74">line 74</a>
     </li></ul></dd>
     
 
@@ -1686,11 +1737,16 @@ system at runtime.</p>
     
 
     
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy">
+            <li>null</li>
+        </ul></dd>
+    
 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line225">line 225</a>
+        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line232">line 232</a>
     </li></ul></dd>
     
 
@@ -1761,7 +1817,7 @@ system at runtime.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line232">line 232</a>
+        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line239">line 239</a>
     </li></ul></dd>
     
 
@@ -1824,11 +1880,16 @@ environment variable.</p>
     
 
     
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy">
+            <li>the value of the BROWSERSTACK_USERNAME environment variable</li>
+        </ul></dd>
+    
 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="BrowserStackTunnel.js.html">BrowserStackTunnel.js</a>, <a href="BrowserStackTunnel.js.html#line77">line 77</a>
+        <a href="BrowserStackTunnel.js.html">BrowserStackTunnel.js</a>, <a href="BrowserStackTunnel.js.html#line83">line 83</a>
     </li></ul></dd>
     
 
@@ -1895,11 +1956,16 @@ environment variable.</p>
     
 
     
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy">
+            <li>false</li>
+        </ul></dd>
+    
 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line239">line 239</a>
+        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line247">line 247</a>
     </li></ul></dd>
     
 
@@ -1973,7 +2039,7 @@ override this method to provide the appropriate command-line arguments.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line355">line 355</a>
+        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line363">line 363</a>
     </li></ul></dd>
     
 
@@ -2074,7 +2140,7 @@ create the tunnel process.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line371">line 371</a>
+        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line379">line 379</a>
     </li></ul></dd>
     
 
@@ -2175,7 +2241,7 @@ method to provide the appropriate options for the tunnel software.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line437">line 437</a>
+        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line445">line 445</a>
     </li></ul></dd>
     
 
@@ -2277,7 +2343,7 @@ launch detection logic.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line522">line 522</a>
+        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line531">line 531</a>
     </li></ul></dd>
     
 
@@ -2378,7 +2444,7 @@ method should be reimplemented by other tunnel launchers to implement correct sh
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line585">line 585</a>
+        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line594">line 594</a>
     </li></ul></dd>
     
 
@@ -2526,7 +2592,7 @@ appropriate file permissions on the downloaded executable.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line289">line 289</a>
+        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line297">line 297</a>
     </li></ul></dd>
     
 
@@ -2578,7 +2644,7 @@ appropriate file permissions on the downloaded executable.</p>
         
             
 <dt>
-    <h4 class="name" id="sendJobState"><span class="type-signature"></span>sendJobState<span class="signature">(jobId, data)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="sendJobState"><span class="type-signature"></span>sendJobState<span class="signature">(jobId, data)</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span></h4>
 
     
 </dt>
@@ -2695,7 +2761,7 @@ appropriate file permissions on the downloaded executable.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line450">line 450</a>
+        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line459">line 459</a>
     </li></ul></dd>
     
 
@@ -2718,6 +2784,28 @@ appropriate file permissions on the downloaded executable.</p>
     
 
     
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>A promise that resolves once the job state request is complete.</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;void></span>
+
+
+    </dd>
+</dl>
+
+        
 
     
 </dd>
@@ -2771,7 +2859,7 @@ appropriate file permissions on the downloaded executable.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line461">line 461</a>
+        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line470">line 470</a>
     </li></ul></dd>
     
 
@@ -2869,7 +2957,7 @@ appropriate file permissions on the downloaded executable.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line549">line 549</a>
+        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line558">line 558</a>
     </li></ul></dd>
     
 
@@ -3362,7 +3450,7 @@ appropriate file permissions on the downloaded executable.</p>
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha8</a> on Thu Jun 26 2014 09:35:01 GMT-0400 (EDT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha8</a> on Fri Jun 27 2014 16:09:35 GMT-0400 (EDT)
 </footer>
 
 <script> prettyPrint(); </script>
