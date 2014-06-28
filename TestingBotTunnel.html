@@ -1,3599 +1,1708 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <title>JSDoc: Module: digdug/TestingBotTunnel</title>
-
-    <script src="scripts/prettify/prettify.js"> </script>
-    <script src="scripts/prettify/lang-css.js"> </script>
-    <!--[if lt IE 9]>
-      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
-    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+	<meta charset="utf-8">
+	<title>Dig Dug docs: Module: digdug/TestingBotTunnel</title>
+	<link rel="stylesheet" href="styles/catalyst.css">
 </head>
-
 <body>
-
-<div id="main">
-
-    <h1 class="page-title">Module: digdug/TestingBotTunnel</h1>
-
-    
-
-
-
-<section>
-
-<header>
-    <h2>
-    digdug/TestingBotTunnel
-    </h2>
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-<dt>
-    <h4 class="name" id="module:digdug/TestingBotTunnel"><span class="type-signature"></span>new (require("digdug/TestingBotTunnel"))<span class="signature">()</span><span class="type-signature"></span></h4>
-
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>A TestingBot tunnel.</p>
-    </div>
-    
-
-    
-
-    
-
-    
-
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="TestingBotTunnel.js.html">TestingBotTunnel.js</a>, <a href="TestingBotTunnel.js.html#line14">line 14</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-    
-
-    
-        
-
-        
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="TestingBotTunnel.js.html">TestingBotTunnel.js</a>, <a href="TestingBotTunnel.js.html#line1">line 1</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-        
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-     
-
-    
-
-    
-        <h3 class="subsection-title">Members</h3>
-
-        <dl>
-            
-<dt>
-    <h4 class="name" id="apiKey"><span class="type-signature"></span>apiKey<span class="type-signature"> :string</span></h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>The TestingBot API key.</p>
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">string</span>
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-default">Default Value:</dt>
-    <dd class="tag-default"><ul class="dummy">
-            <li>the value of the TESTINGBOT_API_KEY environment variable</li>
-        </ul></dd>
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="TestingBotTunnel.js.html">TestingBotTunnel.js</a>, <a href="TestingBotTunnel.js.html#line37">line 37</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="apiSecret"><span class="type-signature"></span>apiSecret<span class="type-signature"> :string</span></h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>The TestingBot API secret.</p>
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">string</span>
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-default">Default Value:</dt>
-    <dd class="tag-default"><ul class="dummy">
-            <li>the value of the TESTINGBOT_API_SECRET environment variable</li>
-        </ul></dd>
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="TestingBotTunnel.js.html">TestingBotTunnel.js</a>, <a href="TestingBotTunnel.js.html#line45">line 45</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="architecture"><span class="type-signature"></span>architecture<span class="type-signature"> :string</span></h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>The architecture the tunnel will run against. This information is automatically retrieved for the current
-system at runtime.</p>
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">string</span>
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-    <dt class="inherited-from">Inherited From:</dt>
-    <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="Tunnel.html#architecture">module:digdug/Tunnel#architecture</a>
-    </li></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line128">line 128</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="auth"><span class="type-signature"></span>auth<span class="type-signature"> :string</span></h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>An HTTP authorization string to use when initiating connections to the tunnel. This value of this property is
-defined by Tunnel subclasses.</p>
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">string</span>
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-    <dt class="inherited-from">Inherited From:</dt>
-    <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="Tunnel.html#auth">module:digdug/Tunnel#auth</a>
-    </li></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line136">line 136</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="clientUrl"><span class="type-signature">(readonly) </span>clientUrl<span class="type-signature"> :string</span></h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>The URL that a WebDriver client should used to interact with this service.</p>
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">string</span>
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-    <dt class="inherited-from">Inherited From:</dt>
-    <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="Tunnel.html#clientUrl">module:digdug/Tunnel#clientUrl</a>
-    </li></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line252">line 252</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="directory"><span class="type-signature"></span>directory<span class="type-signature"> :string</span></h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>The directory where the tunnel software will be extracted. If the directory does not exist, it will be
-created. This value is set by the tunnel subclasses.</p>
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">string</span>
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-    <dt class="inherited-from">Inherited From:</dt>
-    <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="Tunnel.html#directory">module:digdug/Tunnel#directory</a>
-    </li></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line144">line 144</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="executable"><span class="type-signature"></span>executable<span class="type-signature"> :string</span></h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>The executable to spawn in order to create a tunnel. This value is set by the tunnel subclasses.</p>
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">string</span>
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-    <dt class="inherited-from">Inherited From:</dt>
-    <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="Tunnel.html#executable">module:digdug/Tunnel#executable</a>
-    </li></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line151">line 151</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="extraCapabilities"><span class="type-signature">(readonly) </span>extraCapabilities<span class="type-signature"> :Object</span></h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>A map of additional capabilities that need to be sent to the provider when a new session is being created.</p>
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">Object</span>
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-    <dt class="inherited-from">Inherited From:</dt>
-    <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="Tunnel.html#extraCapabilities">module:digdug/Tunnel#extraCapabilities</a>
-    </li></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line264">line 264</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="fastFailDomains"><span class="type-signature"></span>fastFailDomains<span class="type-signature"> :Array.&lt;string></span></h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>A list of regular expressions corresponding to domains whose connections should fail immediately if the VM
-attempts to make a connection to them.</p>
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">Array.&lt;string></span>
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-default">Default Value:</dt>
-    <dd class="tag-default"><ul class="dummy">
-            <li>null</li>
-        </ul></dd>
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="TestingBotTunnel.js.html">TestingBotTunnel.js</a>, <a href="TestingBotTunnel.js.html#line58">line 58</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="hostname"><span class="type-signature"></span>hostname<span class="type-signature"> :string</span></h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>The host on which a WebDriver client can access the service provided by the tunnel. This may or may not be
-the host where the tunnel application is running.</p>
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">string</span>
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-    <dt class="inherited-from">Inherited From:</dt>
-    <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="Tunnel.html#hostname">module:digdug/Tunnel#hostname</a>
-    </li></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-default">Default Value:</dt>
-    <dd class="tag-default"><ul class="dummy">
-            <li>localhost</li>
-        </ul></dd>
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line160">line 160</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="isDownloaded"><span class="type-signature">(readonly) </span>isDownloaded<span class="type-signature"> :boolean</span></h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>Whether or not the tunnel software has already been downloaded.</p>
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">boolean</span>
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-    <dt class="inherited-from">Inherited From:</dt>
-    <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="Tunnel.html#isDownloaded">module:digdug/Tunnel#isDownloaded</a>
-    </li></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line276">line 276</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="isRunning"><span class="type-signature">(readonly) </span>isRunning<span class="type-signature"> :boolean</span></h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>Whether or not the tunnel is currently running.</p>
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">boolean</span>
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-    <dt class="inherited-from">Inherited From:</dt>
-    <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="Tunnel.html#isRunning">module:digdug/Tunnel#isRunning</a>
-    </li></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line168">line 168</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="isStarting"><span class="type-signature">(readonly) </span>isStarting<span class="type-signature"> :boolean</span></h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>Whether or not the tunnel is currently starting up.</p>
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">boolean</span>
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-    <dt class="inherited-from">Inherited From:</dt>
-    <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="Tunnel.html#isStarting">module:digdug/Tunnel#isStarting</a>
-    </li></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line176">line 176</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="isStopping"><span class="type-signature">(readonly) </span>isStopping<span class="type-signature"> :boolean</span></h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>Whether or not the tunnel is currently stopping.</p>
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">boolean</span>
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-    <dt class="inherited-from">Inherited From:</dt>
-    <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="Tunnel.html#isStopping">module:digdug/Tunnel#isStopping</a>
-    </li></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line184">line 184</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="logFile"><span class="type-signature"></span>logFile<span class="type-signature"> :string</span></h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>A filename where additional logs from the tunnel should be output.</p>
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">string</span>
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-default">Default Value:</dt>
-    <dd class="tag-default"><ul class="dummy">
-            <li>null</li>
-        </ul></dd>
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="TestingBotTunnel.js.html">TestingBotTunnel.js</a>, <a href="TestingBotTunnel.js.html#line66">line 66</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="pathname"><span class="type-signature"></span>pathname<span class="type-signature"> :string</span></h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>The path that a WebDriver client should use to access the service provided by the tunnel.</p>
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">string</span>
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-    <dt class="inherited-from">Inherited From:</dt>
-    <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="Tunnel.html#pathname">module:digdug/Tunnel#pathname</a>
-    </li></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-default">Default Value:</dt>
-    <dd class="tag-default"><ul class="dummy">
-            <li>/wd/hub/</li>
-        </ul></dd>
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line192">line 192</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="platform"><span class="type-signature"></span>platform<span class="type-signature"> :string</span></h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>The operating system the tunnel will run on. This information is automatically retrieved for the current
-system at runtime.</p>
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">string</span>
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-    <dt class="inherited-from">Inherited From:</dt>
-    <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="Tunnel.html#platform">module:digdug/Tunnel#platform</a>
-    </li></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line200">line 200</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="port"><span class="type-signature"></span>port<span class="type-signature"> :number</span></h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>The local port where the WebDriver server should be exposed by the tunnel.</p>
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">number</span>
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-    <dt class="inherited-from">Inherited From:</dt>
-    <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="Tunnel.html#port">module:digdug/Tunnel#port</a>
-    </li></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-default">Default Value:</dt>
-    <dd class="tag-default"><ul class="dummy">
-            <li>4444</li>
-        </ul></dd>
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line208">line 208</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="protocol"><span class="type-signature"></span>protocol<span class="type-signature"> :string</span></h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>The protocol (e.g., 'http') that a WebDriver client should use to access the service provided by the tunnel.</p>
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">string</span>
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-    <dt class="inherited-from">Inherited From:</dt>
-    <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="Tunnel.html#protocol">module:digdug/Tunnel#protocol</a>
-    </li></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-default">Default Value:</dt>
-    <dd class="tag-default"><ul class="dummy">
-            <li>http</li>
-        </ul></dd>
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line216">line 216</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="proxy"><span class="type-signature"></span>proxy<span class="type-signature"> :string</span></h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>The URL of a proxy server for the tunnel to go through. Only the hostname, port, and auth are used.</p>
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">string</span>
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-    <dt class="inherited-from">Inherited From:</dt>
-    <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="Tunnel.html#proxy">module:digdug/Tunnel#proxy</a>
-    </li></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-default">Default Value:</dt>
-    <dd class="tag-default"><ul class="dummy">
-            <li>null</li>
-        </ul></dd>
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line224">line 224</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="tunnelId"><span class="type-signature"></span>tunnelId<span class="type-signature"> :string</span></h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>A unique identifier for the newly created tunnel.</p>
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">string</span>
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-    <dt class="inherited-from">Inherited From:</dt>
-    <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="Tunnel.html#tunnelId">module:digdug/Tunnel#tunnelId</a>
-    </li></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-default">Default Value:</dt>
-    <dd class="tag-default"><ul class="dummy">
-            <li>null</li>
-        </ul></dd>
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line232">line 232</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="url"><span class="type-signature"></span>url<span class="type-signature"> :string</span></h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>The URL where the tunnel software can be downloaded.</p>
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">string</span>
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-    <dt class="inherited-from">Inherited From:</dt>
-    <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="Tunnel.html#url">module:digdug/Tunnel#url</a>
-    </li></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line239">line 239</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="useCompression"><span class="type-signature"></span>useCompression<span class="type-signature"> :boolean</span></h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>Whether or not to use rabbIT compression for the tunnel connection.</p>
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">boolean</span>
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-default">Default Value:</dt>
-    <dd class="tag-default"><ul class="dummy">
-            <li>false</li>
-        </ul></dd>
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="TestingBotTunnel.js.html">TestingBotTunnel.js</a>, <a href="TestingBotTunnel.js.html#line78">line 78</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="useJettyProxy"><span class="type-signature"></span>useJettyProxy<span class="type-signature"> :boolean</span></h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>Whether or not to use the default local Jetty proxy for the tunnel.</p>
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">boolean</span>
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-default">Default Value:</dt>
-    <dd class="tag-default"><ul class="dummy">
-            <li>true</li>
-        </ul></dd>
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="TestingBotTunnel.js.html">TestingBotTunnel.js</a>, <a href="TestingBotTunnel.js.html#line86">line 86</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="useSquidProxy"><span class="type-signature"></span>useSquidProxy<span class="type-signature"> :boolean</span></h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>Whether or not to use the default remote Squid proxy for the VM.</p>
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">boolean</span>
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-default">Default Value:</dt>
-    <dd class="tag-default"><ul class="dummy">
-            <li>true</li>
-        </ul></dd>
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="TestingBotTunnel.js.html">TestingBotTunnel.js</a>, <a href="TestingBotTunnel.js.html#line94">line 94</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="useSsl"><span class="type-signature"></span>useSsl<span class="type-signature"> :boolean</span></h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>Whether or not to re-encrypt data encrypted by self-signed certificates.</p>
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">boolean</span>
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-default">Default Value:</dt>
-    <dd class="tag-default"><ul class="dummy">
-            <li>false</li>
-        </ul></dd>
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="TestingBotTunnel.js.html">TestingBotTunnel.js</a>, <a href="TestingBotTunnel.js.html#line102">line 102</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="verbose"><span class="type-signature"></span>verbose<span class="type-signature"> :boolean</span></h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>Whether or not to tell the tunnel to provide verbose logging output.</p>
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">boolean</span>
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-    <dt class="inherited-from">Inherited From:</dt>
-    <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="Tunnel.html#verbose">module:digdug/Tunnel#verbose</a>
-    </li></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-default">Default Value:</dt>
-    <dd class="tag-default"><ul class="dummy">
-            <li>false</li>
-        </ul></dd>
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line247">line 247</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-</dd>
-
-        </dl>
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        <dl>
-            
-<dt>
-    <h4 class="name" id="_makeArgs"><span class="type-signature">(protected) </span>_makeArgs<span class="signature">()</span><span class="type-signature"> &rarr; {Array.&lt;string>}</span></h4>
-
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Creates the list of command-line arguments to be passed to the spawned tunnel. Implementations should
-override this method to provide the appropriate command-line arguments.</p>
-<p>Arguments passed to <a href="Tunnel.html#_makeChild">module:digdug/Tunnel#_makeChild</a> will be passed as-is to this method.</p>
-    </div>
-    
-
-    
-
-    
-
-    
-
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-    <dt class="inherited-from">Inherited From:</dt>
-    <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="Tunnel.html#_makeArgs">module:digdug/Tunnel#_makeArgs</a>
-    </li></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line363">line 363</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    <p>A list of command-line arguments.</p>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Array.&lt;string></span>
-
-
-    </dd>
-</dl>
-
-        
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="_makeChild"><span class="type-signature">(protected) </span>_makeChild<span class="signature">()</span><span class="type-signature"> &rarr; {Object}</span></h4>
-
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Creates a newly spawned child process for the tunnel software. Implementations should call this method to
-create the tunnel process.</p>
-<p>Arguments passed to this method will be passed as-is to <a href="Tunnel.html#_makeArgs">module:digdug/Tunnel#_makeArgs</a> and
-<a href="Tunnel.html#_makeOptions">module:digdug/Tunnel#_makeOptions</a>.</p>
-    </div>
-    
-
-    
-
-    
-
-    
-
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-    <dt class="inherited-from">Inherited From:</dt>
-    <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="Tunnel.html#_makeChild">module:digdug/Tunnel#_makeChild</a>
-    </li></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line379">line 379</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    <p>An object containing a newly spawned Process and a Deferred that will be resolved once the tunnel has started
-successfully.</p>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Object</span>
-
-
-    </dd>
-</dl>
-
-        
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="_makeOptions"><span class="type-signature">(protected) </span>_makeOptions<span class="signature">()</span><span class="type-signature"> &rarr; {Object}</span></h4>
-
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Creates the set of options to use when spawning the tunnel process. Implementations should override this
-method to provide the appropriate options for the tunnel software.</p>
-<p>Arguments passed to <a href="Tunnel.html#_makeChild">module:digdug/Tunnel#_makeChild</a> will be passed as-is to this method.</p>
-    </div>
-    
-
-    
-
-    
-
-    
-
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-    <dt class="inherited-from">Inherited From:</dt>
-    <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="Tunnel.html#_makeOptions">module:digdug/Tunnel#_makeOptions</a>
-    </li></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line445">line 445</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    <p>A set of options matching those provided to Node.js module:child_process.spawn.</p>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Object</span>
-
-
-    </dd>
-</dl>
-
-        
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="_start"><span class="type-signature">(protected) </span>_start<span class="signature">()</span><span class="type-signature"> &rarr; {Object}</span></h4>
-
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>This method provides the implementation that actually starts the tunnel and any other logic for emitting
-events on the Tunnel based on data passed by the tunnel software.</p>
-<p>The default implementation that assumes the tunnel is ready for use once the child process has written to
-<code>stdout</code> or <code>stderr</code>. This method should be reimplemented by other tunnel launchers to implement correct
-launch detection logic.</p>
-    </div>
-    
-
-    
-
-    
-
-    
-
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-    <dt class="inherited-from">Inherited From:</dt>
-    <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="Tunnel.html#_start">module:digdug/Tunnel#_start</a>
-    </li></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line531">line 531</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    <p>An object containing a reference to the child process, and a Deferred that is resolved once the tunnel is
-ready for use. Normally this will be the object returned from a call to <code>Tunnel#_makeChild</code>.</p>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Object</span>
-
-
-    </dd>
-</dl>
-
-        
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="_stop"><span class="type-signature">(protected) </span>_stop<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span></h4>
-
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>This method provides the implementation that actually stops the tunnel.</p>
-<p>The default implementation that assumes the tunnel has been closed once the child process has exited. This
-method should be reimplemented by other tunnel launchers to implement correct shutdown logic, if necessary.</p>
-    </div>
-    
-
-    
-
-    
-
-    
-
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-    <dt class="inherited-from">Inherited From:</dt>
-    <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="Tunnel.html#_stop">module:digdug/Tunnel#_stop</a>
-    </li></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line594">line 594</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    <p>A promise that resolves once the tunnel has shut down.</p>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;void></span>
-
-
-    </dd>
-</dl>
-
-        
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="download"><span class="type-signature"></span>download<span class="signature">(forceDownload)</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span></h4>
-
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Downloads and extracts the tunnel software if it is not already downloaded.</p>
-<p>This method can be extended by implementations to perform any necessary post-processing, such as setting
-appropriate file permissions on the downloaded executable.</p>
-    </div>
-    
-
-    
-
-    
-
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>forceDownload</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Force downloading the software even if it already has been downloaded.</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-    
-
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-    <dt class="inherited-from">Inherited From:</dt>
-    <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="Tunnel.html#download">module:digdug/Tunnel#download</a>
-    </li></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line297">line 297</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    <p>A promise that resolves once the download and extraction process has completed.</p>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;void></span>
-
-
-    </dd>
-</dl>
-
-        
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="sendJobState"><span class="type-signature"></span>sendJobState<span class="signature">(jobId, data)</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span></h4>
-
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Sends information about a job to the tunnel provider.</p>
-    </div>
-    
-
-    
-
-    
-
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>jobId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The job to send data about. This is usually a session ID.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>data</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#JobState">JobState</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Data to send to the tunnel provider about the job.</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-    
-
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-    <dt class="inherited-from">Inherited From:</dt>
-    <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="Tunnel.html#sendJobState">module:digdug/Tunnel#sendJobState</a>
-    </li></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line459">line 459</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    <p>A promise that resolves once the job state request is complete.</p>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;void></span>
-
-
-    </dd>
-</dl>
-
-        
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="start"><span class="type-signature"></span>start<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span></h4>
-
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Starts the tunnel, automatically downloading dependencies if necessary.</p>
-    </div>
-    
-
-    
-
-    
-
-    
-
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-    <dt class="inherited-from">Inherited From:</dt>
-    <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="Tunnel.html#start">module:digdug/Tunnel#start</a>
-    </li></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line470">line 470</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    <p>A promise that resolves once the tunnel has been established.</p>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;void></span>
-
-
-    </dd>
-</dl>
-
-        
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="stop"><span class="type-signature"></span>stop<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;integer>}</span></h4>
-
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Stops the tunnel.</p>
-    </div>
-    
-
-    
-
-    
-
-    
-
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-    <dt class="inherited-from">Inherited From:</dt>
-    <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="Tunnel.html#stop">module:digdug/Tunnel#stop</a>
-    </li></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line558">line 558</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    <p>A promise that resolves to the exit code for the tunnel once it has been terminated.</p>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;integer></span>
-
-
-    </dd>
-</dl>
-
-        
-
-    
-</dd>
-
-        </dl>
-    
-
-    
-
-    
-        <h3 class="subsection-title">Events</h3>
-
-        <dl>
-            
-<dt>
-    <h4 class="name" id="event:downloadprogress">downloadprogress</h4>
-
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Part of the tunnel has been downloaded from the server.</p>
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">Object</span>
-
-
-            </li>
-        </ul>
-    
-
-    
-
-    
-
-    
-<dl class="details">
-    
-
-        <h5 class="subsection-title">Properties:</h5>
-
-        <dl>
-
-<table class="props">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>received</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The number of bytes received so far.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>total</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The total number of bytes to download.</p></td>
-        </tr>
-
-    
-    </tbody>
-</table></dl>
-
-    
-
-    
-
-    
-
-    
-    <dt class="inherited-from">Inherited From:</dt>
-    <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="Tunnel.html#event:downloadprogress">module:digdug/Tunnel#event:downloadprogress</a>
-    </li></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line90">line 90</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="event:status">status</h4>
-
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Information about the status of the tunnel setup process that is suitable for presentation to end-users.</p>
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">string</span>
-
-
-            </li>
-        </ul>
-    
-
-    
-
-    
-
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-    <dt class="inherited-from">Inherited From:</dt>
-    <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="Tunnel.html#event:status">module:digdug/Tunnel#event:status</a>
-    </li></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line113">line 113</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="event:stderr">stderr</h4>
-
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>A chunk of raw string data output by the tunnel software to stderr.</p>
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">string</span>
-
-
-            </li>
-        </ul>
-    
-
-    
-
-    
-
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-    <dt class="inherited-from">Inherited From:</dt>
-    <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="Tunnel.html#event:stderr">module:digdug/Tunnel#event:stderr</a>
-    </li></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line106">line 106</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="event:stdout">stdout</h4>
-
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>A chunk of raw string data output by the tunnel software to stdout.</p>
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">string</span>
-
-
-            </li>
-        </ul>
-    
-
-    
-
-    
-
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-    <dt class="inherited-from">Inherited From:</dt>
-    <dd class="inherited-from"><ul class="dummy"><li>
-        <a href="Tunnel.html#event:stdout">module:digdug/Tunnel#event:stdout</a>
-    </li></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line99">line 99</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-        </dl>
-    
-</article>
-
-</section>
-
-
-
-
-</div>
-
-<nav>
-    <h2><a href="index.html">Index</a></h2><h3>Modules</h3><ul><li><a href="BrowserStackTunnel.html">digdug/BrowserStackTunnel</a></li><li><a href="NullTunnel.html">digdug/NullTunnel</a></li><li><a href="SauceLabsTunnel.html">digdug/SauceLabsTunnel</a></li><li><a href="TestingBotTunnel.html">digdug/TestingBotTunnel</a></li><li><a href="Tunnel.html">digdug/Tunnel</a></li></ul><h3>Events</h3><ul><li><a href="BrowserStackTunnel.html#event:downloadprogress">downloadprogress</a></li><li><a href="BrowserStackTunnel.html#event:status">status</a></li><li><a href="BrowserStackTunnel.html#event:stderr">stderr</a></li><li><a href="BrowserStackTunnel.html#event:stdout">stdout</a></li><li><a href="NullTunnel.html#event:downloadprogress">downloadprogress</a></li><li><a href="NullTunnel.html#event:status">status</a></li><li><a href="NullTunnel.html#event:stderr">stderr</a></li><li><a href="NullTunnel.html#event:stdout">stdout</a></li><li><a href="SauceLabsTunnel.html#event:downloadprogress">downloadprogress</a></li><li><a href="SauceLabsTunnel.html#event:status">status</a></li><li><a href="SauceLabsTunnel.html#event:stderr">stderr</a></li><li><a href="SauceLabsTunnel.html#event:stdout">stdout</a></li><li><a href="TestingBotTunnel.html#event:downloadprogress">downloadprogress</a></li><li><a href="TestingBotTunnel.html#event:status">status</a></li><li><a href="TestingBotTunnel.html#event:stderr">stderr</a></li><li><a href="TestingBotTunnel.html#event:stdout">stdout</a></li><li><a href="Tunnel.html#event:downloadprogress">downloadprogress</a></li><li><a href="Tunnel.html#event:status">status</a></li><li><a href="Tunnel.html#event:stderr">stderr</a></li><li><a href="Tunnel.html#event:stdout">stdout</a></li></ul><h3><a href="global.html">Global</a></h3>
+	<h1 class="mainHeader"><a href="index.html" class="projectName">
+		
+			<img src="logo.png" class="projectLogo"
+				alt="Dig Dug" title="Dig Dug">
+		
+	</a></h1>
+	
+<nav class="mainMenu">
+	
+		<div class="modulesContainer">
+			<h2 class="subsection-title modules">Modules</h2>
+			<ul class="modules">
+				
+<li data-member-id="module:digdug/BrowserStackTunnel" class="">
+	<a href="BrowserStackTunnel.html">digdug/BrowserStackTunnel</a>
+</li>
+
+<li data-member-id="module:digdug/NullTunnel" class="">
+	<a href="NullTunnel.html">digdug/NullTunnel</a>
+</li>
+
+<li data-member-id="module:digdug/SauceLabsTunnel" class="">
+	<a href="SauceLabsTunnel.html">digdug/SauceLabsTunnel</a>
+</li>
+
+<li data-member-id="module:digdug/TestingBotTunnel" class="active">
+	<a href="TestingBotTunnel.html">digdug/TestingBotTunnel</a>
+</li>
+
+<li data-member-id="module:digdug/Tunnel" class="">
+	<a href="Tunnel.html">digdug/Tunnel</a>
+</li>
+
+				<li><a href="global.html">Globals</a></li>
+			</ul>
+		</div>
+	
+		<h2 class="subsection-title properties"><a href="#properties">Properties</a></h2>
+		<ul class="properties">
+			
+<li data-member-id="module:digdug/TestingBotTunnel#apiKey" class="">
+	<a href="TestingBotTunnel.html#apiKey">apiKey</a>
+</li>
+
+<li data-member-id="module:digdug/TestingBotTunnel#apiSecret" class="">
+	<a href="TestingBotTunnel.html#apiSecret">apiSecret</a>
+</li>
+
+<li data-member-id="module:digdug/TestingBotTunnel#architecture" class="icons-1">
+	<a href="Tunnel.html#architecture"><span class="icon icon-inherited" title="Inherited"></span>architecture</a>
+</li>
+
+<li data-member-id="module:digdug/TestingBotTunnel#auth" class="icons-1">
+	<a href="Tunnel.html#auth"><span class="icon icon-inherited" title="Inherited"></span>auth</a>
+</li>
+
+<li data-member-id="module:digdug/TestingBotTunnel#clientUrl" class="icons-1">
+	<a href="Tunnel.html#clientUrl"><span class="icon icon-inherited" title="Inherited"></span>clientUrl</a>
+</li>
+
+<li data-member-id="module:digdug/TestingBotTunnel#directory" class="icons-1">
+	<a href="Tunnel.html#directory"><span class="icon icon-inherited" title="Inherited"></span>directory</a>
+</li>
+
+<li data-member-id="module:digdug/TestingBotTunnel#executable" class="icons-1">
+	<a href="Tunnel.html#executable"><span class="icon icon-inherited" title="Inherited"></span>executable</a>
+</li>
+
+<li data-member-id="module:digdug/TestingBotTunnel#extraCapabilities" class="icons-1">
+	<a href="Tunnel.html#extraCapabilities"><span class="icon icon-inherited" title="Inherited"></span>extraCapabilities</a>
+</li>
+
+<li data-member-id="module:digdug/TestingBotTunnel#fastFailDomains" class="">
+	<a href="TestingBotTunnel.html#fastFailDomains">fastFailDomains</a>
+</li>
+
+<li data-member-id="module:digdug/TestingBotTunnel#hostname" class="icons-1">
+	<a href="Tunnel.html#hostname"><span class="icon icon-inherited" title="Inherited"></span>hostname</a>
+</li>
+
+<li data-member-id="module:digdug/TestingBotTunnel#isDownloaded" class="icons-1">
+	<a href="Tunnel.html#isDownloaded"><span class="icon icon-inherited" title="Inherited"></span>isDownloaded</a>
+</li>
+
+<li data-member-id="module:digdug/TestingBotTunnel#isRunning" class="icons-1">
+	<a href="Tunnel.html#isRunning"><span class="icon icon-inherited" title="Inherited"></span>isRunning</a>
+</li>
+
+<li data-member-id="module:digdug/TestingBotTunnel#isStarting" class="icons-1">
+	<a href="Tunnel.html#isStarting"><span class="icon icon-inherited" title="Inherited"></span>isStarting</a>
+</li>
+
+<li data-member-id="module:digdug/TestingBotTunnel#isStopping" class="icons-1">
+	<a href="Tunnel.html#isStopping"><span class="icon icon-inherited" title="Inherited"></span>isStopping</a>
+</li>
+
+<li data-member-id="module:digdug/TestingBotTunnel#logFile" class="">
+	<a href="TestingBotTunnel.html#logFile">logFile</a>
+</li>
+
+<li data-member-id="module:digdug/TestingBotTunnel#pathname" class="icons-1">
+	<a href="Tunnel.html#pathname"><span class="icon icon-inherited" title="Inherited"></span>pathname</a>
+</li>
+
+<li data-member-id="module:digdug/TestingBotTunnel#platform" class="icons-1">
+	<a href="Tunnel.html#platform"><span class="icon icon-inherited" title="Inherited"></span>platform</a>
+</li>
+
+<li data-member-id="module:digdug/TestingBotTunnel#port" class="icons-1">
+	<a href="Tunnel.html#port"><span class="icon icon-inherited" title="Inherited"></span>port</a>
+</li>
+
+<li data-member-id="module:digdug/TestingBotTunnel#protocol" class="icons-1">
+	<a href="Tunnel.html#protocol"><span class="icon icon-inherited" title="Inherited"></span>protocol</a>
+</li>
+
+<li data-member-id="module:digdug/TestingBotTunnel#proxy" class="icons-1">
+	<a href="Tunnel.html#proxy"><span class="icon icon-inherited" title="Inherited"></span>proxy</a>
+</li>
+
+<li data-member-id="module:digdug/TestingBotTunnel#tunnelId" class="icons-1">
+	<a href="Tunnel.html#tunnelId"><span class="icon icon-inherited" title="Inherited"></span>tunnelId</a>
+</li>
+
+<li data-member-id="module:digdug/TestingBotTunnel#url" class="icons-1">
+	<a href="Tunnel.html#url"><span class="icon icon-inherited" title="Inherited"></span>url</a>
+</li>
+
+<li data-member-id="module:digdug/TestingBotTunnel#useCompression" class="">
+	<a href="TestingBotTunnel.html#useCompression">useCompression</a>
+</li>
+
+<li data-member-id="module:digdug/TestingBotTunnel#useJettyProxy" class="">
+	<a href="TestingBotTunnel.html#useJettyProxy">useJettyProxy</a>
+</li>
+
+<li data-member-id="module:digdug/TestingBotTunnel#useSquidProxy" class="">
+	<a href="TestingBotTunnel.html#useSquidProxy">useSquidProxy</a>
+</li>
+
+<li data-member-id="module:digdug/TestingBotTunnel#useSsl" class="">
+	<a href="TestingBotTunnel.html#useSsl">useSsl</a>
+</li>
+
+<li data-member-id="module:digdug/TestingBotTunnel#verbose" class="icons-1">
+	<a href="Tunnel.html#verbose"><span class="icon icon-inherited" title="Inherited"></span>verbose</a>
+</li>
+
+		</ul>
+	
+		<h2 class="subsection-title methods"><a href="#methods">Methods</a></h2>
+		<ul class="methods">
+			
+<li data-member-id="module:digdug/TestingBotTunnel#_makeArgs" class="icons-1">
+	<a href="Tunnel.html#_makeArgs"><span class="icon icon-inherited" title="Inherited"></span>_makeArgs</a>
+</li>
+
+<li data-member-id="module:digdug/TestingBotTunnel#_makeChild" class="icons-1">
+	<a href="Tunnel.html#_makeChild"><span class="icon icon-inherited" title="Inherited"></span>_makeChild</a>
+</li>
+
+<li data-member-id="module:digdug/TestingBotTunnel#_makeOptions" class="icons-1">
+	<a href="Tunnel.html#_makeOptions"><span class="icon icon-inherited" title="Inherited"></span>_makeOptions</a>
+</li>
+
+<li data-member-id="module:digdug/TestingBotTunnel#_start" class="icons-1">
+	<a href="Tunnel.html#_start"><span class="icon icon-inherited" title="Inherited"></span>_start</a>
+</li>
+
+<li data-member-id="module:digdug/TestingBotTunnel#_stop" class="icons-1">
+	<a href="Tunnel.html#_stop"><span class="icon icon-inherited" title="Inherited"></span>_stop</a>
+</li>
+
+<li data-member-id="module:digdug/TestingBotTunnel#download" class="icons-1">
+	<a href="Tunnel.html#download"><span class="icon icon-inherited" title="Inherited"></span>download</a>
+</li>
+
+<li data-member-id="module:digdug/TestingBotTunnel#sendJobState" class="icons-1">
+	<a href="Tunnel.html#sendJobState"><span class="icon icon-inherited" title="Inherited"></span>sendJobState</a>
+</li>
+
+<li data-member-id="module:digdug/TestingBotTunnel#start" class="icons-1">
+	<a href="Tunnel.html#start"><span class="icon icon-inherited" title="Inherited"></span>start</a>
+</li>
+
+<li data-member-id="module:digdug/TestingBotTunnel#stop" class="icons-1">
+	<a href="Tunnel.html#stop"><span class="icon icon-inherited" title="Inherited"></span>stop</a>
+</li>
+
+		</ul>
+	
+		<h2 class="subsection-title events"><a href="#events">Events</a></h2>
+		<ul class="events">
+			
+<li data-member-id="module:digdug/TestingBotTunnel#event:downloadprogress" class="icons-1">
+	<a href="Tunnel.html#event:downloadprogress"><span class="icon icon-inherited" title="Inherited"></span>downloadprogress</a>
+</li>
+
+<li data-member-id="module:digdug/TestingBotTunnel#event:status" class="icons-1">
+	<a href="Tunnel.html#event:status"><span class="icon icon-inherited" title="Inherited"></span>status</a>
+</li>
+
+<li data-member-id="module:digdug/TestingBotTunnel#event:stderr" class="icons-1">
+	<a href="Tunnel.html#event:stderr"><span class="icon icon-inherited" title="Inherited"></span>stderr</a>
+</li>
+
+<li data-member-id="module:digdug/TestingBotTunnel#event:stdout" class="icons-1">
+	<a href="Tunnel.html#event:stdout"><span class="icon icon-inherited" title="Inherited"></span>stdout</a>
+</li>
+
+		</ul>
+	
 </nav>
+<div class="persistentTitle hidden"><a href="#overview">digdug/TestingBotTunnel</a></div><main class="mainContent doc-module">
 
-<br clear="both">
+	<div class="section overview" id="overview">
+		<div class="classInfo">
+			<h1 class="title header">digdug/TestingBotTunnel</h1>
 
-<footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha8</a> on Fri Jun 27 2014 16:09:35 GMT-0400 (EDT)
-</footer>
+			
 
-<script> prettyPrint(); </script>
-<script src="scripts/linenumber.js"> </script>
+			
+				<div class="superclasses">
+					<h2>Inheritance</h2>
+					<ol>
+						<li>digdug/TestingBotTunnel</li>
+						
+							<li><a href="Tunnel.html">module:digdug/Tunnel</a></li>
+						
+							<li>Object</li>
+						
+					</ol>
+				</div>
+				
+				
+			
+		</div>
+
+		
+<div class="member kind-class" id="module:digdug/TestingBotTunnel">
+	
+		<h2 class="memberName">
+			<span class="type-signature"></span>new (require("digdug/TestingBotTunnel"))<span class="signature">(kwArgs:<span class="type-signature"> Object</span>)</span><span class="type-signature"></span>
+			
+		</h2>
+	
+
+	<div class="memberInfo">
+		<div class="versionInfo">
+			
+
+			
+		</div>
+
+		
+
+		
+			<div class="description"><p>A TestingBot tunnel.</p></div>
+		
+
+		<!-- object property -->
+			
+		<!-- /object property -->
+
+		
+
+		<!-- function -->
+			
+				<div class="tag table tag-parameters">
+					<h3 class="name">Parameters</h3>
+					
+
+<table class="parameters value">
+	<thead>
+		<tr>
+			<th class="name">Name</th>
+			<th class="type">Type</th>
+			
+			
+			<th class="table-description">Description</th>
+		</tr>
+	</thead>
+	<tbody>
+		
+			<tr>
+				
+					<td class="name"><code>kwArgs</code></td>
+				
+
+				<td class="type">
+					
+						<span class="param-type">Object</span>
+					
+				</td>
+
+				
+				
+
+				
+
+				
+					<td class="table-description">
+						<p>A map of properties that should be set on the new instance.</p>
+						
+					</td>
+				
+			</tr>
+		
+	</tbody>
+</table>
+
+				</div>
+			
+
+			
+
+			
+
+			
+
+			
+			
+
+			
+			
+		<!-- /function -->
+
+		<!-- education -->
+			
+
+			
+
+			
+			
+		<!-- /education -->
+
+		
+			<div class="tag scalar tag-source">
+				<h3 class="name">Source</h3>
+				<div class="value">
+					<a href="TestingBotTunnel.js.html">TestingBotTunnel.js</a>,
+					<a href="TestingBotTunnel.js.html#line14">line 14</a>
+				</div>
+			</div>
+		
+	</div>
+</div>
+
+
+		
+			<div class="summary properties">
+				<h2 class="header"><span class="inherited">All</span> Properties</h2>
+				
+<table class="summaryTable">
+	<thead>
+		<tr>
+			<th class="property">Property</th>
+			<th class="source">Defined by</th>
+		</tr>
+	</thead>
+	<tbody>
+		
+			
+			<tr class="icons-0 ">
+				<td class="property">
+					<div class="name">
+						<a href="TestingBotTunnel.html#apiKey">apiKey</a>:<span class="type-signature"> string</span>
+					</div>
+					<div class="description">
+						<span class="type-signature"></span><p>The TestingBot API key.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						digdug/TestingBotTunnel
+					
+				</td>
+			</tr>
+		
+			
+			<tr class="icons-0 ">
+				<td class="property">
+					<div class="name">
+						<a href="TestingBotTunnel.html#apiSecret">apiSecret</a>:<span class="type-signature"> string</span>
+					</div>
+					<div class="description">
+						<span class="type-signature"></span><p>The TestingBot API secret.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						digdug/TestingBotTunnel
+					
+				</td>
+			</tr>
+		
+			
+			<tr class="icons-1 inherited">
+				<td class="property">
+					<div class="name">
+						<span class="icon icon-inherited" title="Inherited"></span><a href="Tunnel.html#architecture">architecture</a>:<span class="type-signature"> string</span>
+					</div>
+					<div class="description">
+						<span class="type-signature"></span><p>The architecture the tunnel will run against.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						<a href="Tunnel.html#architecture">digdug/Tunnel</a>
+					
+				</td>
+			</tr>
+		
+			
+			<tr class="icons-1 inherited">
+				<td class="property">
+					<div class="name">
+						<span class="icon icon-inherited" title="Inherited"></span><a href="Tunnel.html#auth">auth</a>:<span class="type-signature"> string</span>
+					</div>
+					<div class="description">
+						<span class="type-signature"></span><p>An HTTP authorization string to use when initiating connections to the tunnel.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						<a href="Tunnel.html#auth">digdug/Tunnel</a>
+					
+				</td>
+			</tr>
+		
+			
+			<tr class="icons-1 inherited">
+				<td class="property">
+					<div class="name">
+						<span class="icon icon-inherited" title="Inherited"></span><a href="Tunnel.html#clientUrl">clientUrl</a>:<span class="type-signature"> string</span>
+					</div>
+					<div class="description">
+						<span class="type-signature">(readonly) </span><p>The URL that a WebDriver client should used to interact with this service.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						<a href="Tunnel.html#clientUrl">digdug/Tunnel</a>
+					
+				</td>
+			</tr>
+		
+			
+			<tr class="icons-1 inherited">
+				<td class="property">
+					<div class="name">
+						<span class="icon icon-inherited" title="Inherited"></span><a href="Tunnel.html#directory">directory</a>:<span class="type-signature"> string</span>
+					</div>
+					<div class="description">
+						<span class="type-signature"></span><p>The directory where the tunnel software will be extracted.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						<a href="Tunnel.html#directory">digdug/Tunnel</a>
+					
+				</td>
+			</tr>
+		
+			
+			<tr class="icons-1 inherited">
+				<td class="property">
+					<div class="name">
+						<span class="icon icon-inherited" title="Inherited"></span><a href="Tunnel.html#executable">executable</a>:<span class="type-signature"> string</span>
+					</div>
+					<div class="description">
+						<span class="type-signature"></span><p>The executable to spawn in order to create a tunnel.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						<a href="Tunnel.html#executable">digdug/Tunnel</a>
+					
+				</td>
+			</tr>
+		
+			
+			<tr class="icons-1 inherited">
+				<td class="property">
+					<div class="name">
+						<span class="icon icon-inherited" title="Inherited"></span><a href="Tunnel.html#extraCapabilities">extraCapabilities</a>:<span class="type-signature"> string</span>
+					</div>
+					<div class="description">
+						<span class="type-signature">(readonly) </span><p>A map of additional capabilities that need to be sent to the provider when a new session is being created.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						<a href="Tunnel.html#extraCapabilities">digdug/Tunnel</a>
+					
+				</td>
+			</tr>
+		
+			
+			<tr class="icons-0 ">
+				<td class="property">
+					<div class="name">
+						<a href="TestingBotTunnel.html#fastFailDomains">fastFailDomains</a>:<span class="type-signature"> Array.&lt;string></span>
+					</div>
+					<div class="description">
+						<span class="type-signature"></span><p>A list of regular expressions corresponding to domains whose connections should fail immediately if the VM
+attempts to make a connection to them.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						digdug/TestingBotTunnel
+					
+				</td>
+			</tr>
+		
+			
+			<tr class="icons-1 inherited">
+				<td class="property">
+					<div class="name">
+						<span class="icon icon-inherited" title="Inherited"></span><a href="Tunnel.html#hostname">hostname</a>:<span class="type-signature"> string</span>
+					</div>
+					<div class="description">
+						<span class="type-signature"></span><p>The host on which a WebDriver client can access the service provided by the tunnel.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						<a href="Tunnel.html#hostname">digdug/Tunnel</a>
+					
+				</td>
+			</tr>
+		
+			
+			<tr class="icons-1 inherited">
+				<td class="property">
+					<div class="name">
+						<span class="icon icon-inherited" title="Inherited"></span><a href="Tunnel.html#isDownloaded">isDownloaded</a>:<span class="type-signature"> string</span>
+					</div>
+					<div class="description">
+						<span class="type-signature">(readonly) </span><p>Whether or not the tunnel software has already been downloaded.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						<a href="Tunnel.html#isDownloaded">digdug/Tunnel</a>
+					
+				</td>
+			</tr>
+		
+			
+			<tr class="icons-1 inherited">
+				<td class="property">
+					<div class="name">
+						<span class="icon icon-inherited" title="Inherited"></span><a href="Tunnel.html#isRunning">isRunning</a>:<span class="type-signature"> boolean</span>
+					</div>
+					<div class="description">
+						<span class="type-signature">(readonly) </span><p>Whether or not the tunnel is currently running.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						<a href="Tunnel.html#isRunning">digdug/Tunnel</a>
+					
+				</td>
+			</tr>
+		
+			
+			<tr class="icons-1 inherited">
+				<td class="property">
+					<div class="name">
+						<span class="icon icon-inherited" title="Inherited"></span><a href="Tunnel.html#isStarting">isStarting</a>:<span class="type-signature"> boolean</span>
+					</div>
+					<div class="description">
+						<span class="type-signature">(readonly) </span><p>Whether or not the tunnel is currently starting up.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						<a href="Tunnel.html#isStarting">digdug/Tunnel</a>
+					
+				</td>
+			</tr>
+		
+			
+			<tr class="icons-1 inherited">
+				<td class="property">
+					<div class="name">
+						<span class="icon icon-inherited" title="Inherited"></span><a href="Tunnel.html#isStopping">isStopping</a>:<span class="type-signature"> boolean</span>
+					</div>
+					<div class="description">
+						<span class="type-signature">(readonly) </span><p>Whether or not the tunnel is currently stopping.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						<a href="Tunnel.html#isStopping">digdug/Tunnel</a>
+					
+				</td>
+			</tr>
+		
+			
+			<tr class="icons-0 ">
+				<td class="property">
+					<div class="name">
+						<a href="TestingBotTunnel.html#logFile">logFile</a>:<span class="type-signature"> string</span>
+					</div>
+					<div class="description">
+						<span class="type-signature"></span><p>A filename where additional logs from the tunnel should be output.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						digdug/TestingBotTunnel
+					
+				</td>
+			</tr>
+		
+			
+			<tr class="icons-1 inherited">
+				<td class="property">
+					<div class="name">
+						<span class="icon icon-inherited" title="Inherited"></span><a href="Tunnel.html#pathname">pathname</a>:<span class="type-signature"> string</span>
+					</div>
+					<div class="description">
+						<span class="type-signature"></span><p>The path that a WebDriver client should use to access the service provided by the tunnel.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						<a href="Tunnel.html#pathname">digdug/Tunnel</a>
+					
+				</td>
+			</tr>
+		
+			
+			<tr class="icons-1 inherited">
+				<td class="property">
+					<div class="name">
+						<span class="icon icon-inherited" title="Inherited"></span><a href="Tunnel.html#platform">platform</a>:<span class="type-signature"> string</span>
+					</div>
+					<div class="description">
+						<span class="type-signature"></span><p>The operating system the tunnel will run on.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						<a href="Tunnel.html#platform">digdug/Tunnel</a>
+					
+				</td>
+			</tr>
+		
+			
+			<tr class="icons-1 inherited">
+				<td class="property">
+					<div class="name">
+						<span class="icon icon-inherited" title="Inherited"></span><a href="Tunnel.html#port">port</a>:<span class="type-signature"> number</span>
+					</div>
+					<div class="description">
+						<span class="type-signature"></span><p>The local port where the WebDriver server should be exposed by the tunnel.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						<a href="Tunnel.html#port">digdug/Tunnel</a>
+					
+				</td>
+			</tr>
+		
+			
+			<tr class="icons-1 inherited">
+				<td class="property">
+					<div class="name">
+						<span class="icon icon-inherited" title="Inherited"></span><a href="Tunnel.html#protocol">protocol</a>:<span class="type-signature"> string</span>
+					</div>
+					<div class="description">
+						<span class="type-signature"></span><p>The protocol (e.g., 'http') that a WebDriver client should use to access the service provided by the tunnel.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						<a href="Tunnel.html#protocol">digdug/Tunnel</a>
+					
+				</td>
+			</tr>
+		
+			
+			<tr class="icons-1 inherited">
+				<td class="property">
+					<div class="name">
+						<span class="icon icon-inherited" title="Inherited"></span><a href="Tunnel.html#proxy">proxy</a>:<span class="type-signature"> string</span>
+					</div>
+					<div class="description">
+						<span class="type-signature"></span><p>The URL of a proxy server for the tunnel to go through.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						<a href="Tunnel.html#proxy">digdug/Tunnel</a>
+					
+				</td>
+			</tr>
+		
+			
+			<tr class="icons-1 inherited">
+				<td class="property">
+					<div class="name">
+						<span class="icon icon-inherited" title="Inherited"></span><a href="Tunnel.html#tunnelId">tunnelId</a>:<span class="type-signature"> string</span>
+					</div>
+					<div class="description">
+						<span class="type-signature"></span><p>A unique identifier for the newly created tunnel.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						<a href="Tunnel.html#tunnelId">digdug/Tunnel</a>
+					
+				</td>
+			</tr>
+		
+			
+			<tr class="icons-1 inherited">
+				<td class="property">
+					<div class="name">
+						<span class="icon icon-inherited" title="Inherited"></span><a href="Tunnel.html#url">url</a>:<span class="type-signature"> string</span>
+					</div>
+					<div class="description">
+						<span class="type-signature"></span><p>The URL where the tunnel software can be downloaded.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						<a href="Tunnel.html#url">digdug/Tunnel</a>
+					
+				</td>
+			</tr>
+		
+			
+			<tr class="icons-0 ">
+				<td class="property">
+					<div class="name">
+						<a href="TestingBotTunnel.html#useCompression">useCompression</a>:<span class="type-signature"> boolean</span>
+					</div>
+					<div class="description">
+						<span class="type-signature"></span><p>Whether or not to use rabbIT compression for the tunnel connection.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						digdug/TestingBotTunnel
+					
+				</td>
+			</tr>
+		
+			
+			<tr class="icons-0 ">
+				<td class="property">
+					<div class="name">
+						<a href="TestingBotTunnel.html#useJettyProxy">useJettyProxy</a>:<span class="type-signature"> boolean</span>
+					</div>
+					<div class="description">
+						<span class="type-signature"></span><p>Whether or not to use the default local Jetty proxy for the tunnel.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						digdug/TestingBotTunnel
+					
+				</td>
+			</tr>
+		
+			
+			<tr class="icons-0 ">
+				<td class="property">
+					<div class="name">
+						<a href="TestingBotTunnel.html#useSquidProxy">useSquidProxy</a>:<span class="type-signature"> boolean</span>
+					</div>
+					<div class="description">
+						<span class="type-signature"></span><p>Whether or not to use the default remote Squid proxy for the VM.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						digdug/TestingBotTunnel
+					
+				</td>
+			</tr>
+		
+			
+			<tr class="icons-0 ">
+				<td class="property">
+					<div class="name">
+						<a href="TestingBotTunnel.html#useSsl">useSsl</a>:<span class="type-signature"> boolean</span>
+					</div>
+					<div class="description">
+						<span class="type-signature"></span><p>Whether or not to re-encrypt data encrypted by self-signed certificates.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						digdug/TestingBotTunnel
+					
+				</td>
+			</tr>
+		
+			
+			<tr class="icons-1 inherited">
+				<td class="property">
+					<div class="name">
+						<span class="icon icon-inherited" title="Inherited"></span><a href="Tunnel.html#verbose">verbose</a>:<span class="type-signature"> boolean</span>
+					</div>
+					<div class="description">
+						<span class="type-signature"></span><p>Whether or not to tell the tunnel to provide verbose logging output.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						<a href="Tunnel.html#verbose">digdug/Tunnel</a>
+					
+				</td>
+			</tr>
+		
+	</tbody>
+</table>
+
+			</div>
+		
+
+		
+			<div class="summary methods">
+				<h2 class="header"><span class="inherited">All</span> Methods</h2>
+				
+<table class="summaryTable">
+	<thead>
+		<tr>
+			<th class="method">Method</th>
+			<th class="source">Defined by</th>
+		</tr>
+	</thead>
+	<tbody>
+		
+			
+			<tr class="icons-1 inherited">
+				<td class="method">
+					<div class="name">
+						<span class="icon icon-inherited" title="Inherited"></span><a href="Tunnel.html#_makeArgs">_makeArgs</a><span class="signature">():</span><span class="type-signature"> Array.&lt;string></span>
+					</div>
+					<div class="description">
+						<span class="type-signature">(protected) </span><p>Creates the list of command-line arguments to be passed to the spawned tunnel.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						<a href="Tunnel.html#_makeArgs">digdug/Tunnel</a>
+					
+				</td>
+			</tr>
+		
+			
+			<tr class="icons-1 inherited">
+				<td class="method">
+					<div class="name">
+						<span class="icon icon-inherited" title="Inherited"></span><a href="Tunnel.html#_makeChild">_makeChild</a><span class="signature">():</span><span class="type-signature"> Object</span>
+					</div>
+					<div class="description">
+						<span class="type-signature">(protected) </span><p>Creates a newly spawned child process for the tunnel software.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						<a href="Tunnel.html#_makeChild">digdug/Tunnel</a>
+					
+				</td>
+			</tr>
+		
+			
+			<tr class="icons-1 inherited">
+				<td class="method">
+					<div class="name">
+						<span class="icon icon-inherited" title="Inherited"></span><a href="Tunnel.html#_makeOptions">_makeOptions</a><span class="signature">():</span><span class="type-signature"> Object</span>
+					</div>
+					<div class="description">
+						<span class="type-signature">(protected) </span><p>Creates the set of options to use when spawning the tunnel process.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						<a href="Tunnel.html#_makeOptions">digdug/Tunnel</a>
+					
+				</td>
+			</tr>
+		
+			
+			<tr class="icons-1 inherited">
+				<td class="method">
+					<div class="name">
+						<span class="icon icon-inherited" title="Inherited"></span><a href="Tunnel.html#_start">_start</a><span class="signature">():</span><span class="type-signature"> Object</span>
+					</div>
+					<div class="description">
+						<span class="type-signature">(protected) </span><p>This method provides the implementation that actually starts the tunnel and any other logic for emitting
+events on the Tunnel based on data passed by the tunnel software.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						<a href="Tunnel.html#_start">digdug/Tunnel</a>
+					
+				</td>
+			</tr>
+		
+			
+			<tr class="icons-1 inherited">
+				<td class="method">
+					<div class="name">
+						<span class="icon icon-inherited" title="Inherited"></span><a href="Tunnel.html#_stop">_stop</a><span class="signature">():</span><span class="type-signature"> Promise.&lt;void></span>
+					</div>
+					<div class="description">
+						<span class="type-signature">(protected) </span><p>This method provides the implementation that actually stops the tunnel.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						<a href="Tunnel.html#_stop">digdug/Tunnel</a>
+					
+				</td>
+			</tr>
+		
+			
+			<tr class="icons-1 inherited">
+				<td class="method">
+					<div class="name">
+						<span class="icon icon-inherited" title="Inherited"></span><a href="Tunnel.html#download">download</a><span class="signature">(forceDownload:<span class="type-signature"> boolean</span>):</span><span class="type-signature"> Promise.&lt;void></span>
+					</div>
+					<div class="description">
+						<span class="type-signature"></span><p>Downloads and extracts the tunnel software if it is not already downloaded.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						<a href="Tunnel.html#download">digdug/Tunnel</a>
+					
+				</td>
+			</tr>
+		
+			
+			<tr class="icons-1 inherited">
+				<td class="method">
+					<div class="name">
+						<span class="icon icon-inherited" title="Inherited"></span><a href="Tunnel.html#sendJobState">sendJobState</a><span class="signature">(jobId:<span class="type-signature"> string</span>, data:<span class="type-signature"> <a href="global.html#JobState">JobState</a></span>):</span><span class="type-signature"> Promise.&lt;void></span>
+					</div>
+					<div class="description">
+						<span class="type-signature"></span><p>Sends information about a job to the tunnel provider.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						<a href="Tunnel.html#sendJobState">digdug/Tunnel</a>
+					
+				</td>
+			</tr>
+		
+			
+			<tr class="icons-1 inherited">
+				<td class="method">
+					<div class="name">
+						<span class="icon icon-inherited" title="Inherited"></span><a href="Tunnel.html#start">start</a><span class="signature">():</span><span class="type-signature"> Promise.&lt;void></span>
+					</div>
+					<div class="description">
+						<span class="type-signature"></span><p>Starts the tunnel, automatically downloading dependencies if necessary.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						<a href="Tunnel.html#start">digdug/Tunnel</a>
+					
+				</td>
+			</tr>
+		
+			
+			<tr class="icons-1 inherited">
+				<td class="method">
+					<div class="name">
+						<span class="icon icon-inherited" title="Inherited"></span><a href="Tunnel.html#stop">stop</a><span class="signature">():</span><span class="type-signature"> Promise.&lt;integer></span>
+					</div>
+					<div class="description">
+						<span class="type-signature"></span><p>Stops the tunnel.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						<a href="Tunnel.html#stop">digdug/Tunnel</a>
+					
+				</td>
+			</tr>
+		
+	</tbody>
+</table>
+
+			</div>
+		
+
+		
+			<div class="summary events">
+				<h2 class="header"><span class="inherited">All</span> Events</h2>
+				
+<table class="summaryTable">
+	<thead>
+		<tr>
+			<th class="event">Event</th>
+			<th class="source">Defined by</th>
+		</tr>
+	</thead>
+	<tbody>
+		
+			
+			<tr class="icons-1 inherited">
+				<td class="event">
+					<div class="name">
+						<span class="icon icon-inherited" title="Inherited"></span><a href="Tunnel.html#event:downloadprogress">downloadprogress</a>
+					</div>
+					<div class="description">
+						<p>Part of the tunnel has been downloaded from the server.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						<a href="Tunnel.html#event:downloadprogress">digdug/Tunnel</a>
+					
+				</td>
+			</tr>
+		
+			
+			<tr class="icons-1 inherited">
+				<td class="event">
+					<div class="name">
+						<span class="icon icon-inherited" title="Inherited"></span><a href="Tunnel.html#event:status">status</a>
+					</div>
+					<div class="description">
+						<p>Information about the status of the tunnel setup process that is suitable for presentation to end-users.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						<a href="Tunnel.html#event:status">digdug/Tunnel</a>
+					
+				</td>
+			</tr>
+		
+			
+			<tr class="icons-1 inherited">
+				<td class="event">
+					<div class="name">
+						<span class="icon icon-inherited" title="Inherited"></span><a href="Tunnel.html#event:stderr">stderr</a>
+					</div>
+					<div class="description">
+						<p>A chunk of raw string data output by the tunnel software to stderr.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						<a href="Tunnel.html#event:stderr">digdug/Tunnel</a>
+					
+				</td>
+			</tr>
+		
+			
+			<tr class="icons-1 inherited">
+				<td class="event">
+					<div class="name">
+						<span class="icon icon-inherited" title="Inherited"></span><a href="Tunnel.html#event:stdout">stdout</a>
+					</div>
+					<div class="description">
+						<p>A chunk of raw string data output by the tunnel software to stdout.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						<a href="Tunnel.html#event:stdout">digdug/Tunnel</a>
+					
+				</td>
+			</tr>
+		
+	</tbody>
+</table>
+
+			</div>
+		
+	</div>
+
+
+
+	<div class="section properties" id="properties">
+		<h2 class="header">Properties</h2>
+		<div class="subsection">
+			
+				
+<div class="member kind-member" id="apiKey">
+	
+		<h3 class="memberName">
+			<span class="type-signature"></span>apiKey:<span class="type-signature"> string</span>
+			
+		</h3>
+	
+
+	<div class="memberInfo">
+		<div class="versionInfo">
+			
+
+			
+		</div>
+
+		
+
+		
+			<div class="description"><p>The TestingBot API key.</p></div>
+		
+
+		<!-- object property -->
+			
+		<!-- /object property -->
+
+		
+			<div class="tag scalar tag-default">
+				<h4 class="name">Defaults to</h4>
+				<div class="value">
+					
+						<code>'the value of the TESTINGBOT_API_KEY environment variable'</code>
+					
+				</div>
+			</div>
+		
+
+		<!-- function -->
+			
+
+			
+
+			
+
+			
+
+			
+			
+
+			
+			
+		<!-- /function -->
+
+		<!-- education -->
+			
+
+			
+
+			
+			
+		<!-- /education -->
+
+		
+			<div class="tag scalar tag-source">
+				<h4 class="name">Source</h4>
+				<div class="value">
+					<a href="TestingBotTunnel.js.html">TestingBotTunnel.js</a>,
+					<a href="TestingBotTunnel.js.html#line37">line 37</a>
+				</div>
+			</div>
+		
+	</div>
+</div>
+
+			
+				
+<div class="member kind-member" id="apiSecret">
+	
+		<h3 class="memberName">
+			<span class="type-signature"></span>apiSecret:<span class="type-signature"> string</span>
+			
+		</h3>
+	
+
+	<div class="memberInfo">
+		<div class="versionInfo">
+			
+
+			
+		</div>
+
+		
+
+		
+			<div class="description"><p>The TestingBot API secret.</p></div>
+		
+
+		<!-- object property -->
+			
+		<!-- /object property -->
+
+		
+			<div class="tag scalar tag-default">
+				<h4 class="name">Defaults to</h4>
+				<div class="value">
+					
+						<code>'the value of the TESTINGBOT_API_SECRET environment variable'</code>
+					
+				</div>
+			</div>
+		
+
+		<!-- function -->
+			
+
+			
+
+			
+
+			
+
+			
+			
+
+			
+			
+		<!-- /function -->
+
+		<!-- education -->
+			
+
+			
+
+			
+			
+		<!-- /education -->
+
+		
+			<div class="tag scalar tag-source">
+				<h4 class="name">Source</h4>
+				<div class="value">
+					<a href="TestingBotTunnel.js.html">TestingBotTunnel.js</a>,
+					<a href="TestingBotTunnel.js.html#line45">line 45</a>
+				</div>
+			</div>
+		
+	</div>
+</div>
+
+			
+				
+<div class="member kind-member" id="fastFailDomains">
+	
+		<h3 class="memberName">
+			<span class="type-signature"></span>fastFailDomains:<span class="type-signature"> Array.&lt;string></span>
+			
+		</h3>
+	
+
+	<div class="memberInfo">
+		<div class="versionInfo">
+			
+
+			
+		</div>
+
+		
+
+		
+			<div class="description"><p>A list of regular expressions corresponding to domains whose connections should fail immediately if the VM
+attempts to make a connection to them.</p></div>
+		
+
+		<!-- object property -->
+			
+		<!-- /object property -->
+
+		
+
+		<!-- function -->
+			
+
+			
+
+			
+
+			
+
+			
+			
+
+			
+			
+		<!-- /function -->
+
+		<!-- education -->
+			
+
+			
+
+			
+			
+		<!-- /education -->
+
+		
+			<div class="tag scalar tag-source">
+				<h4 class="name">Source</h4>
+				<div class="value">
+					<a href="TestingBotTunnel.js.html">TestingBotTunnel.js</a>,
+					<a href="TestingBotTunnel.js.html#line57">line 57</a>
+				</div>
+			</div>
+		
+	</div>
+</div>
+
+			
+				
+<div class="member kind-member" id="logFile">
+	
+		<h3 class="memberName">
+			<span class="type-signature"></span>logFile:<span class="type-signature"> string</span>
+			
+		</h3>
+	
+
+	<div class="memberInfo">
+		<div class="versionInfo">
+			
+
+			
+		</div>
+
+		
+
+		
+			<div class="description"><p>A filename where additional logs from the tunnel should be output.</p></div>
+		
+
+		<!-- object property -->
+			
+		<!-- /object property -->
+
+		
+
+		<!-- function -->
+			
+
+			
+
+			
+
+			
+
+			
+			
+
+			
+			
+		<!-- /function -->
+
+		<!-- education -->
+			
+
+			
+
+			
+			
+		<!-- /education -->
+
+		
+			<div class="tag scalar tag-source">
+				<h4 class="name">Source</h4>
+				<div class="value">
+					<a href="TestingBotTunnel.js.html">TestingBotTunnel.js</a>,
+					<a href="TestingBotTunnel.js.html#line64">line 64</a>
+				</div>
+			</div>
+		
+	</div>
+</div>
+
+			
+				
+<div class="member kind-member" id="useCompression">
+	
+		<h3 class="memberName">
+			<span class="type-signature"></span>useCompression:<span class="type-signature"> boolean</span>
+			
+		</h3>
+	
+
+	<div class="memberInfo">
+		<div class="versionInfo">
+			
+
+			
+		</div>
+
+		
+
+		
+			<div class="description"><p>Whether or not to use rabbIT compression for the tunnel connection.</p></div>
+		
+
+		<!-- object property -->
+			
+		<!-- /object property -->
+
+		
+			<div class="tag scalar tag-default">
+				<h4 class="name">Defaults to</h4>
+				<div class="value">
+					
+						<code>false</code>
+					
+				</div>
+			</div>
+		
+
+		<!-- function -->
+			
+
+			
+
+			
+
+			
+
+			
+			
+
+			
+			
+		<!-- /function -->
+
+		<!-- education -->
+			
+
+			
+
+			
+			
+		<!-- /education -->
+
+		
+			<div class="tag scalar tag-source">
+				<h4 class="name">Source</h4>
+				<div class="value">
+					<a href="TestingBotTunnel.js.html">TestingBotTunnel.js</a>,
+					<a href="TestingBotTunnel.js.html#line76">line 76</a>
+				</div>
+			</div>
+		
+	</div>
+</div>
+
+			
+				
+<div class="member kind-member" id="useJettyProxy">
+	
+		<h3 class="memberName">
+			<span class="type-signature"></span>useJettyProxy:<span class="type-signature"> boolean</span>
+			
+		</h3>
+	
+
+	<div class="memberInfo">
+		<div class="versionInfo">
+			
+
+			
+		</div>
+
+		
+
+		
+			<div class="description"><p>Whether or not to use the default local Jetty proxy for the tunnel.</p></div>
+		
+
+		<!-- object property -->
+			
+		<!-- /object property -->
+
+		
+			<div class="tag scalar tag-default">
+				<h4 class="name">Defaults to</h4>
+				<div class="value">
+					
+						<code>true</code>
+					
+				</div>
+			</div>
+		
+
+		<!-- function -->
+			
+
+			
+
+			
+
+			
+
+			
+			
+
+			
+			
+		<!-- /function -->
+
+		<!-- education -->
+			
+
+			
+
+			
+			
+		<!-- /education -->
+
+		
+			<div class="tag scalar tag-source">
+				<h4 class="name">Source</h4>
+				<div class="value">
+					<a href="TestingBotTunnel.js.html">TestingBotTunnel.js</a>,
+					<a href="TestingBotTunnel.js.html#line84">line 84</a>
+				</div>
+			</div>
+		
+	</div>
+</div>
+
+			
+				
+<div class="member kind-member" id="useSquidProxy">
+	
+		<h3 class="memberName">
+			<span class="type-signature"></span>useSquidProxy:<span class="type-signature"> boolean</span>
+			
+		</h3>
+	
+
+	<div class="memberInfo">
+		<div class="versionInfo">
+			
+
+			
+		</div>
+
+		
+
+		
+			<div class="description"><p>Whether or not to use the default remote Squid proxy for the VM.</p></div>
+		
+
+		<!-- object property -->
+			
+		<!-- /object property -->
+
+		
+			<div class="tag scalar tag-default">
+				<h4 class="name">Defaults to</h4>
+				<div class="value">
+					
+						<code>true</code>
+					
+				</div>
+			</div>
+		
+
+		<!-- function -->
+			
+
+			
+
+			
+
+			
+
+			
+			
+
+			
+			
+		<!-- /function -->
+
+		<!-- education -->
+			
+
+			
+
+			
+			
+		<!-- /education -->
+
+		
+			<div class="tag scalar tag-source">
+				<h4 class="name">Source</h4>
+				<div class="value">
+					<a href="TestingBotTunnel.js.html">TestingBotTunnel.js</a>,
+					<a href="TestingBotTunnel.js.html#line92">line 92</a>
+				</div>
+			</div>
+		
+	</div>
+</div>
+
+			
+				
+<div class="member kind-member" id="useSsl">
+	
+		<h3 class="memberName">
+			<span class="type-signature"></span>useSsl:<span class="type-signature"> boolean</span>
+			
+		</h3>
+	
+
+	<div class="memberInfo">
+		<div class="versionInfo">
+			
+
+			
+		</div>
+
+		
+
+		
+			<div class="description"><p>Whether or not to re-encrypt data encrypted by self-signed certificates.</p></div>
+		
+
+		<!-- object property -->
+			
+		<!-- /object property -->
+
+		
+			<div class="tag scalar tag-default">
+				<h4 class="name">Defaults to</h4>
+				<div class="value">
+					
+						<code>false</code>
+					
+				</div>
+			</div>
+		
+
+		<!-- function -->
+			
+
+			
+
+			
+
+			
+
+			
+			
+
+			
+			
+		<!-- /function -->
+
+		<!-- education -->
+			
+
+			
+
+			
+			
+		<!-- /education -->
+
+		
+			<div class="tag scalar tag-source">
+				<h4 class="name">Source</h4>
+				<div class="value">
+					<a href="TestingBotTunnel.js.html">TestingBotTunnel.js</a>,
+					<a href="TestingBotTunnel.js.html#line100">line 100</a>
+				</div>
+			</div>
+		
+	</div>
+</div>
+
+			
+		</div>
+	</div>
+
+
+
+
+
+
+
+
+
+
+ 
+</main>
+
+
+	<script src="scripts/prettify/prettify.js"></script>
+	<script src="scripts/prettify/lang-css.js"></script>
+	<script>prettyPrint();</script>
+	<script src="scripts/nav.js"></script>
 </body>
 </html>

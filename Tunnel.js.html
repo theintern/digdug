@@ -1,31 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <title>JSDoc: Source: Tunnel.js</title>
-
-    <script src="scripts/prettify/prettify.js"> </script>
-    <script src="scripts/prettify/lang-css.js"> </script>
-    <!--[if lt IE 9]>
-      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
-    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+	<meta charset="utf-8">
+	<title>Dig Dug docs: Source: Tunnel.js</title>
+	<link rel="stylesheet" href="styles/catalyst.css">
 </head>
-
 <body>
+	<h1 class="mainHeader"><a href="index.html" class="projectName">
+		
+			<img src="logo.png" class="projectLogo"
+				alt="Dig Dug" title="Dig Dug">
+		
+	</a></h1>
+	
+<nav class="mainMenu">
+	
+		<div class="modulesContainer">
+			<h2 class="subsection-title modules">Modules</h2>
+			<ul class="modules">
+				
+<li data-member-id="module:digdug/BrowserStackTunnel" class="">
+	<a href="BrowserStackTunnel.html">digdug/BrowserStackTunnel</a>
+</li>
 
-<div id="main">
+<li data-member-id="module:digdug/NullTunnel" class="">
+	<a href="NullTunnel.html">digdug/NullTunnel</a>
+</li>
 
-    <h1 class="page-title">Source: Tunnel.js</h1>
+<li data-member-id="module:digdug/SauceLabsTunnel" class="">
+	<a href="SauceLabsTunnel.html">digdug/SauceLabsTunnel</a>
+</li>
 
-    
+<li data-member-id="module:digdug/TestingBotTunnel" class="">
+	<a href="TestingBotTunnel.html">digdug/TestingBotTunnel</a>
+</li>
 
+<li data-member-id="module:digdug/Tunnel" class="">
+	<a href="Tunnel.html">digdug/Tunnel</a>
+</li>
 
-    
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/**
+				<li><a href="global.html">Globals</a></li>
+			</ul>
+		</div>
+	
+</nav>
+<div class="persistentTitle hidden"><a href="#overview">Tunnel.js</a></div><main class="mainContent doc-source"><h1 class="title header">Tunnel.js</h1>
+<pre class="prettyprint source linenums"><code>/**
  * @module digdug/Tunnel
  */
 
@@ -46,6 +66,7 @@ var util = require('./util');
  * Clears an array of remover handles.
  *
  * @param {Handle[]} handles
+ * @private
  */
 function clearHandles(handles) {
 	var handle;
@@ -59,6 +80,7 @@ function clearHandles(handles) {
  *
  * @param {string} url The target URL.
  * @returns {Promise.&lt;module:http.IncomingMessage>} A promise that resolves to the response object for the request.
+ * @private
  */
 function get(url) {
 	url = urlUtil.parse(url);
@@ -91,6 +113,7 @@ function get(url) {
  * @param {module:dojo/Evented} target A target event emitter.
  * @param {string} type The type of event to emit.
  * @returns {Function} The function to call to trigger an event.
+ * @private
  */
 function proxyEvent(target, type) {
 	return function (data) {
@@ -103,7 +126,7 @@ function proxyEvent(target, type) {
  * testing within the service provider’s network.
  *
  * @constructor module:digdug/Tunnel
- * @param {Object} kwArgs
+ * @param {Object} kwArgs A map of properties that should be set on the new instance.
  */
 function Tunnel(kwArgs) {
 	Evented.apply(this, arguments);
@@ -246,7 +269,6 @@ Tunnel.prototype = util.mixin(Object.create(_super), /** @lends module:digdug/Tu
 	 * The URL of a proxy server for the tunnel to go through. Only the hostname, port, and auth are used.
 	 *
 	 * @type {string}
-	 * @default
 	 */
 	proxy: null,
 
@@ -254,7 +276,6 @@ Tunnel.prototype = util.mixin(Object.create(_super), /** @lends module:digdug/Tu
 	 * A unique identifier for the newly created tunnel.
 	 *
 	 * @type {string=}
-	 * @default
 	 */
 	tunnelId: null,
 
@@ -633,25 +654,12 @@ Tunnel.prototype = util.mixin(Object.create(_super), /** @lends module:digdug/Tu
 
 module.exports = Tunnel;
 </code></pre>
-        </article>
-    </section>
+</main>
 
 
-
-
-</div>
-
-<nav>
-    <h2><a href="index.html">Index</a></h2><h3>Modules</h3><ul><li><a href="BrowserStackTunnel.html">digdug/BrowserStackTunnel</a></li><li><a href="NullTunnel.html">digdug/NullTunnel</a></li><li><a href="SauceLabsTunnel.html">digdug/SauceLabsTunnel</a></li><li><a href="TestingBotTunnel.html">digdug/TestingBotTunnel</a></li><li><a href="Tunnel.html">digdug/Tunnel</a></li></ul><h3>Events</h3><ul><li><a href="BrowserStackTunnel.html#event:downloadprogress">downloadprogress</a></li><li><a href="BrowserStackTunnel.html#event:status">status</a></li><li><a href="BrowserStackTunnel.html#event:stderr">stderr</a></li><li><a href="BrowserStackTunnel.html#event:stdout">stdout</a></li><li><a href="NullTunnel.html#event:downloadprogress">downloadprogress</a></li><li><a href="NullTunnel.html#event:status">status</a></li><li><a href="NullTunnel.html#event:stderr">stderr</a></li><li><a href="NullTunnel.html#event:stdout">stdout</a></li><li><a href="SauceLabsTunnel.html#event:downloadprogress">downloadprogress</a></li><li><a href="SauceLabsTunnel.html#event:status">status</a></li><li><a href="SauceLabsTunnel.html#event:stderr">stderr</a></li><li><a href="SauceLabsTunnel.html#event:stdout">stdout</a></li><li><a href="TestingBotTunnel.html#event:downloadprogress">downloadprogress</a></li><li><a href="TestingBotTunnel.html#event:status">status</a></li><li><a href="TestingBotTunnel.html#event:stderr">stderr</a></li><li><a href="TestingBotTunnel.html#event:stdout">stdout</a></li><li><a href="Tunnel.html#event:downloadprogress">downloadprogress</a></li><li><a href="Tunnel.html#event:status">status</a></li><li><a href="Tunnel.html#event:stderr">stderr</a></li><li><a href="Tunnel.html#event:stdout">stdout</a></li></ul><h3><a href="global.html">Global</a></h3>
-</nav>
-
-<br clear="both">
-
-<footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha8</a> on Fri Jun 27 2014 16:09:35 GMT-0400 (EDT)
-</footer>
-
-<script> prettyPrint(); </script>
-<script src="scripts/linenumber.js"> </script>
+	<script src="scripts/prettify/prettify.js"></script>
+	<script src="scripts/prettify/lang-css.js"></script>
+	<script>prettyPrint();</script>
+	<script src="scripts/nav.js"></script>
 </body>
 </html>

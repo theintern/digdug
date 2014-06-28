@@ -1,3343 +1,3435 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <title>JSDoc: Module: digdug/Tunnel</title>
-
-    <script src="scripts/prettify/prettify.js"> </script>
-    <script src="scripts/prettify/lang-css.js"> </script>
-    <!--[if lt IE 9]>
-      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
-    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+	<meta charset="utf-8">
+	<title>Dig Dug docs: Module: digdug/Tunnel</title>
+	<link rel="stylesheet" href="styles/catalyst.css">
 </head>
-
 <body>
+	<h1 class="mainHeader"><a href="index.html" class="projectName">
+		
+			<img src="logo.png" class="projectLogo"
+				alt="Dig Dug" title="Dig Dug">
+		
+	</a></h1>
+	
+<nav class="mainMenu">
+	
+		<div class="modulesContainer">
+			<h2 class="subsection-title modules">Modules</h2>
+			<ul class="modules">
+				
+<li data-member-id="module:digdug/BrowserStackTunnel" class="">
+	<a href="BrowserStackTunnel.html">digdug/BrowserStackTunnel</a>
+</li>
 
-<div id="main">
+<li data-member-id="module:digdug/NullTunnel" class="">
+	<a href="NullTunnel.html">digdug/NullTunnel</a>
+</li>
 
-    <h1 class="page-title">Module: digdug/Tunnel</h1>
+<li data-member-id="module:digdug/SauceLabsTunnel" class="">
+	<a href="SauceLabsTunnel.html">digdug/SauceLabsTunnel</a>
+</li>
 
-    
+<li data-member-id="module:digdug/TestingBotTunnel" class="">
+	<a href="TestingBotTunnel.html">digdug/TestingBotTunnel</a>
+</li>
 
+<li data-member-id="module:digdug/Tunnel" class="active">
+	<a href="Tunnel.html">digdug/Tunnel</a>
+</li>
 
+				<li><a href="global.html">Globals</a></li>
+			</ul>
+		</div>
+	
+		<h2 class="subsection-title properties"><a href="#properties">Properties</a></h2>
+		<ul class="properties">
+			
+<li data-member-id="module:digdug/Tunnel#architecture" class="">
+	<a href="Tunnel.html#architecture">architecture</a>
+</li>
 
-<section>
+<li data-member-id="module:digdug/Tunnel#auth" class="">
+	<a href="Tunnel.html#auth">auth</a>
+</li>
 
-<header>
-    <h2>
-    digdug/Tunnel
-    </h2>
-    
-</header>
+<li data-member-id="module:digdug/Tunnel#clientUrl" class="">
+	<a href="Tunnel.html#clientUrl">clientUrl</a>
+</li>
 
-<article>
-    <div class="container-overview">
-    
-        
-<dt>
-    <h4 class="name" id="module:digdug/Tunnel"><span class="type-signature"></span>new (require("digdug/Tunnel"))<span class="signature">(kwArgs)</span><span class="type-signature"></span></h4>
+<li data-member-id="module:digdug/Tunnel#directory" class="">
+	<a href="Tunnel.html#directory">directory</a>
+</li>
 
-    
-</dt>
-<dd>
+<li data-member-id="module:digdug/Tunnel#executable" class="">
+	<a href="Tunnel.html#executable">executable</a>
+</li>
 
-    
-    <div class="description">
-        <p>A Tunnel is a mechanism for connecting to a WebDriver service provider that securely exposes local services for
-testing within the service provider’s network.</p>
-    </div>
-    
+<li data-member-id="module:digdug/Tunnel#extraCapabilities" class="">
+	<a href="Tunnel.html#extraCapabilities">extraCapabilities</a>
+</li>
 
-    
+<li data-member-id="module:digdug/Tunnel#hostname" class="">
+	<a href="Tunnel.html#hostname">hostname</a>
+</li>
 
-    
+<li data-member-id="module:digdug/Tunnel#isDownloaded" class="">
+	<a href="Tunnel.html#isDownloaded">isDownloaded</a>
+</li>
 
-    
-        <h5>Parameters:</h5>
-        
+<li data-member-id="module:digdug/Tunnel#isRunning" class="">
+	<a href="Tunnel.html#isRunning">isRunning</a>
+</li>
 
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
+<li data-member-id="module:digdug/Tunnel#isStarting" class="">
+	<a href="Tunnel.html#isStarting">isStarting</a>
+</li>
 
-        <th>Type</th>
+<li data-member-id="module:digdug/Tunnel#isStopping" class="">
+	<a href="Tunnel.html#isStopping">isStopping</a>
+</li>
 
-        
+<li data-member-id="module:digdug/Tunnel#pathname" class="">
+	<a href="Tunnel.html#pathname">pathname</a>
+</li>
 
-        
+<li data-member-id="module:digdug/Tunnel#platform" class="">
+	<a href="Tunnel.html#platform">platform</a>
+</li>
 
-        <th class="last">Description</th>
-    </tr>
-    </thead>
+<li data-member-id="module:digdug/Tunnel#port" class="">
+	<a href="Tunnel.html#port">port</a>
+</li>
 
-    <tbody>
-    
+<li data-member-id="module:digdug/Tunnel#protocol" class="">
+	<a href="Tunnel.html#protocol">protocol</a>
+</li>
 
-        <tr>
-            
-                <td class="name"><code>kwArgs</code></td>
-            
+<li data-member-id="module:digdug/Tunnel#proxy" class="">
+	<a href="Tunnel.html#proxy">proxy</a>
+</li>
 
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
+<li data-member-id="module:digdug/Tunnel#tunnelId" class="">
+	<a href="Tunnel.html#tunnelId">tunnelId</a>
+</li>
 
+<li data-member-id="module:digdug/Tunnel#url" class="">
+	<a href="Tunnel.html#url">url</a>
+</li>
 
-            
-            </td>
+<li data-member-id="module:digdug/Tunnel#verbose" class="">
+	<a href="Tunnel.html#verbose">verbose</a>
+</li>
 
-            
+		</ul>
+	
+		<h2 class="subsection-title methods"><a href="#methods">Methods</a></h2>
+		<ul class="methods">
+			
+<li data-member-id="module:digdug/Tunnel#_makeArgs" class="">
+	<a href="Tunnel.html#_makeArgs">_makeArgs</a>
+</li>
 
-            
+<li data-member-id="module:digdug/Tunnel#_makeChild" class="">
+	<a href="Tunnel.html#_makeChild">_makeChild</a>
+</li>
 
-            <td class="description last"></td>
-        </tr>
+<li data-member-id="module:digdug/Tunnel#_makeOptions" class="">
+	<a href="Tunnel.html#_makeOptions">_makeOptions</a>
+</li>
 
-    
-    </tbody>
+<li data-member-id="module:digdug/Tunnel#_start" class="">
+	<a href="Tunnel.html#_start">_start</a>
+</li>
+
+<li data-member-id="module:digdug/Tunnel#_stop" class="">
+	<a href="Tunnel.html#_stop">_stop</a>
+</li>
+
+<li data-member-id="module:digdug/Tunnel#download" class="">
+	<a href="Tunnel.html#download">download</a>
+</li>
+
+<li data-member-id="module:digdug/Tunnel#sendJobState" class="">
+	<a href="Tunnel.html#sendJobState">sendJobState</a>
+</li>
+
+<li data-member-id="module:digdug/Tunnel#start" class="">
+	<a href="Tunnel.html#start">start</a>
+</li>
+
+<li data-member-id="module:digdug/Tunnel#stop" class="">
+	<a href="Tunnel.html#stop">stop</a>
+</li>
+
+		</ul>
+	
+		<h2 class="subsection-title events"><a href="#events">Events</a></h2>
+		<ul class="events">
+			
+<li data-member-id="module:digdug/Tunnel#event:downloadprogress" class="">
+	<a href="Tunnel.html#event:downloadprogress">downloadprogress</a>
+</li>
+
+<li data-member-id="module:digdug/Tunnel#event:status" class="">
+	<a href="Tunnel.html#event:status">status</a>
+</li>
+
+<li data-member-id="module:digdug/Tunnel#event:stderr" class="">
+	<a href="Tunnel.html#event:stderr">stderr</a>
+</li>
+
+<li data-member-id="module:digdug/Tunnel#event:stdout" class="">
+	<a href="Tunnel.html#event:stdout">stdout</a>
+</li>
+
+		</ul>
+	
+</nav>
+<div class="persistentTitle hidden"><a href="#overview">digdug/Tunnel</a></div><main class="mainContent doc-module">
+
+	<div class="section overview" id="overview">
+		<div class="classInfo">
+			<h1 class="title header">digdug/Tunnel</h1>
+
+			
+
+			
+				<div class="superclasses">
+					<h2>Inheritance</h2>
+					<ol>
+						<li>digdug/Tunnel</li>
+						
+							<li>Object</li>
+						
+					</ol>
+				</div>
+				
+					<div class="subclasses">
+						<h2>Subclasses</h2>
+						<ul>
+							
+								<li class="child"><a href="BrowserStackTunnel.html">module:digdug/BrowserStackTunnel</a></li>
+							
+								<li class="child"><a href="NullTunnel.html">module:digdug/NullTunnel</a></li>
+							
+								<li class="child"><a href="SauceLabsTunnel.html">module:digdug/SauceLabsTunnel</a></li>
+							
+								<li class="child"><a href="TestingBotTunnel.html">module:digdug/TestingBotTunnel</a></li>
+							
+						</ul>
+					</div>
+				
+				
+			
+		</div>
+
+		
+<div class="member kind-class" id="module:digdug/Tunnel">
+	
+		<h2 class="memberName">
+			<span class="type-signature"></span>new (require("digdug/Tunnel"))<span class="signature">(kwArgs:<span class="type-signature"> Object</span>)</span><span class="type-signature"></span>
+			
+		</h2>
+	
+
+	<div class="memberInfo">
+		<div class="versionInfo">
+			
+
+			
+		</div>
+
+		
+
+		
+			<div class="description"><p>A Tunnel is a mechanism for connecting to a WebDriver service provider that securely exposes local services for
+testing within the service provider’s network.</p></div>
+		
+
+		<!-- object property -->
+			
+		<!-- /object property -->
+
+		
+
+		<!-- function -->
+			
+				<div class="tag table tag-parameters">
+					<h3 class="name">Parameters</h3>
+					
+
+<table class="parameters value">
+	<thead>
+		<tr>
+			<th class="name">Name</th>
+			<th class="type">Type</th>
+			
+			
+			<th class="table-description">Description</th>
+		</tr>
+	</thead>
+	<tbody>
+		
+			<tr>
+				
+					<td class="name"><code>kwArgs</code></td>
+				
+
+				<td class="type">
+					
+						<span class="param-type">Object</span>
+					
+				</td>
+
+				
+				
+
+				
+
+				
+					<td class="table-description">
+						<p>A map of properties that should be set on the new instance.</p>
+						
+					</td>
+				
+			</tr>
+		
+	</tbody>
 </table>
-    
 
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line74">line 74</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-    
-
-    
-        
-
-        
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line1">line 1</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-        
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-     
-
-    
-
-    
-        <h3 class="subsection-title">Members</h3>
-
-        <dl>
-            
-<dt>
-    <h4 class="name" id="architecture"><span class="type-signature"></span>architecture<span class="type-signature"> :string</span></h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>The architecture the tunnel will run against. This information is automatically retrieved for the current
-system at runtime.</p>
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">string</span>
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line128">line 128</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="auth"><span class="type-signature"></span>auth<span class="type-signature"> :string</span></h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>An HTTP authorization string to use when initiating connections to the tunnel. This value of this property is
-defined by Tunnel subclasses.</p>
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">string</span>
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line136">line 136</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="clientUrl"><span class="type-signature">(readonly) </span>clientUrl<span class="type-signature"> :string</span></h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>The URL that a WebDriver client should used to interact with this service.</p>
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">string</span>
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line252">line 252</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="directory"><span class="type-signature"></span>directory<span class="type-signature"> :string</span></h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>The directory where the tunnel software will be extracted. If the directory does not exist, it will be
-created. This value is set by the tunnel subclasses.</p>
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">string</span>
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line144">line 144</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="executable"><span class="type-signature"></span>executable<span class="type-signature"> :string</span></h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>The executable to spawn in order to create a tunnel. This value is set by the tunnel subclasses.</p>
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">string</span>
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line151">line 151</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="extraCapabilities"><span class="type-signature">(readonly) </span>extraCapabilities<span class="type-signature"> :Object</span></h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>A map of additional capabilities that need to be sent to the provider when a new session is being created.</p>
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">Object</span>
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line264">line 264</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="hostname"><span class="type-signature"></span>hostname<span class="type-signature"> :string</span></h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>The host on which a WebDriver client can access the service provided by the tunnel. This may or may not be
-the host where the tunnel application is running.</p>
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">string</span>
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-default">Default Value:</dt>
-    <dd class="tag-default"><ul class="dummy">
-            <li>localhost</li>
-        </ul></dd>
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line160">line 160</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="isDownloaded"><span class="type-signature">(readonly) </span>isDownloaded<span class="type-signature"> :boolean</span></h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>Whether or not the tunnel software has already been downloaded.</p>
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">boolean</span>
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line276">line 276</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="isRunning"><span class="type-signature">(readonly) </span>isRunning<span class="type-signature"> :boolean</span></h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>Whether or not the tunnel is currently running.</p>
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">boolean</span>
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line168">line 168</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="isStarting"><span class="type-signature">(readonly) </span>isStarting<span class="type-signature"> :boolean</span></h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>Whether or not the tunnel is currently starting up.</p>
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">boolean</span>
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line176">line 176</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="isStopping"><span class="type-signature">(readonly) </span>isStopping<span class="type-signature"> :boolean</span></h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>Whether or not the tunnel is currently stopping.</p>
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">boolean</span>
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line184">line 184</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="pathname"><span class="type-signature"></span>pathname<span class="type-signature"> :string</span></h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>The path that a WebDriver client should use to access the service provided by the tunnel.</p>
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">string</span>
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-default">Default Value:</dt>
-    <dd class="tag-default"><ul class="dummy">
-            <li>/wd/hub/</li>
-        </ul></dd>
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line192">line 192</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="platform"><span class="type-signature"></span>platform<span class="type-signature"> :string</span></h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>The operating system the tunnel will run on. This information is automatically retrieved for the current
-system at runtime.</p>
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">string</span>
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line200">line 200</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="port"><span class="type-signature"></span>port<span class="type-signature"> :number</span></h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>The local port where the WebDriver server should be exposed by the tunnel.</p>
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">number</span>
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-default">Default Value:</dt>
-    <dd class="tag-default"><ul class="dummy">
-            <li>4444</li>
-        </ul></dd>
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line208">line 208</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="protocol"><span class="type-signature"></span>protocol<span class="type-signature"> :string</span></h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>The protocol (e.g., 'http') that a WebDriver client should use to access the service provided by the tunnel.</p>
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">string</span>
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-default">Default Value:</dt>
-    <dd class="tag-default"><ul class="dummy">
-            <li>http</li>
-        </ul></dd>
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line216">line 216</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="proxy"><span class="type-signature"></span>proxy<span class="type-signature"> :string</span></h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>The URL of a proxy server for the tunnel to go through. Only the hostname, port, and auth are used.</p>
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">string</span>
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-default">Default Value:</dt>
-    <dd class="tag-default"><ul class="dummy">
-            <li>null</li>
-        </ul></dd>
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line224">line 224</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="tunnelId"><span class="type-signature"></span>tunnelId<span class="type-signature"> :string</span></h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>A unique identifier for the newly created tunnel.</p>
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">string</span>
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-default">Default Value:</dt>
-    <dd class="tag-default"><ul class="dummy">
-            <li>null</li>
-        </ul></dd>
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line232">line 232</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="url"><span class="type-signature"></span>url<span class="type-signature"> :string</span></h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>The URL where the tunnel software can be downloaded.</p>
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">string</span>
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line239">line 239</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="verbose"><span class="type-signature"></span>verbose<span class="type-signature"> :boolean</span></h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>Whether or not to tell the tunnel to provide verbose logging output.</p>
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">boolean</span>
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-default">Default Value:</dt>
-    <dd class="tag-default"><ul class="dummy">
-            <li>false</li>
-        </ul></dd>
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line247">line 247</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-</dd>
-
-        </dl>
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        <dl>
-            
-<dt>
-    <h4 class="name" id="_makeArgs"><span class="type-signature">(protected) </span>_makeArgs<span class="signature">()</span><span class="type-signature"> &rarr; {Array.&lt;string>}</span></h4>
-
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Creates the list of command-line arguments to be passed to the spawned tunnel. Implementations should
+				</div>
+			
+
+			
+
+			
+
+			
+
+			
+			
+
+			
+			
+		<!-- /function -->
+
+		<!-- education -->
+			
+
+			
+
+			
+			
+		<!-- /education -->
+
+		
+			<div class="tag scalar tag-source">
+				<h3 class="name">Source</h3>
+				<div class="value">
+					<a href="Tunnel.js.html">Tunnel.js</a>,
+					<a href="Tunnel.js.html#line77">line 77</a>
+				</div>
+			</div>
+		
+	</div>
+</div>
+
+
+		
+			<div class="summary properties">
+				<h2 class="header"><span class="inherited">All</span> Properties</h2>
+				
+<table class="summaryTable">
+	<thead>
+		<tr>
+			<th class="property">Property</th>
+			<th class="source">Defined by</th>
+		</tr>
+	</thead>
+	<tbody>
+		
+			
+			<tr class="icons-0 ">
+				<td class="property">
+					<div class="name">
+						<a href="Tunnel.html#architecture">architecture</a>:<span class="type-signature"> string</span>
+					</div>
+					<div class="description">
+						<span class="type-signature"></span><p>The architecture the tunnel will run against.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						digdug/Tunnel
+					
+				</td>
+			</tr>
+		
+			
+			<tr class="icons-0 ">
+				<td class="property">
+					<div class="name">
+						<a href="Tunnel.html#auth">auth</a>:<span class="type-signature"> string</span>
+					</div>
+					<div class="description">
+						<span class="type-signature"></span><p>An HTTP authorization string to use when initiating connections to the tunnel.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						digdug/Tunnel
+					
+				</td>
+			</tr>
+		
+			
+			<tr class="icons-0 ">
+				<td class="property">
+					<div class="name">
+						<a href="Tunnel.html#clientUrl">clientUrl</a>:<span class="type-signature"> string</span>
+					</div>
+					<div class="description">
+						<span class="type-signature">(readonly) </span><p>The URL that a WebDriver client should used to interact with this service.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						digdug/Tunnel
+					
+				</td>
+			</tr>
+		
+			
+			<tr class="icons-0 ">
+				<td class="property">
+					<div class="name">
+						<a href="Tunnel.html#directory">directory</a>:<span class="type-signature"> string</span>
+					</div>
+					<div class="description">
+						<span class="type-signature"></span><p>The directory where the tunnel software will be extracted.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						digdug/Tunnel
+					
+				</td>
+			</tr>
+		
+			
+			<tr class="icons-0 ">
+				<td class="property">
+					<div class="name">
+						<a href="Tunnel.html#executable">executable</a>:<span class="type-signature"> string</span>
+					</div>
+					<div class="description">
+						<span class="type-signature"></span><p>The executable to spawn in order to create a tunnel.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						digdug/Tunnel
+					
+				</td>
+			</tr>
+		
+			
+			<tr class="icons-0 ">
+				<td class="property">
+					<div class="name">
+						<a href="Tunnel.html#extraCapabilities">extraCapabilities</a>:<span class="type-signature"> string</span>
+					</div>
+					<div class="description">
+						<span class="type-signature">(readonly) </span><p>A map of additional capabilities that need to be sent to the provider when a new session is being created.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						digdug/Tunnel
+					
+				</td>
+			</tr>
+		
+			
+			<tr class="icons-0 ">
+				<td class="property">
+					<div class="name">
+						<a href="Tunnel.html#hostname">hostname</a>:<span class="type-signature"> string</span>
+					</div>
+					<div class="description">
+						<span class="type-signature"></span><p>The host on which a WebDriver client can access the service provided by the tunnel.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						digdug/Tunnel
+					
+				</td>
+			</tr>
+		
+			
+			<tr class="icons-0 ">
+				<td class="property">
+					<div class="name">
+						<a href="Tunnel.html#isDownloaded">isDownloaded</a>:<span class="type-signature"> string</span>
+					</div>
+					<div class="description">
+						<span class="type-signature">(readonly) </span><p>Whether or not the tunnel software has already been downloaded.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						digdug/Tunnel
+					
+				</td>
+			</tr>
+		
+			
+			<tr class="icons-0 ">
+				<td class="property">
+					<div class="name">
+						<a href="Tunnel.html#isRunning">isRunning</a>:<span class="type-signature"> boolean</span>
+					</div>
+					<div class="description">
+						<span class="type-signature">(readonly) </span><p>Whether or not the tunnel is currently running.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						digdug/Tunnel
+					
+				</td>
+			</tr>
+		
+			
+			<tr class="icons-0 ">
+				<td class="property">
+					<div class="name">
+						<a href="Tunnel.html#isStarting">isStarting</a>:<span class="type-signature"> boolean</span>
+					</div>
+					<div class="description">
+						<span class="type-signature">(readonly) </span><p>Whether or not the tunnel is currently starting up.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						digdug/Tunnel
+					
+				</td>
+			</tr>
+		
+			
+			<tr class="icons-0 ">
+				<td class="property">
+					<div class="name">
+						<a href="Tunnel.html#isStopping">isStopping</a>:<span class="type-signature"> boolean</span>
+					</div>
+					<div class="description">
+						<span class="type-signature">(readonly) </span><p>Whether or not the tunnel is currently stopping.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						digdug/Tunnel
+					
+				</td>
+			</tr>
+		
+			
+			<tr class="icons-0 ">
+				<td class="property">
+					<div class="name">
+						<a href="Tunnel.html#pathname">pathname</a>:<span class="type-signature"> string</span>
+					</div>
+					<div class="description">
+						<span class="type-signature"></span><p>The path that a WebDriver client should use to access the service provided by the tunnel.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						digdug/Tunnel
+					
+				</td>
+			</tr>
+		
+			
+			<tr class="icons-0 ">
+				<td class="property">
+					<div class="name">
+						<a href="Tunnel.html#platform">platform</a>:<span class="type-signature"> string</span>
+					</div>
+					<div class="description">
+						<span class="type-signature"></span><p>The operating system the tunnel will run on.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						digdug/Tunnel
+					
+				</td>
+			</tr>
+		
+			
+			<tr class="icons-0 ">
+				<td class="property">
+					<div class="name">
+						<a href="Tunnel.html#port">port</a>:<span class="type-signature"> number</span>
+					</div>
+					<div class="description">
+						<span class="type-signature"></span><p>The local port where the WebDriver server should be exposed by the tunnel.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						digdug/Tunnel
+					
+				</td>
+			</tr>
+		
+			
+			<tr class="icons-0 ">
+				<td class="property">
+					<div class="name">
+						<a href="Tunnel.html#protocol">protocol</a>:<span class="type-signature"> string</span>
+					</div>
+					<div class="description">
+						<span class="type-signature"></span><p>The protocol (e.g., 'http') that a WebDriver client should use to access the service provided by the tunnel.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						digdug/Tunnel
+					
+				</td>
+			</tr>
+		
+			
+			<tr class="icons-0 ">
+				<td class="property">
+					<div class="name">
+						<a href="Tunnel.html#proxy">proxy</a>:<span class="type-signature"> string</span>
+					</div>
+					<div class="description">
+						<span class="type-signature"></span><p>The URL of a proxy server for the tunnel to go through.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						digdug/Tunnel
+					
+				</td>
+			</tr>
+		
+			
+			<tr class="icons-0 ">
+				<td class="property">
+					<div class="name">
+						<a href="Tunnel.html#tunnelId">tunnelId</a>:<span class="type-signature"> string</span>
+					</div>
+					<div class="description">
+						<span class="type-signature"></span><p>A unique identifier for the newly created tunnel.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						digdug/Tunnel
+					
+				</td>
+			</tr>
+		
+			
+			<tr class="icons-0 ">
+				<td class="property">
+					<div class="name">
+						<a href="Tunnel.html#url">url</a>:<span class="type-signature"> string</span>
+					</div>
+					<div class="description">
+						<span class="type-signature"></span><p>The URL where the tunnel software can be downloaded.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						digdug/Tunnel
+					
+				</td>
+			</tr>
+		
+			
+			<tr class="icons-0 ">
+				<td class="property">
+					<div class="name">
+						<a href="Tunnel.html#verbose">verbose</a>:<span class="type-signature"> boolean</span>
+					</div>
+					<div class="description">
+						<span class="type-signature"></span><p>Whether or not to tell the tunnel to provide verbose logging output.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						digdug/Tunnel
+					
+				</td>
+			</tr>
+		
+	</tbody>
+</table>
+
+			</div>
+		
+
+		
+			<div class="summary methods">
+				<h2 class="header"><span class="inherited">All</span> Methods</h2>
+				
+<table class="summaryTable">
+	<thead>
+		<tr>
+			<th class="method">Method</th>
+			<th class="source">Defined by</th>
+		</tr>
+	</thead>
+	<tbody>
+		
+			
+			<tr class="icons-0 ">
+				<td class="method">
+					<div class="name">
+						<a href="Tunnel.html#_makeArgs">_makeArgs</a><span class="signature">():</span><span class="type-signature"> Array.&lt;string></span>
+					</div>
+					<div class="description">
+						<span class="type-signature">(protected) </span><p>Creates the list of command-line arguments to be passed to the spawned tunnel.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						digdug/Tunnel
+					
+				</td>
+			</tr>
+		
+			
+			<tr class="icons-0 ">
+				<td class="method">
+					<div class="name">
+						<a href="Tunnel.html#_makeChild">_makeChild</a><span class="signature">():</span><span class="type-signature"> Object</span>
+					</div>
+					<div class="description">
+						<span class="type-signature">(protected) </span><p>Creates a newly spawned child process for the tunnel software.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						digdug/Tunnel
+					
+				</td>
+			</tr>
+		
+			
+			<tr class="icons-0 ">
+				<td class="method">
+					<div class="name">
+						<a href="Tunnel.html#_makeOptions">_makeOptions</a><span class="signature">():</span><span class="type-signature"> Object</span>
+					</div>
+					<div class="description">
+						<span class="type-signature">(protected) </span><p>Creates the set of options to use when spawning the tunnel process.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						digdug/Tunnel
+					
+				</td>
+			</tr>
+		
+			
+			<tr class="icons-0 ">
+				<td class="method">
+					<div class="name">
+						<a href="Tunnel.html#_start">_start</a><span class="signature">():</span><span class="type-signature"> Object</span>
+					</div>
+					<div class="description">
+						<span class="type-signature">(protected) </span><p>This method provides the implementation that actually starts the tunnel and any other logic for emitting
+events on the Tunnel based on data passed by the tunnel software.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						digdug/Tunnel
+					
+				</td>
+			</tr>
+		
+			
+			<tr class="icons-0 ">
+				<td class="method">
+					<div class="name">
+						<a href="Tunnel.html#_stop">_stop</a><span class="signature">():</span><span class="type-signature"> Promise.&lt;void></span>
+					</div>
+					<div class="description">
+						<span class="type-signature">(protected) </span><p>This method provides the implementation that actually stops the tunnel.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						digdug/Tunnel
+					
+				</td>
+			</tr>
+		
+			
+			<tr class="icons-0 ">
+				<td class="method">
+					<div class="name">
+						<a href="Tunnel.html#download">download</a><span class="signature">(forceDownload:<span class="type-signature"> boolean</span>):</span><span class="type-signature"> Promise.&lt;void></span>
+					</div>
+					<div class="description">
+						<span class="type-signature"></span><p>Downloads and extracts the tunnel software if it is not already downloaded.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						digdug/Tunnel
+					
+				</td>
+			</tr>
+		
+			
+			<tr class="icons-0 ">
+				<td class="method">
+					<div class="name">
+						<a href="Tunnel.html#sendJobState">sendJobState</a><span class="signature">(jobId:<span class="type-signature"> string</span>, data:<span class="type-signature"> <a href="global.html#JobState">JobState</a></span>):</span><span class="type-signature"> Promise.&lt;void></span>
+					</div>
+					<div class="description">
+						<span class="type-signature"></span><p>Sends information about a job to the tunnel provider.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						digdug/Tunnel
+					
+				</td>
+			</tr>
+		
+			
+			<tr class="icons-0 ">
+				<td class="method">
+					<div class="name">
+						<a href="Tunnel.html#start">start</a><span class="signature">():</span><span class="type-signature"> Promise.&lt;void></span>
+					</div>
+					<div class="description">
+						<span class="type-signature"></span><p>Starts the tunnel, automatically downloading dependencies if necessary.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						digdug/Tunnel
+					
+				</td>
+			</tr>
+		
+			
+			<tr class="icons-0 ">
+				<td class="method">
+					<div class="name">
+						<a href="Tunnel.html#stop">stop</a><span class="signature">():</span><span class="type-signature"> Promise.&lt;integer></span>
+					</div>
+					<div class="description">
+						<span class="type-signature"></span><p>Stops the tunnel.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						digdug/Tunnel
+					
+				</td>
+			</tr>
+		
+	</tbody>
+</table>
+
+			</div>
+		
+
+		
+			<div class="summary events">
+				<h2 class="header"><span class="inherited">All</span> Events</h2>
+				
+<table class="summaryTable">
+	<thead>
+		<tr>
+			<th class="event">Event</th>
+			<th class="source">Defined by</th>
+		</tr>
+	</thead>
+	<tbody>
+		
+			
+			<tr class="icons-0 ">
+				<td class="event">
+					<div class="name">
+						<a href="Tunnel.html#event:downloadprogress">downloadprogress</a>
+					</div>
+					<div class="description">
+						<p>Part of the tunnel has been downloaded from the server.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						digdug/Tunnel
+					
+				</td>
+			</tr>
+		
+			
+			<tr class="icons-0 ">
+				<td class="event">
+					<div class="name">
+						<a href="Tunnel.html#event:status">status</a>
+					</div>
+					<div class="description">
+						<p>Information about the status of the tunnel setup process that is suitable for presentation to end-users.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						digdug/Tunnel
+					
+				</td>
+			</tr>
+		
+			
+			<tr class="icons-0 ">
+				<td class="event">
+					<div class="name">
+						<a href="Tunnel.html#event:stderr">stderr</a>
+					</div>
+					<div class="description">
+						<p>A chunk of raw string data output by the tunnel software to stderr.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						digdug/Tunnel
+					
+				</td>
+			</tr>
+		
+			
+			<tr class="icons-0 ">
+				<td class="event">
+					<div class="name">
+						<a href="Tunnel.html#event:stdout">stdout</a>
+					</div>
+					<div class="description">
+						<p>A chunk of raw string data output by the tunnel software to stdout.</p>
+					</div>
+				</td>
+				<td class="source">
+					
+						digdug/Tunnel
+					
+				</td>
+			</tr>
+		
+	</tbody>
+</table>
+
+			</div>
+		
+	</div>
+
+
+
+	<div class="section properties" id="properties">
+		<h2 class="header">Properties</h2>
+		<div class="subsection">
+			
+				
+<div class="member kind-member" id="architecture">
+	
+		<h3 class="memberName">
+			<span class="type-signature"></span>architecture:<span class="type-signature"> string</span>
+			
+		</h3>
+	
+
+	<div class="memberInfo">
+		<div class="versionInfo">
+			
+
+			
+		</div>
+
+		
+
+		
+			<div class="description"><p>The architecture the tunnel will run against. This information is automatically retrieved for the current
+system at runtime.</p></div>
+		
+
+		<!-- object property -->
+			
+		<!-- /object property -->
+
+		
+
+		<!-- function -->
+			
+
+			
+
+			
+
+			
+
+			
+			
+
+			
+			
+		<!-- /function -->
+
+		<!-- education -->
+			
+
+			
+
+			
+			
+		<!-- /education -->
+
+		
+			<div class="tag scalar tag-source">
+				<h4 class="name">Source</h4>
+				<div class="value">
+					<a href="Tunnel.js.html">Tunnel.js</a>,
+					<a href="Tunnel.js.html#line131">line 131</a>
+				</div>
+			</div>
+		
+	</div>
+</div>
+
+			
+				
+<div class="member kind-member" id="auth">
+	
+		<h3 class="memberName">
+			<span class="type-signature"></span>auth:<span class="type-signature"> string</span>
+			
+		</h3>
+	
+
+	<div class="memberInfo">
+		<div class="versionInfo">
+			
+
+			
+		</div>
+
+		
+
+		
+			<div class="description"><p>An HTTP authorization string to use when initiating connections to the tunnel. This value of this property is
+defined by Tunnel subclasses.</p></div>
+		
+
+		<!-- object property -->
+			
+		<!-- /object property -->
+
+		
+
+		<!-- function -->
+			
+
+			
+
+			
+
+			
+
+			
+			
+
+			
+			
+		<!-- /function -->
+
+		<!-- education -->
+			
+
+			
+
+			
+			
+		<!-- /education -->
+
+		
+			<div class="tag scalar tag-source">
+				<h4 class="name">Source</h4>
+				<div class="value">
+					<a href="Tunnel.js.html">Tunnel.js</a>,
+					<a href="Tunnel.js.html#line139">line 139</a>
+				</div>
+			</div>
+		
+	</div>
+</div>
+
+			
+				
+<div class="member kind-member" id="clientUrl">
+	
+		<h3 class="memberName">
+			<span class="type-signature">(readonly) </span>clientUrl:<span class="type-signature"> string</span>
+			
+		</h3>
+	
+
+	<div class="memberInfo">
+		<div class="versionInfo">
+			
+
+			
+		</div>
+
+		
+
+		
+			<div class="description"><p>The URL that a WebDriver client should used to interact with this service.</p></div>
+		
+
+		<!-- object property -->
+			
+		<!-- /object property -->
+
+		
+
+		<!-- function -->
+			
+
+			
+
+			
+
+			
+
+			
+			
+
+			
+			
+		<!-- /function -->
+
+		<!-- education -->
+			
+
+			
+
+			
+			
+		<!-- /education -->
+
+		
+			<div class="tag scalar tag-source">
+				<h4 class="name">Source</h4>
+				<div class="value">
+					<a href="Tunnel.js.html">Tunnel.js</a>,
+					<a href="Tunnel.js.html#line253">line 253</a>
+				</div>
+			</div>
+		
+	</div>
+</div>
+
+			
+				
+<div class="member kind-member" id="directory">
+	
+		<h3 class="memberName">
+			<span class="type-signature"></span>directory:<span class="type-signature"> string</span>
+			
+		</h3>
+	
+
+	<div class="memberInfo">
+		<div class="versionInfo">
+			
+
+			
+		</div>
+
+		
+
+		
+			<div class="description"><p>The directory where the tunnel software will be extracted. If the directory does not exist, it will be
+created. This value is set by the tunnel subclasses.</p></div>
+		
+
+		<!-- object property -->
+			
+		<!-- /object property -->
+
+		
+
+		<!-- function -->
+			
+
+			
+
+			
+
+			
+
+			
+			
+
+			
+			
+		<!-- /function -->
+
+		<!-- education -->
+			
+
+			
+
+			
+			
+		<!-- /education -->
+
+		
+			<div class="tag scalar tag-source">
+				<h4 class="name">Source</h4>
+				<div class="value">
+					<a href="Tunnel.js.html">Tunnel.js</a>,
+					<a href="Tunnel.js.html#line147">line 147</a>
+				</div>
+			</div>
+		
+	</div>
+</div>
+
+			
+				
+<div class="member kind-member" id="executable">
+	
+		<h3 class="memberName">
+			<span class="type-signature"></span>executable:<span class="type-signature"> string</span>
+			
+		</h3>
+	
+
+	<div class="memberInfo">
+		<div class="versionInfo">
+			
+
+			
+		</div>
+
+		
+
+		
+			<div class="description"><p>The executable to spawn in order to create a tunnel. This value is set by the tunnel subclasses.</p></div>
+		
+
+		<!-- object property -->
+			
+		<!-- /object property -->
+
+		
+
+		<!-- function -->
+			
+
+			
+
+			
+
+			
+
+			
+			
+
+			
+			
+		<!-- /function -->
+
+		<!-- education -->
+			
+
+			
+
+			
+			
+		<!-- /education -->
+
+		
+			<div class="tag scalar tag-source">
+				<h4 class="name">Source</h4>
+				<div class="value">
+					<a href="Tunnel.js.html">Tunnel.js</a>,
+					<a href="Tunnel.js.html#line154">line 154</a>
+				</div>
+			</div>
+		
+	</div>
+</div>
+
+			
+				
+<div class="member kind-member" id="extraCapabilities">
+	
+		<h3 class="memberName">
+			<span class="type-signature">(readonly) </span>extraCapabilities:<span class="type-signature"> string</span>
+			
+		</h3>
+	
+
+	<div class="memberInfo">
+		<div class="versionInfo">
+			
+
+			
+		</div>
+
+		
+
+		
+			<div class="description"><p>A map of additional capabilities that need to be sent to the provider when a new session is being created.</p></div>
+		
+
+		<!-- object property -->
+			
+		<!-- /object property -->
+
+		
+
+		<!-- function -->
+			
+
+			
+
+			
+
+			
+
+			
+			
+
+			
+			
+		<!-- /function -->
+
+		<!-- education -->
+			
+
+			
+
+			
+			
+		<!-- /education -->
+
+		
+			<div class="tag scalar tag-source">
+				<h4 class="name">Source</h4>
+				<div class="value">
+					<a href="Tunnel.js.html">Tunnel.js</a>,
+					<a href="Tunnel.js.html#line265">line 265</a>
+				</div>
+			</div>
+		
+	</div>
+</div>
+
+			
+				
+<div class="member kind-member" id="hostname">
+	
+		<h3 class="memberName">
+			<span class="type-signature"></span>hostname:<span class="type-signature"> string</span>
+			
+		</h3>
+	
+
+	<div class="memberInfo">
+		<div class="versionInfo">
+			
+
+			
+		</div>
+
+		
+
+		
+			<div class="description"><p>The host on which a WebDriver client can access the service provided by the tunnel. This may or may not be
+the host where the tunnel application is running.</p></div>
+		
+
+		<!-- object property -->
+			
+		<!-- /object property -->
+
+		
+			<div class="tag scalar tag-default">
+				<h4 class="name">Defaults to</h4>
+				<div class="value">
+					
+						<code>'localhost'</code>
+					
+				</div>
+			</div>
+		
+
+		<!-- function -->
+			
+
+			
+
+			
+
+			
+
+			
+			
+
+			
+			
+		<!-- /function -->
+
+		<!-- education -->
+			
+
+			
+
+			
+			
+		<!-- /education -->
+
+		
+			<div class="tag scalar tag-source">
+				<h4 class="name">Source</h4>
+				<div class="value">
+					<a href="Tunnel.js.html">Tunnel.js</a>,
+					<a href="Tunnel.js.html#line163">line 163</a>
+				</div>
+			</div>
+		
+	</div>
+</div>
+
+			
+				
+<div class="member kind-member" id="isDownloaded">
+	
+		<h3 class="memberName">
+			<span class="type-signature">(readonly) </span>isDownloaded:<span class="type-signature"> string</span>
+			
+		</h3>
+	
+
+	<div class="memberInfo">
+		<div class="versionInfo">
+			
+
+			
+		</div>
+
+		
+
+		
+			<div class="description"><p>Whether or not the tunnel software has already been downloaded.</p></div>
+		
+
+		<!-- object property -->
+			
+		<!-- /object property -->
+
+		
+
+		<!-- function -->
+			
+
+			
+
+			
+
+			
+
+			
+			
+
+			
+			
+		<!-- /function -->
+
+		<!-- education -->
+			
+
+			
+
+			
+			
+		<!-- /education -->
+
+		
+			<div class="tag scalar tag-source">
+				<h4 class="name">Source</h4>
+				<div class="value">
+					<a href="Tunnel.js.html">Tunnel.js</a>,
+					<a href="Tunnel.js.html#line277">line 277</a>
+				</div>
+			</div>
+		
+	</div>
+</div>
+
+			
+				
+<div class="member kind-member" id="isRunning">
+	
+		<h3 class="memberName">
+			<span class="type-signature">(readonly) </span>isRunning:<span class="type-signature"> boolean</span>
+			
+		</h3>
+	
+
+	<div class="memberInfo">
+		<div class="versionInfo">
+			
+
+			
+		</div>
+
+		
+
+		
+			<div class="description"><p>Whether or not the tunnel is currently running.</p></div>
+		
+
+		<!-- object property -->
+			
+		<!-- /object property -->
+
+		
+
+		<!-- function -->
+			
+
+			
+
+			
+
+			
+
+			
+			
+
+			
+			
+		<!-- /function -->
+
+		<!-- education -->
+			
+
+			
+
+			
+			
+		<!-- /education -->
+
+		
+			<div class="tag scalar tag-source">
+				<h4 class="name">Source</h4>
+				<div class="value">
+					<a href="Tunnel.js.html">Tunnel.js</a>,
+					<a href="Tunnel.js.html#line171">line 171</a>
+				</div>
+			</div>
+		
+	</div>
+</div>
+
+			
+				
+<div class="member kind-member" id="isStarting">
+	
+		<h3 class="memberName">
+			<span class="type-signature">(readonly) </span>isStarting:<span class="type-signature"> boolean</span>
+			
+		</h3>
+	
+
+	<div class="memberInfo">
+		<div class="versionInfo">
+			
+
+			
+		</div>
+
+		
+
+		
+			<div class="description"><p>Whether or not the tunnel is currently starting up.</p></div>
+		
+
+		<!-- object property -->
+			
+		<!-- /object property -->
+
+		
+
+		<!-- function -->
+			
+
+			
+
+			
+
+			
+
+			
+			
+
+			
+			
+		<!-- /function -->
+
+		<!-- education -->
+			
+
+			
+
+			
+			
+		<!-- /education -->
+
+		
+			<div class="tag scalar tag-source">
+				<h4 class="name">Source</h4>
+				<div class="value">
+					<a href="Tunnel.js.html">Tunnel.js</a>,
+					<a href="Tunnel.js.html#line179">line 179</a>
+				</div>
+			</div>
+		
+	</div>
+</div>
+
+			
+				
+<div class="member kind-member" id="isStopping">
+	
+		<h3 class="memberName">
+			<span class="type-signature">(readonly) </span>isStopping:<span class="type-signature"> boolean</span>
+			
+		</h3>
+	
+
+	<div class="memberInfo">
+		<div class="versionInfo">
+			
+
+			
+		</div>
+
+		
+
+		
+			<div class="description"><p>Whether or not the tunnel is currently stopping.</p></div>
+		
+
+		<!-- object property -->
+			
+		<!-- /object property -->
+
+		
+
+		<!-- function -->
+			
+
+			
+
+			
+
+			
+
+			
+			
+
+			
+			
+		<!-- /function -->
+
+		<!-- education -->
+			
+
+			
+
+			
+			
+		<!-- /education -->
+
+		
+			<div class="tag scalar tag-source">
+				<h4 class="name">Source</h4>
+				<div class="value">
+					<a href="Tunnel.js.html">Tunnel.js</a>,
+					<a href="Tunnel.js.html#line187">line 187</a>
+				</div>
+			</div>
+		
+	</div>
+</div>
+
+			
+				
+<div class="member kind-member" id="pathname">
+	
+		<h3 class="memberName">
+			<span class="type-signature"></span>pathname:<span class="type-signature"> string</span>
+			
+		</h3>
+	
+
+	<div class="memberInfo">
+		<div class="versionInfo">
+			
+
+			
+		</div>
+
+		
+
+		
+			<div class="description"><p>The path that a WebDriver client should use to access the service provided by the tunnel.</p></div>
+		
+
+		<!-- object property -->
+			
+		<!-- /object property -->
+
+		
+			<div class="tag scalar tag-default">
+				<h4 class="name">Defaults to</h4>
+				<div class="value">
+					
+						<code>'/wd/hub/'</code>
+					
+				</div>
+			</div>
+		
+
+		<!-- function -->
+			
+
+			
+
+			
+
+			
+
+			
+			
+
+			
+			
+		<!-- /function -->
+
+		<!-- education -->
+			
+
+			
+
+			
+			
+		<!-- /education -->
+
+		
+			<div class="tag scalar tag-source">
+				<h4 class="name">Source</h4>
+				<div class="value">
+					<a href="Tunnel.js.html">Tunnel.js</a>,
+					<a href="Tunnel.js.html#line195">line 195</a>
+				</div>
+			</div>
+		
+	</div>
+</div>
+
+			
+				
+<div class="member kind-member" id="platform">
+	
+		<h3 class="memberName">
+			<span class="type-signature"></span>platform:<span class="type-signature"> string</span>
+			
+		</h3>
+	
+
+	<div class="memberInfo">
+		<div class="versionInfo">
+			
+
+			
+		</div>
+
+		
+
+		
+			<div class="description"><p>The operating system the tunnel will run on. This information is automatically retrieved for the current
+system at runtime.</p></div>
+		
+
+		<!-- object property -->
+			
+		<!-- /object property -->
+
+		
+
+		<!-- function -->
+			
+
+			
+
+			
+
+			
+
+			
+			
+
+			
+			
+		<!-- /function -->
+
+		<!-- education -->
+			
+
+			
+
+			
+			
+		<!-- /education -->
+
+		
+			<div class="tag scalar tag-source">
+				<h4 class="name">Source</h4>
+				<div class="value">
+					<a href="Tunnel.js.html">Tunnel.js</a>,
+					<a href="Tunnel.js.html#line203">line 203</a>
+				</div>
+			</div>
+		
+	</div>
+</div>
+
+			
+				
+<div class="member kind-member" id="port">
+	
+		<h3 class="memberName">
+			<span class="type-signature"></span>port:<span class="type-signature"> number</span>
+			
+		</h3>
+	
+
+	<div class="memberInfo">
+		<div class="versionInfo">
+			
+
+			
+		</div>
+
+		
+
+		
+			<div class="description"><p>The local port where the WebDriver server should be exposed by the tunnel.</p></div>
+		
+
+		<!-- object property -->
+			
+		<!-- /object property -->
+
+		
+			<div class="tag scalar tag-default">
+				<h4 class="name">Defaults to</h4>
+				<div class="value">
+					
+						<code>4444</code>
+					
+				</div>
+			</div>
+		
+
+		<!-- function -->
+			
+
+			
+
+			
+
+			
+
+			
+			
+
+			
+			
+		<!-- /function -->
+
+		<!-- education -->
+			
+
+			
+
+			
+			
+		<!-- /education -->
+
+		
+			<div class="tag scalar tag-source">
+				<h4 class="name">Source</h4>
+				<div class="value">
+					<a href="Tunnel.js.html">Tunnel.js</a>,
+					<a href="Tunnel.js.html#line211">line 211</a>
+				</div>
+			</div>
+		
+	</div>
+</div>
+
+			
+				
+<div class="member kind-member" id="protocol">
+	
+		<h3 class="memberName">
+			<span class="type-signature"></span>protocol:<span class="type-signature"> string</span>
+			
+		</h3>
+	
+
+	<div class="memberInfo">
+		<div class="versionInfo">
+			
+
+			
+		</div>
+
+		
+
+		
+			<div class="description"><p>The protocol (e.g., 'http') that a WebDriver client should use to access the service provided by the tunnel.</p></div>
+		
+
+		<!-- object property -->
+			
+		<!-- /object property -->
+
+		
+			<div class="tag scalar tag-default">
+				<h4 class="name">Defaults to</h4>
+				<div class="value">
+					
+						<code>'http'</code>
+					
+				</div>
+			</div>
+		
+
+		<!-- function -->
+			
+
+			
+
+			
+
+			
+
+			
+			
+
+			
+			
+		<!-- /function -->
+
+		<!-- education -->
+			
+
+			
+
+			
+			
+		<!-- /education -->
+
+		
+			<div class="tag scalar tag-source">
+				<h4 class="name">Source</h4>
+				<div class="value">
+					<a href="Tunnel.js.html">Tunnel.js</a>,
+					<a href="Tunnel.js.html#line219">line 219</a>
+				</div>
+			</div>
+		
+	</div>
+</div>
+
+			
+				
+<div class="member kind-member" id="proxy">
+	
+		<h3 class="memberName">
+			<span class="type-signature"></span>proxy:<span class="type-signature"> string</span>
+			
+		</h3>
+	
+
+	<div class="memberInfo">
+		<div class="versionInfo">
+			
+
+			
+		</div>
+
+		
+
+		
+			<div class="description"><p>The URL of a proxy server for the tunnel to go through. Only the hostname, port, and auth are used.</p></div>
+		
+
+		<!-- object property -->
+			
+		<!-- /object property -->
+
+		
+
+		<!-- function -->
+			
+
+			
+
+			
+
+			
+
+			
+			
+
+			
+			
+		<!-- /function -->
+
+		<!-- education -->
+			
+
+			
+
+			
+			
+		<!-- /education -->
+
+		
+			<div class="tag scalar tag-source">
+				<h4 class="name">Source</h4>
+				<div class="value">
+					<a href="Tunnel.js.html">Tunnel.js</a>,
+					<a href="Tunnel.js.html#line226">line 226</a>
+				</div>
+			</div>
+		
+	</div>
+</div>
+
+			
+				
+<div class="member kind-member" id="tunnelId">
+	
+		<h3 class="memberName">
+			<span class="type-signature"></span>tunnelId:<span class="type-signature"> string</span>
+			
+		</h3>
+	
+
+	<div class="memberInfo">
+		<div class="versionInfo">
+			
+
+			
+		</div>
+
+		
+
+		
+			<div class="description"><p>A unique identifier for the newly created tunnel.</p></div>
+		
+
+		<!-- object property -->
+			
+		<!-- /object property -->
+
+		
+
+		<!-- function -->
+			
+
+			
+
+			
+
+			
+
+			
+			
+
+			
+			
+		<!-- /function -->
+
+		<!-- education -->
+			
+
+			
+
+			
+			
+		<!-- /education -->
+
+		
+			<div class="tag scalar tag-source">
+				<h4 class="name">Source</h4>
+				<div class="value">
+					<a href="Tunnel.js.html">Tunnel.js</a>,
+					<a href="Tunnel.js.html#line233">line 233</a>
+				</div>
+			</div>
+		
+	</div>
+</div>
+
+			
+				
+<div class="member kind-member" id="url">
+	
+		<h3 class="memberName">
+			<span class="type-signature"></span>url:<span class="type-signature"> string</span>
+			
+		</h3>
+	
+
+	<div class="memberInfo">
+		<div class="versionInfo">
+			
+
+			
+		</div>
+
+		
+
+		
+			<div class="description"><p>The URL where the tunnel software can be downloaded.</p></div>
+		
+
+		<!-- object property -->
+			
+		<!-- /object property -->
+
+		
+
+		<!-- function -->
+			
+
+			
+
+			
+
+			
+
+			
+			
+
+			
+			
+		<!-- /function -->
+
+		<!-- education -->
+			
+
+			
+
+			
+			
+		<!-- /education -->
+
+		
+			<div class="tag scalar tag-source">
+				<h4 class="name">Source</h4>
+				<div class="value">
+					<a href="Tunnel.js.html">Tunnel.js</a>,
+					<a href="Tunnel.js.html#line240">line 240</a>
+				</div>
+			</div>
+		
+	</div>
+</div>
+
+			
+				
+<div class="member kind-member" id="verbose">
+	
+		<h3 class="memberName">
+			<span class="type-signature"></span>verbose:<span class="type-signature"> boolean</span>
+			
+		</h3>
+	
+
+	<div class="memberInfo">
+		<div class="versionInfo">
+			
+
+			
+		</div>
+
+		
+
+		
+			<div class="description"><p>Whether or not to tell the tunnel to provide verbose logging output.</p></div>
+		
+
+		<!-- object property -->
+			
+		<!-- /object property -->
+
+		
+			<div class="tag scalar tag-default">
+				<h4 class="name">Defaults to</h4>
+				<div class="value">
+					
+						<code>false</code>
+					
+				</div>
+			</div>
+		
+
+		<!-- function -->
+			
+
+			
+
+			
+
+			
+
+			
+			
+
+			
+			
+		<!-- /function -->
+
+		<!-- education -->
+			
+
+			
+
+			
+			
+		<!-- /education -->
+
+		
+			<div class="tag scalar tag-source">
+				<h4 class="name">Source</h4>
+				<div class="value">
+					<a href="Tunnel.js.html">Tunnel.js</a>,
+					<a href="Tunnel.js.html#line248">line 248</a>
+				</div>
+			</div>
+		
+	</div>
+</div>
+
+			
+		</div>
+	</div>
+
+
+
+	<div class="section methods" id="methods">
+		<h2 class="header">Methods</h2>
+		<div class="subsection">
+			
+				
+<div class="member kind-function" id="_makeArgs">
+	
+		<h3 class="memberName">
+			<span class="type-signature">(protected) </span>_makeArgs<span class="signature">():</span><span class="type-signature"> Array.&lt;string></span>
+			
+		</h3>
+	
+
+	<div class="memberInfo">
+		<div class="versionInfo">
+			
+
+			
+		</div>
+
+		
+
+		
+			<div class="description"><p>Creates the list of command-line arguments to be passed to the spawned tunnel. Implementations should
 override this method to provide the appropriate command-line arguments.</p>
-<p>Arguments passed to <a href="Tunnel.html#_makeChild">module:digdug/Tunnel#_makeChild</a> will be passed as-is to this method.</p>
-    </div>
-    
+<p>Arguments passed to <a href="Tunnel.html#_makeChild">digdug/Tunnel#_makeChild</a> will be passed as-is to this method.</p></div>
+		
 
-    
+		<!-- object property -->
+			
+		<!-- /object property -->
 
-    
+		
 
-    
+		<!-- function -->
+			
 
-    
-<dl class="details">
-    
+			
+				<div class="tag list tag-returns">
+					<h4 class="name">Returns</h4>
+					<ul class="value">
+						
+							<li><p>A list of command-line arguments.</p></li>
+						
+					</ul>
+				</div>
+			
 
-    
+			
 
-    
+			
 
-    
+			
+			
 
-    
+			
+			
+		<!-- /function -->
 
-    
+		<!-- education -->
+			
 
-    
+			
 
-    
+			
+			
+		<!-- /education -->
 
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line363">line 363</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    <p>A list of command-line arguments.</p>
+		
+			<div class="tag scalar tag-source">
+				<h4 class="name">Source</h4>
+				<div class="value">
+					<a href="Tunnel.js.html">Tunnel.js</a>,
+					<a href="Tunnel.js.html#line364">line 364</a>
+				</div>
+			</div>
+		
+	</div>
 </div>
 
+			
+				
+<div class="member kind-function" id="_makeChild">
+	
+		<h3 class="memberName">
+			<span class="type-signature">(protected) </span>_makeChild<span class="signature">():</span><span class="type-signature"> Object</span>
+			
+		</h3>
+	
 
+	<div class="memberInfo">
+		<div class="versionInfo">
+			
 
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Array.&lt;string></span>
+			
+		</div>
 
+		
 
-    </dd>
-</dl>
-
-        
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="_makeChild"><span class="type-signature">(protected) </span>_makeChild<span class="signature">()</span><span class="type-signature"> &rarr; {Object}</span></h4>
-
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Creates a newly spawned child process for the tunnel software. Implementations should call this method to
+		
+			<div class="description"><p>Creates a newly spawned child process for the tunnel software. Implementations should call this method to
 create the tunnel process.</p>
-<p>Arguments passed to this method will be passed as-is to <a href="Tunnel.html#_makeArgs">module:digdug/Tunnel#_makeArgs</a> and
-<a href="Tunnel.html#_makeOptions">module:digdug/Tunnel#_makeOptions</a>.</p>
-    </div>
-    
+<p>Arguments passed to this method will be passed as-is to <a href="Tunnel.html#_makeArgs">digdug/Tunnel#_makeArgs</a> and
+<a href="Tunnel.html#_makeOptions">digdug/Tunnel#_makeOptions</a>.</p></div>
+		
 
-    
+		<!-- object property -->
+			
+		<!-- /object property -->
 
-    
+		
 
-    
+		<!-- function -->
+			
 
-    
-<dl class="details">
-    
+			
+				<div class="tag list tag-returns">
+					<h4 class="name">Returns</h4>
+					<ul class="value">
+						
+							<li><p>An object containing a newly spawned Process and a Deferred that will be resolved once the tunnel has started
+successfully.</p></li>
+						
+					</ul>
+				</div>
+			
 
-    
+			
 
-    
+			
 
-    
+			
+			
 
-    
+			
+			
+		<!-- /function -->
 
-    
+		<!-- education -->
+			
 
-    
+			
 
-    
+			
+			
+		<!-- /education -->
 
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line379">line 379</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    <p>An object containing a newly spawned Process and a Deferred that will be resolved once the tunnel has started
-successfully.</p>
+		
+			<div class="tag scalar tag-source">
+				<h4 class="name">Source</h4>
+				<div class="value">
+					<a href="Tunnel.js.html">Tunnel.js</a>,
+					<a href="Tunnel.js.html#line380">line 380</a>
+				</div>
+			</div>
+		
+	</div>
 </div>
 
+			
+				
+<div class="member kind-function" id="_makeOptions">
+	
+		<h3 class="memberName">
+			<span class="type-signature">(protected) </span>_makeOptions<span class="signature">():</span><span class="type-signature"> Object</span>
+			
+		</h3>
+	
 
+	<div class="memberInfo">
+		<div class="versionInfo">
+			
 
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Object</span>
+			
+		</div>
 
+		
 
-    </dd>
-</dl>
-
-        
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="_makeOptions"><span class="type-signature">(protected) </span>_makeOptions<span class="signature">()</span><span class="type-signature"> &rarr; {Object}</span></h4>
-
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Creates the set of options to use when spawning the tunnel process. Implementations should override this
+		
+			<div class="description"><p>Creates the set of options to use when spawning the tunnel process. Implementations should override this
 method to provide the appropriate options for the tunnel software.</p>
-<p>Arguments passed to <a href="Tunnel.html#_makeChild">module:digdug/Tunnel#_makeChild</a> will be passed as-is to this method.</p>
-    </div>
-    
+<p>Arguments passed to <a href="Tunnel.html#_makeChild">digdug/Tunnel#_makeChild</a> will be passed as-is to this method.</p></div>
+		
 
-    
+		<!-- object property -->
+			
+		<!-- /object property -->
 
-    
+		
 
-    
+		<!-- function -->
+			
 
-    
-<dl class="details">
-    
+			
+				<div class="tag list tag-returns">
+					<h4 class="name">Returns</h4>
+					<ul class="value">
+						
+							<li><p>A set of options matching those provided to Node.js child_process.spawn.</p></li>
+						
+					</ul>
+				</div>
+			
 
-    
+			
 
-    
+			
 
-    
+			
+			
 
-    
+			
+			
+		<!-- /function -->
 
-    
+		<!-- education -->
+			
 
-    
+			
 
-    
+			
+			
+		<!-- /education -->
 
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line445">line 445</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    <p>A set of options matching those provided to Node.js module:child_process.spawn.</p>
+		
+			<div class="tag scalar tag-source">
+				<h4 class="name">Source</h4>
+				<div class="value">
+					<a href="Tunnel.js.html">Tunnel.js</a>,
+					<a href="Tunnel.js.html#line446">line 446</a>
+				</div>
+			</div>
+		
+	</div>
 </div>
 
+			
+				
+<div class="member kind-function" id="_start">
+	
+		<h3 class="memberName">
+			<span class="type-signature">(protected) </span>_start<span class="signature">():</span><span class="type-signature"> Object</span>
+			
+		</h3>
+	
 
+	<div class="memberInfo">
+		<div class="versionInfo">
+			
 
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Object</span>
+			
+		</div>
 
+		
 
-    </dd>
-</dl>
-
-        
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="_start"><span class="type-signature">(protected) </span>_start<span class="signature">()</span><span class="type-signature"> &rarr; {Object}</span></h4>
-
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>This method provides the implementation that actually starts the tunnel and any other logic for emitting
+		
+			<div class="description"><p>This method provides the implementation that actually starts the tunnel and any other logic for emitting
 events on the Tunnel based on data passed by the tunnel software.</p>
 <p>The default implementation that assumes the tunnel is ready for use once the child process has written to
 <code>stdout</code> or <code>stderr</code>. This method should be reimplemented by other tunnel launchers to implement correct
-launch detection logic.</p>
-    </div>
-    
+launch detection logic.</p></div>
+		
 
-    
+		<!-- object property -->
+			
+		<!-- /object property -->
 
-    
+		
 
-    
+		<!-- function -->
+			
 
-    
-<dl class="details">
-    
+			
+				<div class="tag list tag-returns">
+					<h4 class="name">Returns</h4>
+					<ul class="value">
+						
+							<li><p>An object containing a reference to the child process, and a Deferred that is resolved once the tunnel is
+ready for use. Normally this will be the object returned from a call to <code>Tunnel#_makeChild</code>.</p></li>
+						
+					</ul>
+				</div>
+			
 
-    
+			
 
-    
+			
 
-    
+			
+			
 
-    
+			
+			
+		<!-- /function -->
 
-    
+		<!-- education -->
+			
 
-    
+			
 
-    
+			
+			
+		<!-- /education -->
 
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line531">line 531</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    <p>An object containing a reference to the child process, and a Deferred that is resolved once the tunnel is
-ready for use. Normally this will be the object returned from a call to <code>Tunnel#_makeChild</code>.</p>
+		
+			<div class="tag scalar tag-source">
+				<h4 class="name">Source</h4>
+				<div class="value">
+					<a href="Tunnel.js.html">Tunnel.js</a>,
+					<a href="Tunnel.js.html#line532">line 532</a>
+				</div>
+			</div>
+		
+	</div>
 </div>
 
+			
+				
+<div class="member kind-function" id="_stop">
+	
+		<h3 class="memberName">
+			<span class="type-signature">(protected) </span>_stop<span class="signature">():</span><span class="type-signature"> Promise.&lt;void></span>
+			
+		</h3>
+	
 
+	<div class="memberInfo">
+		<div class="versionInfo">
+			
 
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Object</span>
+			
+		</div>
 
+		
 
-    </dd>
-</dl>
-
-        
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="_stop"><span class="type-signature">(protected) </span>_stop<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span></h4>
-
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>This method provides the implementation that actually stops the tunnel.</p>
+		
+			<div class="description"><p>This method provides the implementation that actually stops the tunnel.</p>
 <p>The default implementation that assumes the tunnel has been closed once the child process has exited. This
-method should be reimplemented by other tunnel launchers to implement correct shutdown logic, if necessary.</p>
-    </div>
-    
+method should be reimplemented by other tunnel launchers to implement correct shutdown logic, if necessary.</p></div>
+		
 
-    
+		<!-- object property -->
+			
+		<!-- /object property -->
 
-    
+		
 
-    
+		<!-- function -->
+			
 
-    
-<dl class="details">
-    
+			
+				<div class="tag list tag-returns">
+					<h4 class="name">Returns</h4>
+					<ul class="value">
+						
+							<li><p>A promise that resolves once the tunnel has shut down.</p></li>
+						
+					</ul>
+				</div>
+			
 
-    
+			
 
-    
+			
 
-    
+			
+			
 
-    
+			
+			
+		<!-- /function -->
 
-    
+		<!-- education -->
+			
 
-    
+			
 
-    
+			
+			
+		<!-- /education -->
 
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line594">line 594</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    <p>A promise that resolves once the tunnel has shut down.</p>
+		
+			<div class="tag scalar tag-source">
+				<h4 class="name">Source</h4>
+				<div class="value">
+					<a href="Tunnel.js.html">Tunnel.js</a>,
+					<a href="Tunnel.js.html#line595">line 595</a>
+				</div>
+			</div>
+		
+	</div>
 </div>
 
+			
+				
+<div class="member kind-function" id="download">
+	
+		<h3 class="memberName">
+			<span class="type-signature"></span>download<span class="signature">(forceDownload:<span class="type-signature"> boolean</span>):</span><span class="type-signature"> Promise.&lt;void></span>
+			
+		</h3>
+	
 
+	<div class="memberInfo">
+		<div class="versionInfo">
+			
 
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;void></span>
+			
+		</div>
 
+		
 
-    </dd>
-</dl>
-
-        
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="download"><span class="type-signature"></span>download<span class="signature">(forceDownload)</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span></h4>
-
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Downloads and extracts the tunnel software if it is not already downloaded.</p>
+		
+			<div class="description"><p>Downloads and extracts the tunnel software if it is not already downloaded.</p>
 <p>This method can be extended by implementations to perform any necessary post-processing, such as setting
-appropriate file permissions on the downloaded executable.</p>
-    </div>
-    
+appropriate file permissions on the downloaded executable.</p></div>
+		
 
-    
+		<!-- object property -->
+			
+		<!-- /object property -->
 
-    
+		
 
-    
-        <h5>Parameters:</h5>
-        
+		<!-- function -->
+			
+				<div class="tag table tag-parameters">
+					<h4 class="name">Parameters</h4>
+					
 
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
+<table class="parameters value">
+	<thead>
+		<tr>
+			<th class="name">Name</th>
+			<th class="type">Type</th>
+			
+			
+			<th class="table-description">Description</th>
+		</tr>
+	</thead>
+	<tbody>
+		
+			<tr>
+				
+					<td class="name"><code>forceDownload</code></td>
+				
 
-        <th>Type</th>
+				<td class="type">
+					
+						<span class="param-type">boolean</span>
+					
+				</td>
 
-        
+				
+				
 
-        
+				
 
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>forceDownload</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Force downloading the software even if it already has been downloaded.</p></td>
-        </tr>
-
-    
-    </tbody>
+				
+					<td class="table-description">
+						<p>Force downloading the software even if it already has been downloaded.</p>
+						
+					</td>
+				
+			</tr>
+		
+	</tbody>
 </table>
-    
 
-    
-<dl class="details">
-    
+				</div>
+			
 
-    
+			
+				<div class="tag list tag-returns">
+					<h4 class="name">Returns</h4>
+					<ul class="value">
+						
+							<li><p>A promise that resolves once the download and extraction process has completed.</p></li>
+						
+					</ul>
+				</div>
+			
 
-    
+			
 
-    
+			
 
-    
+			
+			
 
-    
+			
+			
+		<!-- /function -->
 
-    
+		<!-- education -->
+			
 
-    
+			
 
-    
+			
+			
+		<!-- /education -->
 
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line297">line 297</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    <p>A promise that resolves once the download and extraction process has completed.</p>
+		
+			<div class="tag scalar tag-source">
+				<h4 class="name">Source</h4>
+				<div class="value">
+					<a href="Tunnel.js.html">Tunnel.js</a>,
+					<a href="Tunnel.js.html#line298">line 298</a>
+				</div>
+			</div>
+		
+	</div>
 </div>
 
+			
+				
+<div class="member kind-function" id="sendJobState">
+	
+		<h3 class="memberName">
+			<span class="type-signature"></span>sendJobState<span class="signature">(jobId:<span class="type-signature"> string</span>, data:<span class="type-signature"> <a href="global.html#JobState">JobState</a></span>):</span><span class="type-signature"> Promise.&lt;void></span>
+			
+		</h3>
+	
 
+	<div class="memberInfo">
+		<div class="versionInfo">
+			
 
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;void></span>
+			
+		</div>
 
+		
 
-    </dd>
-</dl>
+		
+			<div class="description"><p>Sends information about a job to the tunnel provider.</p></div>
+		
 
-        
+		<!-- object property -->
+			
+		<!-- /object property -->
 
-    
-</dd>
+		
 
-        
-            
-<dt>
-    <h4 class="name" id="sendJobState"><span class="type-signature"></span>sendJobState<span class="signature">(jobId, data)</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span></h4>
+		<!-- function -->
+			
+				<div class="tag table tag-parameters">
+					<h4 class="name">Parameters</h4>
+					
 
-    
-</dt>
-<dd>
+<table class="parameters value">
+	<thead>
+		<tr>
+			<th class="name">Name</th>
+			<th class="type">Type</th>
+			
+			
+			<th class="table-description">Description</th>
+		</tr>
+	</thead>
+	<tbody>
+		
+			<tr>
+				
+					<td class="name"><code>jobId</code></td>
+				
 
-    
-    <div class="description">
-        <p>Sends information about a job to the tunnel provider.</p>
-    </div>
-    
+				<td class="type">
+					
+						<span class="param-type">string</span>
+					
+				</td>
 
-    
+				
+				
 
-    
+				
 
-    
-        <h5>Parameters:</h5>
-        
+				
+					<td class="table-description">
+						<p>The job to send data about. This is usually a session ID.</p>
+						
+					</td>
+				
+			</tr>
+		
+			<tr>
+				
+					<td class="name"><code>data</code></td>
+				
 
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
+				<td class="type">
+					
+						<span class="param-type"><a href="global.html#JobState">JobState</a></span>
+					
+				</td>
 
-        <th>Type</th>
+				
+				
 
-        
+				
 
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>jobId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The job to send data about. This is usually a session ID.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>data</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#JobState">JobState</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Data to send to the tunnel provider about the job.</p></td>
-        </tr>
-
-    
-    </tbody>
+				
+					<td class="table-description">
+						<p>Data to send to the tunnel provider about the job.</p>
+						
+					</td>
+				
+			</tr>
+		
+	</tbody>
 </table>
-    
 
-    
-<dl class="details">
-    
+				</div>
+			
 
-    
+			
+				<div class="tag list tag-returns">
+					<h4 class="name">Returns</h4>
+					<ul class="value">
+						
+							<li><p>A promise that resolves once the job state request is complete.</p></li>
+						
+					</ul>
+				</div>
+			
 
-    
+			
 
-    
+			
 
-    
+			
+			
 
-    
+			
+			
+		<!-- /function -->
 
-    
+		<!-- education -->
+			
 
-    
+			
 
-    
+			
+			
+		<!-- /education -->
 
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line459">line 459</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    <p>A promise that resolves once the job state request is complete.</p>
+		
+			<div class="tag scalar tag-source">
+				<h4 class="name">Source</h4>
+				<div class="value">
+					<a href="Tunnel.js.html">Tunnel.js</a>,
+					<a href="Tunnel.js.html#line460">line 460</a>
+				</div>
+			</div>
+		
+	</div>
 </div>
 
+			
+				
+<div class="member kind-function" id="start">
+	
+		<h3 class="memberName">
+			<span class="type-signature"></span>start<span class="signature">():</span><span class="type-signature"> Promise.&lt;void></span>
+			
+		</h3>
+	
 
+	<div class="memberInfo">
+		<div class="versionInfo">
+			
 
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;void></span>
+			
+		</div>
 
+		
 
-    </dd>
-</dl>
+		
+			<div class="description"><p>Starts the tunnel, automatically downloading dependencies if necessary.</p></div>
+		
 
-        
+		<!-- object property -->
+			
+		<!-- /object property -->
 
-    
-</dd>
+		
 
-        
-            
-<dt>
-    <h4 class="name" id="start"><span class="type-signature"></span>start<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span></h4>
+		<!-- function -->
+			
 
-    
-</dt>
-<dd>
+			
+				<div class="tag list tag-returns">
+					<h4 class="name">Returns</h4>
+					<ul class="value">
+						
+							<li><p>A promise that resolves once the tunnel has been established.</p></li>
+						
+					</ul>
+				</div>
+			
 
-    
-    <div class="description">
-        <p>Starts the tunnel, automatically downloading dependencies if necessary.</p>
-    </div>
-    
+			
 
-    
+			
 
-    
+			
+			
 
-    
+			
+			
+		<!-- /function -->
 
-    
-<dl class="details">
-    
+		<!-- education -->
+			
 
-    
+			
 
-    
+			
+			
+		<!-- /education -->
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line470">line 470</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    <p>A promise that resolves once the tunnel has been established.</p>
+		
+			<div class="tag scalar tag-source">
+				<h4 class="name">Source</h4>
+				<div class="value">
+					<a href="Tunnel.js.html">Tunnel.js</a>,
+					<a href="Tunnel.js.html#line471">line 471</a>
+				</div>
+			</div>
+		
+	</div>
 </div>
 
+			
+				
+<div class="member kind-function" id="stop">
+	
+		<h3 class="memberName">
+			<span class="type-signature"></span>stop<span class="signature">():</span><span class="type-signature"> Promise.&lt;integer></span>
+			
+		</h3>
+	
 
+	<div class="memberInfo">
+		<div class="versionInfo">
+			
 
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;void></span>
+			
+		</div>
 
+		
 
-    </dd>
-</dl>
+		
+			<div class="description"><p>Stops the tunnel.</p></div>
+		
 
-        
+		<!-- object property -->
+			
+		<!-- /object property -->
 
-    
-</dd>
+		
 
-        
-            
-<dt>
-    <h4 class="name" id="stop"><span class="type-signature"></span>stop<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;integer>}</span></h4>
+		<!-- function -->
+			
 
-    
-</dt>
-<dd>
+			
+				<div class="tag list tag-returns">
+					<h4 class="name">Returns</h4>
+					<ul class="value">
+						
+							<li><p>A promise that resolves to the exit code for the tunnel once it has been terminated.</p></li>
+						
+					</ul>
+				</div>
+			
 
-    
-    <div class="description">
-        <p>Stops the tunnel.</p>
-    </div>
-    
+			
 
-    
+			
 
-    
+			
+			
 
-    
+			
+			
+		<!-- /function -->
 
-    
-<dl class="details">
-    
+		<!-- education -->
+			
 
-    
+			
 
-    
+			
+			
+		<!-- /education -->
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line558">line 558</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    <p>A promise that resolves to the exit code for the tunnel once it has been terminated.</p>
+		
+			<div class="tag scalar tag-source">
+				<h4 class="name">Source</h4>
+				<div class="value">
+					<a href="Tunnel.js.html">Tunnel.js</a>,
+					<a href="Tunnel.js.html#line559">line 559</a>
+				</div>
+			</div>
+		
+	</div>
 </div>
 
+			
+		</div>
+	</div>
 
 
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;integer></span>
 
+	<div class="section events" id="events">
+		<h2 class="header">Events</h2>
+		<div class="subsection">
+			
+				
+<div class="member kind-event" id="event:downloadprogress">
+	
+		<h3 class="memberName">
+			downloadprogress:
+			
+				<span class="param-type">Object</span>
+			
+		</h3>
+	
 
-    </dd>
-</dl>
+	<div class="memberInfo">
+		<div class="versionInfo">
+			
 
-        
+			
+		</div>
 
-    
-</dd>
+		
 
-        
-            
-<dt>
-    <h4 class="name" id="clearHandles"><span class="type-signature">(inner) </span>clearHandles<span class="signature">(handles)</span><span class="type-signature"></span></h4>
+		
+			<div class="description"><p>Part of the tunnel has been downloaded from the server.</p></div>
+		
 
-    
-</dt>
-<dd>
+		<!-- object property -->
+			
+				<div class="tag table tag-properties">
+					<h4 class="name">Properties</h4>
+					
 
-    
-    <div class="description">
-        <p>Clears an array of remover handles.</p>
-    </div>
-    
+<table class="properties value">
+	<thead>
+		<tr>
+			<th class="name">Name</th>
+			<th class="type">Type</th>
+			
+			
+			<th class="table-description">Description</th>
+		</tr>
+	</thead>
+	<tbody>
+		
+			<tr>
+				
+					<td class="name"><code>received</code></td>
+				
 
-    
+				<td class="type">
+					
+						<span class="param-type">number</span>
+					
+				</td>
 
-    
+				
+				
 
-    
-        <h5>Parameters:</h5>
-        
+				
 
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
+				
+					<td class="table-description">
+						<p>The number of bytes received so far.</p>
+						
+					</td>
+				
+			</tr>
+		
+			<tr>
+				
+					<td class="name"><code>total</code></td>
+				
 
-        <th>Type</th>
+				<td class="type">
+					
+						<span class="param-type">number</span>
+					
+				</td>
 
-        
+				
+				
 
-        
+				
 
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>handles</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;Handle></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
+				
+					<td class="table-description">
+						<p>The total number of bytes to download.</p>
+						
+					</td>
+				
+			</tr>
+		
+	</tbody>
 </table>
-    
 
-    
-<dl class="details">
-    
+				</div>
+			
+		<!-- /object property -->
 
-    
+		
 
-    
+		<!-- function -->
+			
 
-    
+			
 
-    
+			
 
-    
+			
 
-    
+			
+			
 
-    
+			
+			
+		<!-- /function -->
 
-    
+		<!-- education -->
+			
 
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line23">line 23</a>
-    </li></ul></dd>
-    
+			
 
-    
+			
+			
+		<!-- /education -->
 
-    
-
-    
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="get"><span class="type-signature">(inner) </span>get<span class="signature">(url)</span><span class="type-signature"> &rarr; {Promise.&lt;module:http.IncomingMessage>}</span></h4>
-
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Performs a GET request to a remote server.</p>
-    </div>
-    
-
-    
-
-    
-
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>url</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The target URL.</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-    
-
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line36">line 36</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    <p>A promise that resolves to the response object for the request.</p>
+		
+			<div class="tag scalar tag-source">
+				<h4 class="name">Source</h4>
+				<div class="value">
+					<a href="Tunnel.js.html">Tunnel.js</a>,
+					<a href="Tunnel.js.html#line93">line 93</a>
+				</div>
+			</div>
+		
+	</div>
 </div>
 
+			
+				
+<div class="member kind-event" id="event:status">
+	
+		<h3 class="memberName">
+			status:
+			
+				<span class="param-type">string</span>
+			
+		</h3>
+	
 
+	<div class="memberInfo">
+		<div class="versionInfo">
+			
 
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;module:http.IncomingMessage></span>
+			
+		</div>
 
+		
 
-    </dd>
-</dl>
+		
+			<div class="description"><p>Information about the status of the tunnel setup process that is suitable for presentation to end-users.</p></div>
+		
 
-        
+		<!-- object property -->
+			
+		<!-- /object property -->
 
-    
-</dd>
+		
 
-        
-            
-<dt>
-    <h4 class="name" id="proxyEvent"><span class="type-signature">(inner) </span>proxyEvent<span class="signature">(target, type)</span><span class="type-signature"> &rarr; {function}</span></h4>
+		<!-- function -->
+			
 
-    
-</dt>
-<dd>
+			
 
-    
-    <div class="description">
-        <p>Creates a new function that emits an event of type <code>type</code> on <code>target</code> every time the returned function is called.</p>
-    </div>
-    
+			
 
-    
+			
 
-    
+			
+			
 
-    
-        <h5>Parameters:</h5>
-        
+			
+			
+		<!-- /function -->
 
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
+		<!-- education -->
+			
 
-        <th>Type</th>
+			
 
-        
+			
+			
+		<!-- /education -->
 
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>target</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">module:dojo/Evented</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>A target event emitter.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>type</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The type of event to emit.</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-    
-
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line68">line 68</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    <p>The function to call to trigger an event.</p>
+		
+			<div class="tag scalar tag-source">
+				<h4 class="name">Source</h4>
+				<div class="value">
+					<a href="Tunnel.js.html">Tunnel.js</a>,
+					<a href="Tunnel.js.html#line116">line 116</a>
+				</div>
+			</div>
+		
+	</div>
 </div>
 
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">function</span>
-
-
-    </dd>
-</dl>
-
-        
-
-    
-</dd>
-
-        </dl>
-    
-
-    
-
-    
-        <h3 class="subsection-title">Events</h3>
-
-        <dl>
-            
-<dt>
-    <h4 class="name" id="event:downloadprogress">downloadprogress</h4>
-
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Part of the tunnel has been downloaded from the server.</p>
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">Object</span>
-
-
-            </li>
-        </ul>
-    
-
-    
-
-    
-
-    
-<dl class="details">
-    
-
-        <h5 class="subsection-title">Properties:</h5>
-
-        <dl>
-
-<table class="props">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>received</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The number of bytes received so far.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>total</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The total number of bytes to download.</p></td>
-        </tr>
-
-    
-    </tbody>
-</table></dl>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line90">line 90</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="event:status">status</h4>
-
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Information about the status of the tunnel setup process that is suitable for presentation to end-users.</p>
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">string</span>
-
-
-            </li>
-        </ul>
-    
-
-    
-
-    
-
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line113">line 113</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="event:stderr">stderr</h4>
-
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>A chunk of raw string data output by the tunnel software to stderr.</p>
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">string</span>
-
-
-            </li>
-        </ul>
-    
-
-    
-
-    
-
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line106">line 106</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="event:stdout">stdout</h4>
-
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>A chunk of raw string data output by the tunnel software to stdout.</p>
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">string</span>
-
-
-            </li>
-        </ul>
-    
-
-    
-
-    
-
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Tunnel.js.html">Tunnel.js</a>, <a href="Tunnel.js.html#line99">line 99</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-        </dl>
-    
-</article>
-
-</section>
-
-
-
-
+			
+				
+<div class="member kind-event" id="event:stderr">
+	
+		<h3 class="memberName">
+			stderr:
+			
+				<span class="param-type">string</span>
+			
+		</h3>
+	
+
+	<div class="memberInfo">
+		<div class="versionInfo">
+			
+
+			
+		</div>
+
+		
+
+		
+			<div class="description"><p>A chunk of raw string data output by the tunnel software to stderr.</p></div>
+		
+
+		<!-- object property -->
+			
+		<!-- /object property -->
+
+		
+
+		<!-- function -->
+			
+
+			
+
+			
+
+			
+
+			
+			
+
+			
+			
+		<!-- /function -->
+
+		<!-- education -->
+			
+
+			
+
+			
+			
+		<!-- /education -->
+
+		
+			<div class="tag scalar tag-source">
+				<h4 class="name">Source</h4>
+				<div class="value">
+					<a href="Tunnel.js.html">Tunnel.js</a>,
+					<a href="Tunnel.js.html#line109">line 109</a>
+				</div>
+			</div>
+		
+	</div>
 </div>
 
-<nav>
-    <h2><a href="index.html">Index</a></h2><h3>Modules</h3><ul><li><a href="BrowserStackTunnel.html">digdug/BrowserStackTunnel</a></li><li><a href="NullTunnel.html">digdug/NullTunnel</a></li><li><a href="SauceLabsTunnel.html">digdug/SauceLabsTunnel</a></li><li><a href="TestingBotTunnel.html">digdug/TestingBotTunnel</a></li><li><a href="Tunnel.html">digdug/Tunnel</a></li></ul><h3>Events</h3><ul><li><a href="BrowserStackTunnel.html#event:downloadprogress">downloadprogress</a></li><li><a href="BrowserStackTunnel.html#event:status">status</a></li><li><a href="BrowserStackTunnel.html#event:stderr">stderr</a></li><li><a href="BrowserStackTunnel.html#event:stdout">stdout</a></li><li><a href="NullTunnel.html#event:downloadprogress">downloadprogress</a></li><li><a href="NullTunnel.html#event:status">status</a></li><li><a href="NullTunnel.html#event:stderr">stderr</a></li><li><a href="NullTunnel.html#event:stdout">stdout</a></li><li><a href="SauceLabsTunnel.html#event:downloadprogress">downloadprogress</a></li><li><a href="SauceLabsTunnel.html#event:status">status</a></li><li><a href="SauceLabsTunnel.html#event:stderr">stderr</a></li><li><a href="SauceLabsTunnel.html#event:stdout">stdout</a></li><li><a href="TestingBotTunnel.html#event:downloadprogress">downloadprogress</a></li><li><a href="TestingBotTunnel.html#event:status">status</a></li><li><a href="TestingBotTunnel.html#event:stderr">stderr</a></li><li><a href="TestingBotTunnel.html#event:stdout">stdout</a></li><li><a href="Tunnel.html#event:downloadprogress">downloadprogress</a></li><li><a href="Tunnel.html#event:status">status</a></li><li><a href="Tunnel.html#event:stderr">stderr</a></li><li><a href="Tunnel.html#event:stdout">stdout</a></li></ul><h3><a href="global.html">Global</a></h3>
-</nav>
+			
+				
+<div class="member kind-event" id="event:stdout">
+	
+		<h3 class="memberName">
+			stdout:
+			
+				<span class="param-type">string</span>
+			
+		</h3>
+	
 
-<br clear="both">
+	<div class="memberInfo">
+		<div class="versionInfo">
+			
 
-<footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha8</a> on Fri Jun 27 2014 16:09:35 GMT-0400 (EDT)
-</footer>
+			
+		</div>
 
-<script> prettyPrint(); </script>
-<script src="scripts/linenumber.js"> </script>
+		
+
+		
+			<div class="description"><p>A chunk of raw string data output by the tunnel software to stdout.</p></div>
+		
+
+		<!-- object property -->
+			
+		<!-- /object property -->
+
+		
+
+		<!-- function -->
+			
+
+			
+
+			
+
+			
+
+			
+			
+
+			
+			
+		<!-- /function -->
+
+		<!-- education -->
+			
+
+			
+
+			
+			
+		<!-- /education -->
+
+		
+			<div class="tag scalar tag-source">
+				<h4 class="name">Source</h4>
+				<div class="value">
+					<a href="Tunnel.js.html">Tunnel.js</a>,
+					<a href="Tunnel.js.html#line102">line 102</a>
+				</div>
+			</div>
+		
+	</div>
+</div>
+
+			
+		</div>
+	</div>
+
+
+
+
+
+
+ 
+</main>
+
+
+	<script src="scripts/prettify/prettify.js"></script>
+	<script src="scripts/prettify/lang-css.js"></script>
+	<script>prettyPrint();</script>
+	<script src="scripts/nav.js"></script>
 </body>
 </html>
