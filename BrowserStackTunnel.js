@@ -59,7 +59,7 @@ BrowserStackTunnel.prototype = util.mixin(Object.create(_super), /** @lends modu
 
 	/**
 	 * A list of server URLs that should be proxied by the tunnel. Only the hostname, port, and protocol are used.
-	 * Each private or local server, which should be accessed by BrowserStack, needs to be listed here explicitely.
+	 * Each private or local server, which should be accessed by BrowserStack, needs to be listed here explicitly.
 	 *
 	 * @type {string[]}
 	 */
