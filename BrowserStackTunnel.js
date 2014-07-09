@@ -91,12 +91,13 @@ BrowserStackTunnel.prototype = util.mixin(Object.create(_super), /** @lends modu
 	},
 
 	get extraCapabilities() {
-		var capabilities = {
-			'browserstack.local': 'true'
-		};
+		var capabilities = {};
 
-		if (this.tunnelId) {
-			capabilities['browserstack.localIdentifier'] = this.tunnelId;
+		if (this.servers.length > 0) {
+			capabilities['browserstack.local'] = 'true';
+			if (this.tunnelId) {
+				capabilities['browserstack.localIdentifier'] = this.tunnelId;
+			}
 		}
 
 		return capabilities;
@@ -190,6 +191,11 @@ BrowserStackTunnel.prototype = util.mixin(Object.create(_super), /** @lends modu
 	},
 
 	_start: function () {
+		if (this.servers.length === 0) {
+			// ignore verifying BrowserStackLocal executable, because at least one server needs to be provided
+			return Tunnel.prototype._start.apply(this);
+		}
+
 		var child = this._makeChild();
 		var childProcess = child.process;
 		var dfd = child.deferred;
