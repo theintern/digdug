@@ -284,7 +284,7 @@ SauceLabsTunnel.prototype = util.mixin(Object.create(_super), /** @lends module:
 		this.skipSslDomains.length && args.push('-B', this.skipSslDomains.join(','));
 		this.tunnelId && args.push('-i', this.tunnelId);
 		this.useProxyForTunnel && args.push('-T');
-		this.verbose && args.push('-d');
+		this.verbose && args.push('-v');
 
 		return args;
 	},
