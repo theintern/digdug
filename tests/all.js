@@ -176,7 +176,10 @@ define([
 				},
 
 				'#extraCapabilities': function () {
-					var capabilities = { 'browserstack.local': 'true' };
+					var capabilities = {};
+					assert.deepEqual(tunnel.extraCapabilities, capabilities);
+					capabilities['browserstack.local'] = 'true';
+					tunnel.servers = ['http://localhost:9000'];
 					assert.deepEqual(tunnel.extraCapabilities, capabilities);
 					capabilities['browserstack.localIdentifier'] = tunnel.tunnelId = 'foo';
 					assert.deepEqual(tunnel.extraCapabilities, capabilities);
