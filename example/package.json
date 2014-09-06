@@ -1,0 +1,11 @@
+{
+	"name": "example-digdug",
+	"private": true,
+	"version": "0.0.1",
+	"main": "./index.js",
+	"dependencies": {
+		"digdug": "^1.0.0",
+		"dojo": "^2.0.0-alpha1",
+		"rimraf": "^2.2.8"
+	}
+}
