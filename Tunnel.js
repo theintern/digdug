@@ -4,9 +4,8 @@
 
 var decompress = require('decompress');
 var Evented = require('dojo/Evented');
+var requestUtil = require('dojo/request');
 var fs = require('fs');
-var http = require('http');
-var https = require('https');
 var pathUtil = require('path');
 var Promise = require('dojo/Promise');
 var spawnUtil = require('child_process');
@@ -26,38 +25,6 @@ function clearHandles(handles) {
 	while ((handle = handles.pop())) {
 		handle.remove();
 	}
-}
-
-/**
- * Performs a GET request to a remote server.
- *
- * @param {string} url The target URL.
- * @returns {Promise.<module:http.IncomingMessage>} A promise that resolves to the response object for the request.
- * @private
- */
-function get(url) {
-	url = urlUtil.parse(url);
-	url.method = 'GET';
-
-	var dfd = new Promise.Deferred(function () {
-		request && request.abort();
-		request = null;
-	});
-
-	// TODO: This is not a great way of capturing async stack traces, but this pattern is used in several areas;
-	// can we do it better?
-	var capture = {};
-	Error.captureStackTrace(capture);
-
-	var request = (url.protocol === 'https:' ? https : http).request(url);
-	request.once('response', dfd.resolve.bind(dfd));
-	request.once('error', function (error) {
-		error.stack = error.stack + capture.stack.replace(/^[^\n]+/, '');
-		dfd.reject(error);
-	});
-	request.end();
-
-	return dfd.promise;
 }
 
 /**
@@ -296,58 +263,29 @@ Tunnel.prototype = util.mixin(Object.create(_super), /** @lends module:digdug/Tu
 	 * @returns {Promise.<void>} A promise that resolves once the download and extraction process has completed.
 	 */
 	download: function (forceDownload) {
+		var directory = this.directory;
 		var dfd = new Promise.Deferred(function (reason) {
 			request && request.cancel(reason);
-			request = null;
 		});
+		var targetStream = decompress({ ext: this.url, path: directory });
+		var options = {
+			streamData: true,
+			streamTarget: targetStream,
+			proxy: this.proxy
+		};
+		var request;
 
 		if (!forceDownload && this.isDownloaded) {
-			dfd.resolve();
+			dfd.resolve(directory);
 			return dfd.promise;
 		}
 
-		var target = this.directory;
-		var request;
-		function download(url) {
-			request = get(url);
-			request.then(function (response) {
-				if (response.statusCode === 200) {
-					var receivedLength = 0;
-					var totalLength = +response.headers['content-length'] || Infinity;
-					var decompressor = decompress({ ext: url, path: target });
+		request = requestUtil(this.url, options);
+		request.then(undefined, dfd.reject.bind(dfd), dfd.progress.bind(dfd));
 
-					response.pipe(decompressor);
-
-					response.on('data', function (data) {
-						receivedLength += data.length;
-						dfd.progress({ received: receivedLength, total: totalLength });
-					});
-
-					decompressor.on('close', function () {
-						dfd.resolve();
-					});
-				}
-				else if (response.statusCode >= 300 && response.statusCode < 400 && response.headers.location) {
-					download(response.headers.location);
-				}
-				else {
-					var responseData = '';
-					response.on('data', function (data) {
-						responseData += data.toString('utf8');
-					});
-
-					response.on('end', function () {
-						var error = new Error('Server error: [' + response.statusCode + '] ' + (responseData || ''));
-						dfd.reject(error);
-					});
-				}
-			},
-			function (error) {
-				dfd.reject(error);
-			});
-		}
-
-		download(this.url);
+		targetStream.on('close', function () {
+			dfd.resolve(directory);
+		});
 
 		return dfd.promise;
 	},
