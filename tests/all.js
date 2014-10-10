@@ -92,6 +92,28 @@ define([
 					});
 				},
 
+				// Normally only public interfaces should be tested, but #_makeArgs() is deep into #start()
+				'#_makeArgs': function () {
+					tunnel.directDomains.push('directDomain.com');
+					tunnel.tunnelDomains.push('tunnelDomain.com');
+					tunnel.fastFailDomains.push('fastFailDomain.com');
+					tunnel.isSharedTunnel = true;
+					tunnel.logFile = '/tmp/log.file';
+					tunnel.skipSslDomains.push('skipSslDomain.com');
+					tunnel.tunnelId = 'UUID';
+					tunnel.useProxyForTunnel = true;
+
+					var args = tunnel._makeArgs().join(' ');
+					assert.include(args, '-D directDomain.com');
+					assert.include(args, '-t tunnelDomain.com');
+					assert.include(args, '-F fastFailDomain.com');
+					assert.include(args, '-s');
+					assert.include(args, '-l /tmp/log.file');
+					assert.include(args, '-B skipSslDomain.com');
+					assert.include(args, '-i UUID');
+					assert.include(args, '-T');
+				},
+
 				'#auth': function () {
 					tunnel.username = 'foo';
 					tunnel.accessKey = 'bar';
