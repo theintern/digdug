@@ -73,6 +73,14 @@ BrowserStackTunnel.prototype = util.mixin(Object.create(_super), /** @lends modu
 	skipServerValidation: true,
 
 	/**
+	 * Route all traffic via local machine.
+	 *
+	 * @type {boolean}
+	 * @default
+	 */
+	forceLocal: false,
+
+	/**
 	 * The BrowserStack username. This will be initialized with the value of the `BROWSERSTACK_USERNAME`
 	 * environment variable.
 	 *
@@ -143,6 +151,7 @@ BrowserStackTunnel.prototype = util.mixin(Object.create(_super), /** @lends modu
 		this.skipServerValidation && args.push('-skipCheck');
 		this.tunnelId && args.push('-localIdentifier', this.tunnelId);
 		this.verbose && args.push('-v');
+		this.forceLocal && args.push('-forcelocal');
 
 		if (this.proxy) {
 			var proxy = urlUtil.parse(this.proxy);
