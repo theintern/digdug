@@ -11,7 +11,7 @@ var Tunnel = require('./Tunnel');
 var urlUtil = require('url');
 var util = require('./util');
 
-var SC_VERSION = '4.3';
+var SC_VERSION = '4.3.13';
 
 /**
  * A Sauce Labs tunnel. This tunnel uses Sauce Connect 4 on platforms where it is supported, and Sauce Connect 3
@@ -287,7 +287,7 @@ SauceLabsTunnel.prototype = util.mixin(Object.create(_super), /** @lends module:
 
 		this.logFileSize && args.push('-g', this.logFileSize);
 		this.squidOptions && args.push('-S', this.squidOptions);
-		this.vmVersion && args.push('-V', this.vmVersion);
+		this.vmVersion && args.push('--vm-version', this.vmVersion);
 		this.restUrl && args.push('-x', this.restUrl);
 		this.verbose && args.push('-d');
 		this.directDomains.length && args.push('-D', this.directDomains.join(','));
