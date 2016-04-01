@@ -47,6 +47,14 @@ BrowserStackTunnel.prototype = util.mixin(Object.create(_super), /** @lends modu
 
 	directory: pathUtil.join(__dirname, 'browserstack'),
 
+	/**
+	 * If true, all traffic will be routed through the local machine.
+	 *
+	 * @type {boolean}
+	 * @default
+	 */
+	forceLocal: false,
+
 	hostname: 'hub.browserstack.com',
 
 	/**
@@ -140,6 +148,7 @@ BrowserStackTunnel.prototype = util.mixin(Object.create(_super), /** @lends modu
 
 		this.automateOnly && args.push('-onlyAutomate');
 		this.killOtherTunnels && args.push('-force');
+		this.forceLocal && args.push('-forcelocal');
 		this.skipServerValidation && args.push('-skipCheck');
 		this.tunnelId && args.push('-localIdentifier', this.tunnelId);
 		this.verbose && args.push('-v');
