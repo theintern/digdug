@@ -94,6 +94,8 @@ BrowserStackTunnel.prototype = util.mixin(Object.create(_super), /** @lends modu
 	 */
 	username: null,
 
+	getEnvironmentUrl: 'https://www.browserstack.com/automate/browsers.json',
+
 	get auth() {
 		return this.username + ':' + this.accessKey;
 	},

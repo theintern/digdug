@@ -99,6 +99,8 @@ TestingBotTunnel.prototype = util.mixin(Object.create(_super), /** @lends module
 	 */
 	useSsl: false,
 
+	getEnvironmentUrl: 'https://api.testingbot.com/v1/browsers',
+
 	get auth() {
 		return this.apiKey + ':' + this.apiSecret;
 	},

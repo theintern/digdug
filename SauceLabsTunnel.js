@@ -163,6 +163,8 @@ SauceLabsTunnel.prototype = util.mixin(Object.create(_super), /** @lends module:
 	 */
 	vmVersion: null,
 
+	getEnvironmentUrl: 'https://saucelabs.com/rest/v1/info/platforms/webdriver',
+
 	get auth() {
 		return this.username + ':' + this.accessKey;
 	},

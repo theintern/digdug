@@ -11,6 +11,7 @@ var sendRequest = require('dojo/request');
 var spawnUtil = require('child_process');
 var urlUtil = require('url');
 var util = require('./util');
+var request = require('dojo/request');
 
 // TODO: Spawned processes are not getting cleaned up if there is a crash
 
@@ -566,6 +567,145 @@ Tunnel.prototype = util.mixin(Object.create(_super), /** @lends module:digdug/Tu
 		childProcess.kill('SIGINT');
 
 		return dfd.promise;
+	},
+
+	/**
+	 * Get a list of environments available on the service
+	 */
+	getEnvironments: function () {
+		return request(this.getEnvironmentUrl, {
+			password: this.accessKey,
+			user: this.username,
+			proxy: this.proxy
+		}).then(function (response) {
+			if (response.statusCode >= 200 && response.statusCode < 400) {
+				return JSON.parse(response.data.toString());
+			}
+			else {
+				throw new Error('Server replied with a status of ' + response.statusCode);
+			}
+		});
+	},
+
+	/**
+	 * @param browser the browser name to filter by
+	 *
+	 * @return {Promise<U>} a list of unique, numeric versions filtered by browser
+	 */
+	getVersions: function (browser) {
+		function reduceVersions(list, environment) {
+			var version = environment.browser_version || environment.version || environment.short_version;
+
+			if (!isNaN(Number(version)) &&
+				this._matchEnvironment(environment, browser) &&
+				!versionSet.hasOwnProperty(version)) {
+				versionSet[version] = environment;
+				list.push(version);
+			}
+			return list;
+		}
+
+		var versionSet = {};
+
+		return this.getEnvironments()
+			.then(function (environments) {
+				return environments
+					.reduce(reduceVersions.bind(this), [])
+					.sort(this._compareVersionStrings);
+			}.bind(this));
+	},
+
+	_matchEnvironment: function (environment, browser) {
+		var normalizedBrowser = (environment.browser || environment.name || environment.api_name).toLowerCase();
+
+		return browser.toLowerCase() === normalizedBrowser;
+	},
+
+	/**
+	 * Take a version string which may contain a range or version aliases and returns a list of individual versions
+	 * for use with the tunnel service
+	 *
+	 * Supported version types and ranges:
+	 *
+	 * single version: 9
+	 * ranged version: 9..11
+	 * latest keyword: latest
+	 * previous keyword: previous
+	 * ranged version with alias: 9..latest
+	 * mathed version alias: latest-2
+	 * ranged mathed version alias: latest-2...latest
+	 *
+	 * @param versions a version string
+	 * @param browser {string} the name of the target browser
+	 * @param platform {string} [undefined] An optional platform target
+	 * @return {Array<string>} a list of individual version numbers for the specific target
+	 */
+	parseVersions: function (versions, browser) {
+		function splitVersions(versions) {
+			versions = versions.split('..').map(function (version) {
+				return version.trim();
+			});
+
+			if (versions.length > 2) {
+				throw new Error('Invalid version syntax');
+			}
+
+			return versions;
+		}
+
+		function expandVersionRange(left, right, availableVersions) {
+			left = parseInt(left, 10);
+			right = parseInt(right, 10);
+			return availableVersions.filter(function (version) {
+				version = parseInt(version, 10);
+
+				return !isNaN(version) && version >= left && version <= right;
+			});
+		}
+
+		if (!isNaN(Number(versions))) {
+			// avoid making an API service call for single version numbers
+			return Promise.resolve([ versions ]);
+		}
+
+		var self = this;
+		return this.getVersions(browser)
+			.then(function (availableVersions) {
+				versions = splitVersions(versions)
+					.map(self._resolveVersionAlias.bind(self, availableVersions))
+					.sort(self._compareVersionStrings);
+
+				if (versions.length === 2) {
+					versions = expandVersionRange(versions[0], versions[1], availableVersions);
+				}
+
+				return versions;
+			});
+	},
+
+	_resolveVersionAlias: function (versions, version) {
+		var pieces = version.split('-').map(function (version) {
+			return version.trim();
+		});
+
+		if (pieces[0] !== 'previous' && pieces[0] !== 'latest') {
+			return version;
+		}
+
+		var offset = pieces[0] === 'previous' ? 2 : 1;
+
+		if (pieces.length === 2) {
+			offset += Number(pieces[1]);
+		}
+
+		if (offset > versions.length) {
+			throw new Error(version + ' is out of bounds. Only ' + versions.length + ' available');
+		}
+		return versions[versions.length - offset];
+	},
+
+	_compareVersionStrings: function (a, b) {
+		return parseFloat(a) - parseFloat(b);
 	}
 });
 
