@@ -218,6 +218,23 @@ TestingBotTunnel.prototype = util.mixin(Object.create(_super), /** @lends module
 		);
 
 		return child;
+	},
+
+	/**
+	 * Get a list of environments available on the service
+	 */
+	getEnvironments: function () {
+		return Tunnel.prototype.getEnvironments.call(this)
+			.then(function (environments) {
+				return environments.map(function (environment) {
+					return {
+						browserName: environment.name,
+						version: environment.version,
+						platform: environment.platform,
+						descriptor: environment
+					};
+				});
+			});
 	}
 });
 

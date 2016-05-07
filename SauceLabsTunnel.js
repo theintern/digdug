@@ -458,6 +458,23 @@ SauceLabsTunnel.prototype = util.mixin(Object.create(_super), /** @lends module:
 		}));
 
 		return child;
+	},
+
+	/**
+	 * Get a list of environments available on the service
+	 */
+	getEnvironments: function () {
+		return Tunnel.prototype.getEnvironments.call(this)
+			.then(function (environments) {
+				return environments.map(function (environment) {
+					return {
+						browserName: environment.api_name,
+						version: environment.short_version,
+						platform: environment.os,
+						descriptor: environment
+					};
+				});
+			});
 	}
 });
 

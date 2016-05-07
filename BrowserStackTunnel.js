@@ -256,6 +256,23 @@ BrowserStackTunnel.prototype = util.mixin(Object.create(_super), /** @lends modu
 		}, 5000);
 
 		return dfd.promise;
+	},
+
+	/**
+	 * Get a list of environments available on the service
+	 */
+	getEnvironments: function () {
+		return Tunnel.prototype.getEnvironments.call(this)
+			.then(function (environments) {
+				return environments.map(function (environment) {
+					return {
+						browserName: environment.browser,
+						version: environment.browser_version,
+						platform: environment.os,
+						descriptor: environment
+					};
+				});
+			});
 	}
 });
 

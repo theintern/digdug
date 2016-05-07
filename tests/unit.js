@@ -21,8 +21,7 @@ define([
 	pathUtil,
 	registerSuite,
 	assert,
-	intern,
-	Promise
+	intern
 ) {
 	function cleanup(tunnel) {
 		if (intern.args.noClean) {
@@ -101,7 +100,7 @@ define([
 					tunnel = new SauceLabsTunnel();
 				},
 
-				'#start': function() {
+				'#start': function() { // TODO move this to integration tests
 					tunnelTest(this.async(120000), tunnel, function (error) {
 						return /Not authorized/.test(error.message);
 					});
@@ -168,7 +167,7 @@ define([
 					tunnel = new BrowserStackTunnel();
 				},
 
-				'#start': function () {
+				'#start': function () {  // TODO move this to integration tests
 					tunnelTest(this.async(), tunnel, function (error) {
 						return /The tunnel reported:/.test(error.message);
 					});
@@ -227,7 +226,7 @@ define([
 					tunnel = new TestingBotTunnel();
 				},
 
-				'#start': function () {
+				'#start': function () {  // TODO move this to integration tests
 					tunnelTest(this.async(120000), tunnel, function (error) {
 						return /Could not get tunnel info/.test(error.message);
 					});
@@ -364,223 +363,8 @@ define([
 							});
 						}
 					};
-				}()),
-
-				'#getVersions': {
-					'filters by browser': function () {
-						tunnel.getEnvironments = function () {
-							return Promise.resolve([
-								{ browser: 'chrome', version: '12' },
-								{ browser: 'firefox', version: '13' }
-							]);
-						};
-
-						return tunnel.getVersions('chrome')
-							.then(function (versions) {
-								assert.lengthOf(versions, 1);
-							});
-					},
-
-					'removes duplicate versions': function () {
-						tunnel.getEnvironments = function () {
-							return Promise.resolve([
-								{ browser: 'chrome', version: '12' },
-								{ browser: 'chrome', version: '12' }
-							]);
-						};
-
-						return tunnel.getVersions('chrome')
-							.then(function (versions) {
-								assert.lengthOf(versions, 1);
-							});
-					},
-
-					'removes non-numeric versions': function () {
-						tunnel.getEnvironments = function () {
-							return Promise.resolve([
-								{ browser: 'chrome', version: '12' },
-								{ browser: 'chrome', version: 'beta' },
-								{ browser: 'chrome', version: 'dev' }
-							]);
-						};
-
-						return tunnel.getVersions('chrome')
-							.then(function (versions) {
-								assert.lengthOf(versions, 1);
-								assert.deepEqual(versions, [ '12' ]);
-							});
-					},
-
-					'sorts versions numerically': function () {
-						tunnel.getEnvironments = function () {
-							return Promise.resolve([
-								{ browser: 'chrome', version: '13' },
-								{ browser: 'chrome', version: '12' }
-							]);
-						};
-
-						return tunnel.getVersions('chrome')
-							.then(function (versions) {
-								assert.lengthOf(versions, 2);
-								assert.strictEqual(versions[0], '12');
-								assert.strictEqual(versions[1], '13');
-							});
-					},
-
-					'works with BrowserStack APIs': function () {
-						tunnel.getEnvironments = function () {
-							return Promise.resolve([
-								{
-									os: 'Windows',
-									os_version: '8.1',
-									browser: 'chrome',
-									browser_version: '24.0',
-									device: null
-								},
-								{
-									os: 'Windows',
-									os_version: '8.1',
-									browser: 'chrome',
-									browser_version: '25.0',
-									device: null
-								}
-							]);
-						};
-
-						return tunnel.getVersions('chrome')
-							.then(function (versions) {
-								assert.lengthOf(versions, 2);
-								assert.strictEqual(versions[0], '24.0');
-								assert.strictEqual(versions[1], '25.0');
-							});
-					},
-
-					'works with SauceLab APIs': function () {
-						tunnel.getEnvironments = function () {
-							return Promise.resolve([
-								{
-									selenium_name: 'FF7',
-									name: 'firefox',
-									platform: 'WIN10',
-									version: '7'
-								},
-								{
-									selenium_name: 'FF8',
-									name: 'firefox',
-									platform: 'WIN10',
-									version: '8'
-								}
-							]);
-						};
-
-						return tunnel.getVersions('firefox')
-							.then(function (versions) {
-								assert.lengthOf(versions, 2);
-								assert.strictEqual(versions[0], '7');
-								assert.strictEqual(versions[1], '8');
-							});
-					},
-
-					'works with TestingBot APIs': function () {
-						tunnel.getEnvironments = function () {
-							return Promise.resolve([
-								{
-									short_version: '26',
-									long_name: 'Firefox',
-									api_name: 'firefox',
-									long_version: '26.0b2.',
-									latest_stable_version: '',
-									automation_backend: 'webdriver',
-									os: 'Windows 2003'
-								},
-								{
-									short_version: '25',
-									long_name: 'Firefox',
-									api_name: 'firefox',
-									long_version: '25.0b2.',
-									latest_stable_version: '',
-									automation_backend: 'webdriver',
-									os: 'Windows 2003'
-								}
-							]);
-						};
-
-						return tunnel.getVersions('firefox')
-							.then(function (versions) {
-								assert.lengthOf(versions, 2);
-								assert.strictEqual(versions[0], '25');
-								assert.strictEqual(versions[1], '26');
-							});
-					}
-				},
-
-				'#parseVersions': (function () {
-					return {
-						beforeEach: function () {
-							tunnel.getEnvironments = function () {
-								return Promise.resolve([
-									{ browser: 'chrome', version: '13' },
-									{ browser: 'chrome', version: '12' },
-									{ browser: 'chrome', version: '21' },
-									{ browser: 'Chrome', version: '18' },
-									{ browser: 'Chrome', version: '19' },
-									{ browser: 'firefox', version: '7' },
-									{ browser: 'FireFox', version: '25' }
-								]);
-							};
-						},
-
-						'single version; pass-thru': function () {
-							return tunnel.parseVersions('14', 'chrome')
-								.then(function (version) {
-									assert.deepEqual(version, [ '14' ]);
-								});
-						},
-
-						'ranged version': function () {
-							return tunnel.parseVersions('14..22', 'chrome')
-								.then(function (version) {
-									assert.deepEqual(version, [ '18', '19', '21' ]);
-								});
-						},
-
-						'latest keyword': function () {
-							return tunnel.parseVersions('latest', 'chrome')
-								.then(function (version) {
-									assert.deepEqual(version, [ '21' ]);
-								});
-						},
-
-						'previous keyword': function () {
-							return tunnel.parseVersions('previous', 'chrome')
-								.then(function (version) {
-									assert.deepEqual(version, [ '19' ]);
-								});
-						},
-
-						'ranged version with alias': function () {
-							return tunnel.parseVersions('15 .. latest', 'chrome')
-								.then(function (version) {
-									assert.deepEqual(version, [ '18', '19', '21' ]);
-								});
-						},
-
-						'mathed version alias': function () {
-							return tunnel.parseVersions('latest - 1', 'chrome')
-								.then(function (version) {
-									assert.deepEqual(version, [ '19' ]);
-								});
-						},
-
-						'ranged mathed version alias': function () {
-							return tunnel.parseVersions('latest - 2 .. latest', 'chrome')
-								.then(function (version) {
-									assert.deepEqual(version, [ '18', '19', '21' ]);
-								});
-						}
-					};
 				}())
 			};
-		})(),
+		})()
 	});
 });
