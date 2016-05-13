@@ -1,15 +1,24 @@
 define([
 	'intern!object',
 	'intern/chai!assert',
-	'intern/dojo/Promise'
+	'intern/dojo/node!util'
 ], function (
 	registerSuite,
-	assert
+	assert,
+	util
 ) {
 	return function (Tunnel, options) {
 		options = options || { };
 		var metRequirements = false;
 		var tunnel = null;
+
+		function assertNormalizedProperties(environment) {
+			var message = ' undefined for ' + util.inspect(environment.descriptor);
+			assert.isDefined(environment.browserName, 'browserName' + message);
+			assert.isDefined(environment.version, 'version', + message);
+			assert.isDefined(environment.platform, 'platform' + message);
+		}
+
 		var tests = {
 			beforeEach: function () {
 				tests.tunnel = tunnel = new Tunnel();
@@ -25,9 +34,7 @@ define([
 					.then(function (browsers) {
 						assert.isArray(browsers);
 						browsers.forEach(function (environment) {
-							assert.property(environment, 'browserName');
-							assert.property(environment, 'version');
-							assert.property(environment, 'platform');
+							assertNormalizedProperties(environment);
 							assert.property(environment, 'descriptor');
 							options.assertDescriptor(environment.descriptor);
 						});

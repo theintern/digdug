@@ -586,18 +586,30 @@ Tunnel.prototype = util.mixin(Object.create(_super), /** @lends module:digdug/Tu
 	 * @return An object containing the response and helper functions
 	 */
 	getEnvironments: function () {
+		var normalizeEnvironment = this._normalizeEnvironment.bind(this);
+
 		return sendRequest(this.getEnvironmentUrl, {
 			password: this.accessKey,
 			user: this.username,
 			proxy: this.proxy
 		}).then(function (response) {
 			if (response.statusCode >= 200 && response.statusCode < 400) {
-				return JSON.parse(response.data.toString());
+				return JSON.parse(response.data.toString()).map(normalizeEnvironment)
 			}
 			else {
 				throw new Error('Server replied with a status of ' + response.statusCode);
 			}
 		});
+	},
+
+	/**
+	 * Normalizes a specific Tunnel environment descriptor to a general form. To be overriden by a child implementation.
+	 * @param environment an environment descriptor specific to the Tunnel
+	 * @return a normalized environment
+	 * @protected
+	 */
+	_normalizeEnvironment: function (environment) {
+		return environment;
 	}
 });
 

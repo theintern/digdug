@@ -221,20 +221,34 @@ TestingBotTunnel.prototype = util.mixin(Object.create(_super), /** @lends module
 	},
 
 	/**
-	 * Get a list of environments available on the service
+	 * Attempt to normalize a TestingBot described environment with the standard Selenium capabilities
+	 *
+	 * TestingBot returns a list of environments that looks like:
+	 *
+	 * {
+	 *   "selenium_name": "Galaxy Nexus",
+	 *   "name": "galaxy_nexus",
+	 *   "platform": "ANDROID",
+	 *   "version":"0"
+	 * },
+	 * 
+	 * {
+	 *   "selenium_name": "Chrome36",
+	 *   "name": "googlechrome",
+	 *   "platform": "CAPITAN",
+	 *   "version":"36"
+	 * }
+	 *
+	 * @param environment a TestingBot environment descriptor
+	 * @private
 	 */
-	getEnvironments: function () {
-		return Tunnel.prototype.getEnvironments.call(this)
-			.then(function (environments) {
-				return environments.map(function (environment) {
-					return {
-						browserName: environment.name,
-						version: environment.version,
-						platform: environment.platform,
-						descriptor: environment
-					};
-				});
-			});
+	_normalizeEnvironment: function (environment) {
+		return {
+			platform: environment.platform.toLowerCase(),
+			browserName: environment.name.toLowerCase(),
+			version: environment.version,
+			descriptor: environment
+		};
 	}
 });
 

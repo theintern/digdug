@@ -461,20 +461,30 @@ SauceLabsTunnel.prototype = util.mixin(Object.create(_super), /** @lends module:
 	},
 
 	/**
-	 * Get a list of environments available on the service
+	 * Attempt to normalize a SauceLabs described environment with the standard Selenium capabilities
+	 *
+	 * SauceLabs returns a list of environments that looks like:
+	 *
+	 * {
+	 *   "short_version": "25",
+	 *   "long_name": "Firefox",
+	 *   "api_name": "firefox",
+	 *   "long_version": "25.0b2.",
+	 *   "latest_stable_version": "",
+	 *   "automation_backend": "webdriver",
+	 *   "os": "Windows 2003"
+	 *   }
+	 *
+	 * @param environment a SauceLabs environment descriptor
+	 * @private
 	 */
-	getEnvironments: function () {
-		return Tunnel.prototype.getEnvironments.call(this)
-			.then(function (environments) {
-				return environments.map(function (environment) {
-					return {
-						browserName: environment.api_name,
-						version: environment.short_version,
-						platform: environment.os,
-						descriptor: environment
-					};
-				});
-			});
+	_normalizeEnvironment: function (environment) {
+		return {
+			browserName: environment.api_name.toLowerCase(),
+			version: environment.short_version,
+			platform: environment.os.toLowerCase(),
+			descriptor: environment
+		};
 	}
 });
 

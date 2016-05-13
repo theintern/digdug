@@ -259,21 +259,30 @@ BrowserStackTunnel.prototype = util.mixin(Object.create(_super), /** @lends modu
 	},
 
 	/**
-	 * Get a list of environments available on the service
+	 * Attempt to normalize a BrowserStack described environment with the standard Selenium capabilities
+	 * 
+	 * BrowserStack returns a list of environments that looks like:
+	 *
+	 * {
+	 *   "browser": "opera",
+	 *   "os_version": "Lion",
+	 *   "browser_version":"12.15",
+	 *   "device": null,
+	 *   "os": "OS X"
+	 * }
+	 * 
+	 * @param environment a BrowserStack environment descriptor
+	 * @private
 	 */
-	getEnvironments: function () {
-		return Tunnel.prototype.getEnvironments.call(this)
-			.then(function (environments) {
-				return environments.map(function (environment) {
-					return {
-						browserName: environment.browser,
-						version: environment.browser_version,
-						platform: environment.os,
-						descriptor: environment
-					};
-				});
-			});
+	_normalizeEnvironment: function (environment) {
+		return {
+			platform: environment.os.toLowerCase(),
+			browserName: environment.browser.toLowerCase(),
+			version: environment.browser_version,
+			descriptor: environment
+		};
 	}
 });
+
 
 module.exports = BrowserStackTunnel;
