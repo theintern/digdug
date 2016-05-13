@@ -9,7 +9,8 @@ define([
 	'intern/dojo/node!path',
 	'intern!object',
 	'intern/chai!assert',
-	'intern'
+	'intern',
+	'intern/dojo/Promise'
 ], function (
 	Tunnel,
 	SauceLabsTunnel,
@@ -99,7 +100,7 @@ define([
 					tunnel = new SauceLabsTunnel();
 				},
 
-				'#start': function() {
+				'#start': function() { // TODO move this to integration tests
 					tunnelTest(this.async(120000), tunnel, function (error) {
 						return /Not authorized/.test(error.message);
 					});
@@ -166,7 +167,7 @@ define([
 					tunnel = new BrowserStackTunnel();
 				},
 
-				'#start': function () {
+				'#start': function () {  // TODO move this to integration tests
 					tunnelTest(this.async(), tunnel, function (error) {
 						return /The tunnel reported:/.test(error.message);
 					});
@@ -225,7 +226,7 @@ define([
 					tunnel = new TestingBotTunnel();
 				},
 
-				'#start': function () {
+				'#start': function () {  // TODO move this to integration tests
 					tunnelTest(this.async(120000), tunnel, function (error) {
 						return /Could not get tunnel info/.test(error.message);
 					});
@@ -317,7 +318,52 @@ define([
 					tunnel.sendJobState().catch(function () {
 						dfd.resolve();
 					});
-				}
+				},
+
+				'#_resolveVersionAlias': (function () {
+					var versions = [
+						'0',
+						'1',
+						'2',
+						'3',
+						'4'
+					];
+
+					return {
+						'unknown alias; pass-thru': function () {
+							var value = 'unknown';
+							assert.strictEqual(tunnel._resolveVersionAlias(versions, value), value);
+						},
+
+						'single version; pass-thru': function () {
+							assert.strictEqual(tunnel._resolveVersionAlias(versions, '2'), '2');
+						},
+
+						'latest': function () {
+							assert.strictEqual(tunnel._resolveVersionAlias(versions, 'latest'), '4');
+						},
+
+						'previous': function () {
+							assert.strictEqual(tunnel._resolveVersionAlias(versions, 'previous'), '3');
+						},
+
+						'latest-1': function () {
+							var expected = '3';
+							assert.strictEqual(tunnel._resolveVersionAlias(versions, 'latest-1'), expected);
+							assert.strictEqual(tunnel._resolveVersionAlias(versions, 'latest - 1'), expected);
+						},
+
+						'previous-2': function () {
+							assert.strictEqual(tunnel._resolveVersionAlias(versions, 'previous-2'), '1');
+						},
+
+						'alias out of bounds; throws': function () {
+							assert.throws(function () {
+								tunnel._resolveVersionAlias(versions, 'latest-100');
+							});
+						}
+					};
+				}())
 			};
 		})()
 	});

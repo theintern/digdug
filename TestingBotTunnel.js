@@ -99,6 +99,8 @@ TestingBotTunnel.prototype = util.mixin(Object.create(_super), /** @lends module
 	 */
 	useSsl: false,
 
+	getEnvironmentUrl: 'https://api.testingbot.com/v1/browsers',
+
 	get auth() {
 		return this.apiKey + ':' + this.apiSecret;
 	},
@@ -216,6 +218,37 @@ TestingBotTunnel.prototype = util.mixin(Object.create(_super), /** @lends module
 		);
 
 		return child;
+	},
+
+	/**
+	 * Attempt to normalize a TestingBot described environment with the standard Selenium capabilities
+	 *
+	 * TestingBot returns a list of environments that looks like:
+	 *
+	 * {
+	 *   "selenium_name": "Galaxy Nexus",
+	 *   "name": "galaxy_nexus",
+	 *   "platform": "ANDROID",
+	 *   "version":"0"
+	 * },
+	 * 
+	 * {
+	 *   "selenium_name": "Chrome36",
+	 *   "name": "googlechrome",
+	 *   "platform": "CAPITAN",
+	 *   "version":"36"
+	 * }
+	 *
+	 * @param environment a TestingBot environment descriptor
+	 * @private
+	 */
+	_normalizeEnvironment: function (environment) {
+		return {
+			platform: environment.platform.toLowerCase(),
+			browserName: environment.name.toLowerCase(),
+			version: environment.version,
+			descriptor: environment
+		};
 	}
 });
 
