@@ -5,6 +5,7 @@
 var Decompress = require('decompress');
 var Evented = require('dojo/Evented');
 var fs = require('fs');
+var mkdirp = require('mkdirp');
 var pathUtil = require('path');
 var Promise = require('dojo/Promise');
 var sendRequest = require('dojo/request');
@@ -264,8 +265,43 @@ Tunnel.prototype = util.mixin(Object.create(_super), /** @lends module:digdug/Tu
 	 */
 	download: function (forceDownload) {
 		var self = this;
+		var target = pathUtil.join(self.directory, self.executable);
 
 		return new Promise(function (resolve, reject, progress, setCanceler) {
+			function writeFile(response) {
+				mkdirp(self.directory, function (error) {
+					if (error) {
+						reject(error);
+						return;
+					}
+
+					fs.writeFile(target, response.data, function (error) {
+						if (error) {
+							reject(error);
+							return;
+						}
+						
+						resolve();
+					});
+				});
+			}
+
+			function decompressFile(response) {
+				var decompressor = new Decompress();
+				decompressor.src(response.data)
+					.use(Decompress.zip())
+					.use(Decompress.targz())
+					.dest(self.directory)
+					.run(function (error) {
+						if (error) {
+							reject(error);
+						}
+						else {
+							resolve();
+						}
+					});
+			}
+
 			setCanceler(function (reason) {
 				request && request.cancel(reason);
 			});
@@ -276,22 +312,7 @@ Tunnel.prototype = util.mixin(Object.create(_super), /** @lends module:digdug/Tu
 			}
 
 			var request = sendRequest(self.url, { proxy: self.proxy });
-			request.then(
-				function (response) {
-					var decompressor = new Decompress();
-					decompressor.src(response.data)
-						.use(Decompress.zip())
-						.use(Decompress.targz())
-						.dest(self.directory)
-						.run(function (error) {
-							if (error) {
-								reject(error);
-							}
-							else {
-								resolve();
-							}
-						});
-				},
+			request.then((self.dontExtract ? writeFile : decompressFile),
 				function (error) {
 					if (error.response && error.response.statusCode >= 400) {
 						error = new Error('Download server returned status code ' + error.response.statusCode);
