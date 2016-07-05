@@ -218,6 +218,11 @@ SeleniumTunnel.prototype = util.mixin(Object.create(_super), /** @lends module:d
 			}
 			return _super._stop.apply(self);
 		});
+	},
+	
+	sendJobState: function () {
+		// This is a noop for Selenium
+		return Promise.resolve();
 	}
 });
 
