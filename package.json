@@ -1,23 +1,35 @@
 {
-	"name": "digdug",
-	"version": "1.5.0-pre",
-	"description": "Dig Dug. A simple abstraction library for downloading and launching WebDriver service tunnels.",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/theintern/digdug.git"
-	},
-	"license": "BSD-3-Clause",
-	"dependencies": {
-		"dojo": "2.0.0-alpha.7",
-		"decompress": "3.0.0"
-	},
-	"devDependencies": {
-		"intern": "3.0.6"
-	},
-	"scripts": {
-		"test": "./node_modules/.bin/intern-client config=tests/intern"
-	},
-	"bugs": "https://github.com/theintern/digdug/issues",
-	"keywords": [ "javascript", "test", "functional", "selenium", "webdriver", "sauce labs", "browserstack", "testingbot" ],
-	"homepage": "https://github.com/theintern/digdug"
+  "name": "digdug",
+  "version": "1.5.0-pre",
+  "description": "Dig Dug. A simple abstraction library for downloading and launching WebDriver service tunnels.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/theintern/digdug.git"
+  },
+  "license": "BSD-3-Clause",
+  "dependencies": {
+    "decompress": "3.0.0",
+    "dojo": "2.0.0-alpha.7",
+    "selenium-standalone": "^5.1.1"
+  },
+  "devDependencies": {
+    "intern": "3.0.6"
+  },
+  "scripts": {
+    "test": "./node_modules/.bin/intern-client config=tests/intern",
+    "docker-run": "docker run --rm -t -v `pwd`:/mnt node:0.12",
+    "docker-test": "docker run --rm -t -v `pwd`:/mnt node:0.12 cd /mnt && ./tests/selftest.sh"
+  },
+  "bugs": "https://github.com/theintern/digdug/issues",
+  "keywords": [
+    "javascript",
+    "test",
+    "functional",
+    "selenium",
+    "webdriver",
+    "sauce labs",
+    "browserstack",
+    "testingbot"
+  ],
+  "homepage": "https://github.com/theintern/digdug"
 }
