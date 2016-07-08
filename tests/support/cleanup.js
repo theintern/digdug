@@ -1,10 +1,15 @@
 define([
 	'intern',
 	'intern/dojo/node!fs',
-	'intern/dojo/node!path'
-], function (intern, fs, pathUtil) {
-	return function cleanup(tunnel) {
-		if (intern.args.noClean) {
+	'intern/dojo/node!path',
+	'intern/dojo/Promise'
+], function (intern, fs, pathUtil, Promise) {
+	/**
+	 * Deletes the directory used by the tunnel
+	 * @param tunnel
+	 */
+	function deleteTunnelFiles(tunnel) {
+		if (!tunnel || intern.args.noClean) {
 			return;
 		}
 
@@ -33,5 +38,28 @@ define([
 		}
 
 		deleteRecursive(tunnel.directory);
-	};
+	}
+
+	/**
+	 * Cleans up a tunnel by stopping it if the tunnel is running and deleting its target install directory
+	 *
+	 * @param tunnel
+	 * @return {Promise} a promise resolved when cleanup is complete
+	 */
+	function cleanup(tunnel) {
+		if (!tunnel) {
+			return;
+		}
+		if (tunnel.isRunning) {
+			return tunnel.stop().finally(deleteTunnelFiles);
+		}
+		else {
+			deleteTunnelFiles(tunnel);
+			return Promise.resolve();
+		}
+	}
+
+	cleanup.deleteTunnelFiles = deleteTunnelFiles;
+
+	return cleanup;
 });

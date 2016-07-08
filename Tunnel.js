@@ -5,7 +5,6 @@
 var Decompress = require('decompress');
 var Evented = require('dojo/Evented');
 var fs = require('fs');
-var mkdirp = require('mkdirp');
 var pathUtil = require('path');
 var Promise = require('dojo/Promise');
 var sendRequest = require('dojo/request');
@@ -65,6 +64,23 @@ Tunnel.prototype = util.mixin(Object.create(_super), /** @lends module:digdug/Tu
 	 * @type {Object}
 	 * @property {number} received The number of bytes received so far.
 	 * @property {number} total The total number of bytes to download.
+	 */
+
+	/**
+	 * Part of a tunnel file has been downloaded from the server
+	 *
+	 * @event module:digdug/Tunnel#filedownloadprogress
+	 * @type {Object}
+	 * @property {string} url The url of the file being downloaded
+	 * @property {Object} progress an object with received and total parameters
+	 */
+
+	/**
+	 * Part of the tunnel has been downloaded from the server.
+	 *
+	 * @event module:digdug/Tunnel#postdownload
+	 * @type {Object}
+	 * @property {string} url the url of the file in post-download processing
 	 */
 
 	/**
@@ -264,65 +280,62 @@ Tunnel.prototype = util.mixin(Object.create(_super), /** @lends module:digdug/Tu
 	 * @returns {Promise.<void>} A promise that resolves once the download and extraction process has completed.
 	 */
 	download: function (forceDownload) {
+		if (!forceDownload && this.isDownloaded) {
+			return Promise.resolve();
+		}
+
+		return this._downloadFile(this);
+	},
+
+	_downloadFile: function (options) {
 		var self = this;
-		var target = pathUtil.join(self.directory, self.executable);
 
 		return new Promise(function (resolve, reject, progress, setCanceler) {
-			function writeFile(response) {
-				mkdirp(self.directory, function (error) {
-					if (error) {
-						reject(error);
-						return;
-					}
-
-					fs.writeFile(target, response.data, function (error) {
-						if (error) {
-							reject(error);
-							return;
-						}
-						
-						resolve();
-					});
-				});
-			}
-
-			function decompressFile(response) {
-				var decompressor = new Decompress();
-				decompressor.src(response.data)
-					.use(Decompress.zip())
-					.use(Decompress.targz())
-					.dest(self.directory)
-					.run(function (error) {
-						if (error) {
-							reject(error);
-						}
-						else {
-							resolve();
-						}
-					});
-			}
-
 			setCanceler(function (reason) {
 				request && request.cancel(reason);
 			});
 
-			if (!forceDownload && self.isDownloaded) {
-				resolve();
-				return;
-			}
-
-			var request = sendRequest(self.url, { proxy: self.proxy });
-			request.then((self.dontExtract ? writeFile : decompressFile),
+			var request = sendRequest(options.url, { proxy: options.proxy });
+			return request.then(function (response) {
+					resolve(self._postDownload(response, options));
+				},
 				function (error) {
 					if (error.response && error.response.statusCode >= 400) {
 						error = new Error('Download server returned status code ' + error.response.statusCode);
 					}
 					reject(error);
 				},
-				progress
+				function (info) {
+					self.emit('filedownloadprogress', {
+						url: options.url,
+						progress: info
+					});
+					progress(info);
+				}
 			);
-
-			return request;
+		});
+	},
+	
+	_postDownload: function (response, options) {
+		this.emit('postdownload', options.url);
+		return this._decompressData(response.data, options);
+	},
+	
+	_decompressData: function (data, options) {
+		return new Promise(function (resolve, reject) {
+			var decompressor = new Decompress();
+			decompressor.src(data)
+				.use(Decompress.zip())
+				.use(Decompress.targz())
+				.dest(options.directory)
+				.run(function (error) {
+					if (error) {
+						reject(error);
+					}
+					else {
+						resolve();
+					}
+				});
 		});
 	},
 
