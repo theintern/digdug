@@ -20,23 +20,27 @@
 			<ul class="modules">
 				
 <li data-member-id="module:digdug/BrowserStackTunnel" class="">
-	<a href="BrowserStackTunnel.html">digdug/BrowserStackTunnel</a>
+	<a href="module-digdug_BrowserStackTunnel.html">digdug/BrowserStackTunnel</a>
 </li>
 
 <li data-member-id="module:digdug/NullTunnel" class="">
-	<a href="NullTunnel.html">digdug/NullTunnel</a>
+	<a href="module-digdug_NullTunnel.html">digdug/NullTunnel</a>
 </li>
 
 <li data-member-id="module:digdug/SauceLabsTunnel" class="">
-	<a href="SauceLabsTunnel.html">digdug/SauceLabsTunnel</a>
+	<a href="module-digdug_SauceLabsTunnel.html">digdug/SauceLabsTunnel</a>
+</li>
+
+<li data-member-id="module:digdug/SeleniumTunnel" class="">
+	<a href="module-digdug_SeleniumTunnel.html">digdug/SeleniumTunnel</a>
 </li>
 
 <li data-member-id="module:digdug/TestingBotTunnel" class="">
-	<a href="TestingBotTunnel.html">digdug/TestingBotTunnel</a>
+	<a href="module-digdug_TestingBotTunnel.html">digdug/TestingBotTunnel</a>
 </li>
 
 <li data-member-id="module:digdug/Tunnel" class="">
-	<a href="Tunnel.html">digdug/Tunnel</a>
+	<a href="module-digdug_Tunnel.html">digdug/Tunnel</a>
 </li>
 
 				<li><a href="global.html">Globals</a></li>
@@ -112,7 +116,7 @@ TestingBotTunnel.prototype = util.mixin(Object.create(_super), /** @lends module
 
 	port: 4445,
 
-	url: 'http://testingbot.com/downloads/testingbot-tunnel.zip',
+	url: 'https://testingbot.com/downloads/testingbot-tunnel.zip',
 
 	/**
 	 * Whether or not to use rabbIT compression for the tunnel connection.
@@ -146,12 +150,17 @@ TestingBotTunnel.prototype = util.mixin(Object.create(_super), /** @lends module
 	 */
 	useSsl: false,
 
+	/**
+	 * The URL of a service that provides a list of environments supported by TestingBot.
+	 */
+	environmentUrl: 'https://api.testingbot.com/v1/browsers',
+
 	get auth() {
-		return this.apiKey + ':' + this.apiSecret;
+		return (this.apiKey || '') + ':' + (this.apiSecret || '');
 	},
 
 	get isDownloaded() {
-		return fs.existsSync(pathUtil.join(this.directory, 'testingbot-tunnel/testingbot-tunnel.jar'));
+		return util.fileExists(pathUtil.join(this.directory, 'testingbot-tunnel/testingbot-tunnel.jar'));
 	},
 
 	_makeArgs: function (readyFile) {
@@ -230,7 +239,12 @@ TestingBotTunnel.prototype = util.mixin(Object.create(_super), /** @lends module
 
 		// Polling API is used because we are only watching for one file, so efficiency is not a big deal, and the
 		// `fs.watch` API has extra restrictions which are best avoided
-		fs.watchFile(readyFile, { persistent: false, interval: 1007 }, function () {
+		fs.watchFile(readyFile, { persistent: false, interval: 1007 }, function (current, previous) {
+			if (Number(current.mtime) === Number(previous.mtime)) {
+				// readyFile hasn't been modified, so ignore the event
+				return;
+			}
+
 			fs.unwatchFile(readyFile);
 			dfd.resolve();
 		});
@@ -253,11 +267,44 @@ TestingBotTunnel.prototype = util.mixin(Object.create(_super), /** @lends module
 							lastMessage = message;
 						}
 					}
+					else if (message.indexOf('SEVERE: ') === 0) {
+						dfd.reject(message);
+					}
 				});
 			})
 		);
 
 		return child;
+	},
+
+	/**
+	 * Attempt to normalize a TestingBot described environment with the standard Selenium capabilities
+	 *
+	 * TestingBot returns a list of environments that looks like:
+	 *
+	 * {
+	 *     "selenium_name": "Chrome36",
+	 *     "name": "googlechrome",
+	 *     "platform": "CAPITAN",
+	 *     "version":"36"
+	 * }
+	 *
+	 * @param {Object} environment a TestingBot environment descriptor
+	 * @returns a normalized descriptor
+	 * @private
+	 */
+	_normalizeEnvironment: function (environment) {
+		var browserMap = {
+			googlechrome: 'chrome',
+			iexplore: 'internet explorer'
+		};
+
+		return {
+			platform: environment.platform,
+			browserName: browserMap[environment.name] || environment.name,
+			version: environment.version,
+			descriptor: environment
+		};
 	}
 });
 

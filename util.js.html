@@ -20,23 +20,27 @@
 			<ul class="modules">
 				
 <li data-member-id="module:digdug/BrowserStackTunnel" class="">
-	<a href="BrowserStackTunnel.html">digdug/BrowserStackTunnel</a>
+	<a href="module-digdug_BrowserStackTunnel.html">digdug/BrowserStackTunnel</a>
 </li>
 
 <li data-member-id="module:digdug/NullTunnel" class="">
-	<a href="NullTunnel.html">digdug/NullTunnel</a>
+	<a href="module-digdug_NullTunnel.html">digdug/NullTunnel</a>
 </li>
 
 <li data-member-id="module:digdug/SauceLabsTunnel" class="">
-	<a href="SauceLabsTunnel.html">digdug/SauceLabsTunnel</a>
+	<a href="module-digdug_SauceLabsTunnel.html">digdug/SauceLabsTunnel</a>
+</li>
+
+<li data-member-id="module:digdug/SeleniumTunnel" class="">
+	<a href="module-digdug_SeleniumTunnel.html">digdug/SeleniumTunnel</a>
 </li>
 
 <li data-member-id="module:digdug/TestingBotTunnel" class="">
-	<a href="TestingBotTunnel.html">digdug/TestingBotTunnel</a>
+	<a href="module-digdug_TestingBotTunnel.html">digdug/TestingBotTunnel</a>
 </li>
 
 <li data-member-id="module:digdug/Tunnel" class="">
-	<a href="Tunnel.html">digdug/Tunnel</a>
+	<a href="module-digdug_Tunnel.html">digdug/Tunnel</a>
 </li>
 
 				<li><a href="global.html">Globals</a></li>
@@ -45,7 +49,12 @@
 	
 </nav>
 <div class="persistentTitle hidden"><a href="#overview">util.js</a></div><main class="mainContent doc-source"><h1 class="title header">util.js</h1>
-<pre class="prettyprint source linenums"><code>module.exports = {
+<pre class="prettyprint source linenums"><code>var decompress = require('decompress');
+var Promise = require('dojo/Promise');
+var fs = require('fs');
+var path = require('path');
+
+module.exports = {
 	/**
 	 * Adds properties from source objects to a target object using ES5 `Object.defineProperty` instead of
 	 * `[[Set]]`. This is necessary when copying properties that are ES5 accessor/mutators.
@@ -83,6 +92,78 @@
 				emitter.removeListener(event, listener);
 			}
 		};
+	},
+
+	/**
+	 * Returns true if a file or directory exists
+	 *
+	 * @param {string} filename
+	 * @returns {bool} true if filename exists, false otherwise
+	 */
+	fileExists: function (filename) {
+		try {
+			fs.statSync(filename);
+			return true;
+		}
+		catch (error) {
+			return false;
+		}
+	},
+
+	/**
+	 * Decompresses archive data into a given directory
+	 *
+	 * @param {Buffer} data 
+	 * @param {string} directory
+	 * @returns {Promise.&lt;void>} A Promise that resolves when the data is decompressed
+	 */
+	decompress: function (data, directory) {
+		return decompress(data, directory);
+	},
+
+	/**
+	 * Writes data to a file.
+	 *
+	 * The file's parent directories will be created if they do not already exist.
+	 *
+	 * @param {Buffer} data 
+	 * @param {string} filename
+	 * @returns {Promise.&lt;void>} A Promise that resolves when the file has been written
+	 */
+	writeFile: function (data, filename) {
+		return new Promise(function (resolve, reject) {
+			function mkdirp(dir) {
+				if (!dir) {
+					return;
+				}
+
+				try {
+					fs.mkdirSync(dir);
+				}
+				catch (error) {
+					// A parent directory didn't exist, create it
+					if (error.code === 'ENOENT') {
+						mkdirp(path.dirname(dir));
+						mkdirp(dir);
+					}
+					else {
+						if (!fs.statSync(dir).isDirectory()) {
+							throw error;
+						}
+					}
+				}
+			}
+
+			mkdirp(path.dirname(filename));
+			fs.writeFile(filename, data, function (error) {
+				if (error) {
+					reject(error);
+				}
+				else {
+					resolve();
+				}
+			});
+		});
 	}
 };
 </code></pre>

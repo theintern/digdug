@@ -20,23 +20,27 @@
 			<ul class="modules">
 				
 <li data-member-id="module:digdug/BrowserStackTunnel" class="">
-	<a href="BrowserStackTunnel.html">digdug/BrowserStackTunnel</a>
+	<a href="module-digdug_BrowserStackTunnel.html">digdug/BrowserStackTunnel</a>
 </li>
 
 <li data-member-id="module:digdug/NullTunnel" class="">
-	<a href="NullTunnel.html">digdug/NullTunnel</a>
+	<a href="module-digdug_NullTunnel.html">digdug/NullTunnel</a>
 </li>
 
 <li data-member-id="module:digdug/SauceLabsTunnel" class="">
-	<a href="SauceLabsTunnel.html">digdug/SauceLabsTunnel</a>
+	<a href="module-digdug_SauceLabsTunnel.html">digdug/SauceLabsTunnel</a>
+</li>
+
+<li data-member-id="module:digdug/SeleniumTunnel" class="">
+	<a href="module-digdug_SeleniumTunnel.html">digdug/SeleniumTunnel</a>
 </li>
 
 <li data-member-id="module:digdug/TestingBotTunnel" class="">
-	<a href="TestingBotTunnel.html">digdug/TestingBotTunnel</a>
+	<a href="module-digdug_TestingBotTunnel.html">digdug/TestingBotTunnel</a>
 </li>
 
 <li data-member-id="module:digdug/Tunnel" class="">
-	<a href="Tunnel.html">digdug/Tunnel</a>
+	<a href="module-digdug_Tunnel.html">digdug/Tunnel</a>
 </li>
 
 				<li><a href="global.html">Globals</a></li>
@@ -49,14 +53,11 @@
  * @module digdug/Tunnel
  */
 
-var decompress = require('decompress');
 var Evented = require('dojo/Evented');
-var fs = require('fs');
-var http = require('http');
-var https = require('https');
 var pathUtil = require('path');
 var Promise = require('dojo/Promise');
-var spawnUtil = require('child_process');
+var sendRequest = require('dojo/request');
+var childProcess = require('child_process');
 var urlUtil = require('url');
 var util = require('./util');
 
@@ -73,38 +74,6 @@ function clearHandles(handles) {
 	while ((handle = handles.pop())) {
 		handle.remove();
 	}
-}
-
-/**
- * Performs a GET request to a remote server.
- *
- * @param {string} url The target URL.
- * @returns {Promise.&lt;module:http.IncomingMessage>} A promise that resolves to the response object for the request.
- * @private
- */
-function get(url) {
-	url = urlUtil.parse(url);
-	url.method = 'GET';
-
-	var dfd = new Promise.Deferred(function () {
-		request &amp;&amp; request.abort();
-		request = null;
-	});
-
-	// TODO: This is not a great way of capturing async stack traces, but this pattern is used in several areas;
-	// can we do it better?
-	var capture = {};
-	Error.captureStackTrace(capture);
-
-	var request = (url.protocol === 'https:' ? https : http).request(url);
-	request.once('response', dfd.resolve.bind(dfd));
-	request.once('error', function (error) {
-		error.stack = error.stack + capture.stack.replace(/^[^\n]+/, '');
-		dfd.reject(error);
-	});
-	request.end();
-
-	return dfd.promise;
 }
 
 /**
@@ -136,6 +105,7 @@ function Tunnel(kwArgs) {
 }
 
 var _super = Evented.prototype;
+
 Tunnel.prototype = util.mixin(Object.create(_super), /** @lends module:digdug/Tunnel# */ {
 	/**
 	 * Part of the tunnel has been downloaded from the server.
@@ -330,7 +300,7 @@ Tunnel.prototype = util.mixin(Object.create(_super), /** @lends module:digdug/Tu
 	 * @readonly
 	 */
 	get isDownloaded() {
-		return fs.exists(pathUtil.join(this.directory, this.executable));
+		return util.fileExists(pathUtil.join(this.directory, this.executable));
 	},
 
 	/**
@@ -343,62 +313,48 @@ Tunnel.prototype = util.mixin(Object.create(_super), /** @lends module:digdug/Tu
 	 * @returns {Promise.&lt;void>} A promise that resolves once the download and extraction process has completed.
 	 */
 	download: function (forceDownload) {
-		var dfd = new Promise.Deferred(function (reason) {
-			request &amp;&amp; request.cancel(reason);
-			request = null;
-		});
-
 		if (!forceDownload &amp;&amp; this.isDownloaded) {
-			dfd.resolve();
-			return dfd.promise;
+			return Promise.resolve();
 		}
-
-		var target = this.directory;
-		var request;
-		function download(url) {
-			request = get(url);
-			request.then(function (response) {
-				if (response.statusCode === 200) {
-					var receivedLength = 0;
-					var totalLength = +response.headers['content-length'] || Infinity;
-					var decompressor = decompress({ ext: url, path: target });
-
-					response.pipe(decompressor);
-
-					response.on('data', function (data) {
-						receivedLength += data.length;
-						dfd.progress({ received: receivedLength, total: totalLength });
-					});
-
-					decompressor.on('close', function () {
-						dfd.resolve();
-					});
-				}
-				else if (response.statusCode >= 300 &amp;&amp; response.statusCode &lt; 400 &amp;&amp; response.headers.location) {
-					download(response.headers.location);
-				}
-				else {
-					var responseData = '';
-					response.on('data', function (data) {
-						responseData += data.toString('utf8');
-					});
-
-					response.on('end', function () {
-						var error = new Error('Server error: [' + response.statusCode + '] ' + (responseData || ''));
-						dfd.reject(error);
-					});
-				}
-			},
-			function (error) {
-				dfd.reject(error);
-			});
-		}
-
-		download(this.url);
-
-		return dfd.promise;
+		return this._downloadFile(this.url, this.proxy);
 	},
 
+	_downloadFile: function (url, proxy, options) {
+		var self = this;
+
+		return new Promise(function (resolve, reject, progress, setCanceler) {
+			setCanceler(function (reason) {
+				request &amp;&amp; request.cancel(reason);
+			});
+
+			var request = sendRequest(url, { proxy: proxy });
+			request.then(
+				function (response) {
+					resolve(self._postDownloadFile(response, options));
+				},
+				function (error) {
+					if (error.response &amp;&amp; error.response.statusCode >= 400) {
+						error = new Error('Download server returned status code ' + error.response.statusCode);
+					}
+					reject(error);
+				},
+				function (info) {
+					self.emit('downloadprogress', util.mixin({}, info, { url: url }));
+					progress(info);
+				}
+			).catch(function (error) {
+				reject(error);
+			});
+		});
+	},
+	
+	/**
+	 * Called with the response after a file download has completed
+	 */
+	_postDownloadFile: function (response) {
+		return util.decompress(response.data, this.directory);
+	},
+	
 	/**
 	 * Creates the list of command-line arguments to be passed to the spawned tunnel. Implementations should
 	 * override this method to provide the appropriate command-line arguments.
@@ -436,8 +392,15 @@ Tunnel.prototype = util.mixin(Object.create(_super), /** @lends module:digdug/Tu
 		var args = this._makeArgs.apply(this, arguments);
 		var options = this._makeOptions.apply(this, arguments);
 
-		var dfd = new Promise.Deferred();
-		var child = spawnUtil.spawn(command, args, options);
+		var dfd = new Promise.Deferred(function (reason) {
+			child.kill('SIGINT');
+			return new Promise(function (resolve, reject) {
+				child.once('exit', function () {
+					reject(reason);
+				});
+			});
+		});
+		var child = childProcess.spawn(command, args, options);
 
 		child.stdout.setEncoding('utf8');
 		child.stderr.setEncoding('utf8');
@@ -523,17 +486,14 @@ Tunnel.prototype = util.mixin(Object.create(_super), /** @lends module:digdug/Tu
 			throw new Error('Previous tunnel is still terminating');
 		}
 		else if (this.isStarting) {
-			throw new Error('Tunnel is already launching');
+			return this._startTask;
 		}
 
 		this.isStarting = true;
 
 		var self = this;
-		return this
+		this._startTask = this
 			.download()
-			.then(null, null, function (progress) {
-				self.emit('downloadprogress', progress);
-			})
 			.then(function () {
 				self._handles = [];
 				return self._start();
@@ -550,17 +510,23 @@ Tunnel.prototype = util.mixin(Object.create(_super), /** @lends module:digdug/Tu
 					})
 				);
 				return child.deferred.promise;
-			})
-			.then(function (returnValue) {
-				self.emit('status', 'Ready');
+			});
+
+		this._startTask.then(
+			function () {
+				self._startTask = null;
 				self.isStarting = false;
 				self.isRunning = true;
-				return returnValue;
-			}, function (error) {
-				self.emit('status', String(error));
+				self.emit('status', 'Ready');
+			},
+			function (error) {
+				self._startTask = null;
 				self.isStarting = false;
-				throw error;
-			});
+				self.emit('status', error.name === 'CancelError' ? 'Start cancelled' : 'Failed to start tunnel');
+			}
+		);
+
+		return this._startTask;
 	},
 
 	/**
@@ -608,7 +574,8 @@ Tunnel.prototype = util.mixin(Object.create(_super), /** @lends module:digdug/Tu
 			throw new Error('Tunnel is already terminating');
 		}
 		else if (this.isStarting) {
-			throw new Error('Tunnel is still launching');
+			this._startTask.cancel();
+			return;
 		}
 		else if (!this.isRunning) {
 			throw new Error('Tunnel is not running');
@@ -618,16 +585,19 @@ Tunnel.prototype = util.mixin(Object.create(_super), /** @lends module:digdug/Tu
 		this.isStopping = true;
 
 		var self = this;
-		return this._stop().then(function (returnValue) {
-			clearHandles(self._handles);
-			self._process = self._handles = null;
-			self.isRunning = self.isStopping = false;
-			return returnValue;
-		}, function (error) {
-			self.isRunning = true;
-			self.isStopping = false;
-			throw error;
-		});
+		return this._stop().then(
+			function (returnValue) {
+				clearHandles(self._handles);
+				self._process = self._handles = null;
+				self.isRunning = self.isStopping = false;
+				return returnValue;
+			},
+			function (error) {
+				self.isRunning = true;
+				self.isStopping = false;
+				throw error;
+			}
+		);
 	},
 
 	/**
@@ -649,6 +619,52 @@ Tunnel.prototype = util.mixin(Object.create(_super), /** @lends module:digdug/Tu
 		childProcess.kill('SIGINT');
 
 		return dfd.promise;
+	},
+
+	/**
+	 * Get a list of environments available on the service.
+	 *
+	 * This method should be overridden and use a specific implementation that returns normalized
+	 * environments from the service. E.g.
+	 *
+	 * {
+	 *     browserName: 'firefox',
+	 *     version: '12',
+	 *     platform: 'windows',
+	 *     descriptor: { &lt;original returned environment> }
+	 * }
+	 *
+	 * @returns An object containing the response and helper functions
+	 */
+	getEnvironments: function () {
+		if (!this.environmentUrl) {
+			return Promise.resolve([]);
+		}
+
+		var normalizeEnvironment = this._normalizeEnvironment.bind(this);
+
+		return sendRequest(this.environmentUrl, {
+			password: this.accessKey,
+			user: this.username,
+			proxy: this.proxy
+		}).then(function (response) {
+			if (response.statusCode >= 200 &amp;&amp; response.statusCode &lt; 400) {
+				return JSON.parse(response.data.toString()).map(normalizeEnvironment);
+			}
+			else {
+				throw new Error('Server replied with a status of ' + response.statusCode);
+			}
+		});
+	},
+
+	/**
+	 * Normalizes a specific Tunnel environment descriptor to a general form. To be overriden by a child implementation.
+	 * @param environment an environment descriptor specific to the Tunnel
+	 * @returns a normalized environment
+	 * @protected
+	 */
+	_normalizeEnvironment: function (environment) {
+		return environment;
 	}
 });
 

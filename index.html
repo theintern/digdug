@@ -20,23 +20,27 @@
 			<ul class="modules">
 				
 <li data-member-id="module:digdug/BrowserStackTunnel" class="">
-	<a href="BrowserStackTunnel.html">digdug/BrowserStackTunnel</a>
+	<a href="module-digdug_BrowserStackTunnel.html">digdug/BrowserStackTunnel</a>
 </li>
 
 <li data-member-id="module:digdug/NullTunnel" class="">
-	<a href="NullTunnel.html">digdug/NullTunnel</a>
+	<a href="module-digdug_NullTunnel.html">digdug/NullTunnel</a>
 </li>
 
 <li data-member-id="module:digdug/SauceLabsTunnel" class="">
-	<a href="SauceLabsTunnel.html">digdug/SauceLabsTunnel</a>
+	<a href="module-digdug_SauceLabsTunnel.html">digdug/SauceLabsTunnel</a>
+</li>
+
+<li data-member-id="module:digdug/SeleniumTunnel" class="">
+	<a href="module-digdug_SeleniumTunnel.html">digdug/SeleniumTunnel</a>
 </li>
 
 <li data-member-id="module:digdug/TestingBotTunnel" class="">
-	<a href="TestingBotTunnel.html">digdug/TestingBotTunnel</a>
+	<a href="module-digdug_TestingBotTunnel.html">digdug/TestingBotTunnel</a>
 </li>
 
 <li data-member-id="module:digdug/Tunnel" class="">
-	<a href="Tunnel.html">digdug/Tunnel</a>
+	<a href="module-digdug_Tunnel.html">digdug/Tunnel</a>
 </li>
 
 				<li><a href="global.html">Globals</a></li>
@@ -45,9 +49,13 @@
 	
 </nav>
 <div class="persistentTitle hidden"><a href="#overview">Index</a></div><main class="mainContent doc-index">
-	<div class="index"><h1>ディグダグ</h1><p>Dig Dug is a simple abstraction library for downloading and launching WebDriver service tunnels and interacting with
+	<div class="index"><h1>ディグダグ</h1><p><a href="https://travis-ci.org/theintern/digdug"><img src="https://travis-ci.org/theintern/digdug.svg?branch=master" alt="Build Status"></a>
+<a href="https://badge.fury.io/js/digdug"><img src="https://badge.fury.io/js/digdug.svg" alt="npm version"></a>
+<a href="http://isitmaintained.com/project/theintern/digdug" title="Average time to resolve an issue"><img src="http://isitmaintained.com/badge/resolution/theintern/digdug.svg" alt="Average time to resolve an issue"></a>
+<a href="http://isitmaintained.com/project/theintern/digdug" title="Percentage of issues still open"><img src="http://isitmaintained.com/badge/open/theintern/digdug.svg" alt="Percentage of issues still open"></a></p>
+<p>Dig Dug is a simple abstraction library for downloading and launching WebDriver service tunnels and interacting with
 the REST APIs of these services.</p>
-<p>The following services are currently supported:</p>
+<p>Dig Dug can run a local Selenium server, and it supports the following cloud testing services:</p>
 <ul>
 <li><a href="http://www.browserstack.com">BrowserStack</a></li>
 <li><a href="http://www.saucelabs.com">Sauce Labs</a></li>
@@ -87,9 +95,9 @@ tunnel.start().then(function () {
 <pre class="prettyprint source lang-js"><code>tunnel.sendJobState(sessionId, { success: true });</code></pre><p>When testing is finished, call the tunnel's <code>stop</code> method to cleanly shut it down. This method returns a Promise that is resolved when the service tunnel executable has exited.</p>
 <pre class="prettyprint source lang-js"><code>tunnel.stop().then(function () {
     // the tunnel has been shut down
-});</code></pre><h2>License</h2><p>Dig Dug is available under the terms of the <a href="LICENSE">New BSD License</a>. All code is developed under the terms of the
-<a href="http://dojofoundation.org/about/cla">Dojo Foundation CLA</a>.</p>
-<p>© 2013–2014 SitePen, Inc. http://sitepen.com</p></div>
+});</code></pre><h2>API documentation</h2><p><a href="https://theintern.github.io/digdug/">View API documentation</a></p>
+<h2>License</h2><p>Dig Dug is a Dojo Foundation project offered under the <a href="LICENSE">New BSD</a> license.</p>
+<p>© <a href="http://sitepen.com">SitePen, Inc.</a> and its <a href="https://github.com/theintern/digdug/graphs/contributors">contributors</a></p></div>
 
 </main>
 
