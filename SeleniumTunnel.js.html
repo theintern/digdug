@@ -23,6 +23,10 @@
 	<a href="module-digdug_BrowserStackTunnel.html">digdug/BrowserStackTunnel</a>
 </li>
 
+<li data-member-id="module:digdug/CrossBrowserTestingTunnel" class="">
+	<a href="module-digdug_CrossBrowserTestingTunnel.html">digdug/CrossBrowserTestingTunnel</a>
+</li>
+
 <li data-member-id="module:digdug/NullTunnel" class="">
 	<a href="module-digdug_NullTunnel.html">digdug/NullTunnel</a>
 </li>
@@ -72,7 +76,7 @@ function ChromeConfig(options) {
 
 ChromeConfig.prototype = {
 	constructor: ChromeConfig,
-	version: '2.22',
+	version: '2.25',
 	baseUrl: 'https://chromedriver.storage.googleapis.com',
 	platform: process.platform,
 	arch: process.arch,
@@ -82,7 +86,11 @@ ChromeConfig.prototype = {
 			platform = 'linux' + (this.arch === 'x64' ? '64' : '32');
 		}
 		else if (platform === 'darwin') {
-			platform = 'mac32';
+			var parts = String(this.version).split('.').map(Number);
+			var isGreater = [ 2, 22 ].some(function (part, i) {
+				return parts[i] > part;
+			});
+			platform = isGreater ? 'mac64' : 'mac32';
 		}
 		return format('chromedriver_%s.zip', platform);
 	},
@@ -103,7 +111,7 @@ function IeConfig(options) {
 
 IeConfig.prototype = {
 	constructor: IeConfig,
-	version: '2.53.0',
+	version: '3.0.0',
 	baseUrl: 'https://selenium-release.storage.googleapis.com',
 	arch: process.arch,
 	get artifact() {
@@ -128,21 +136,22 @@ function FirefoxConfig(options) {
 
 FirefoxConfig.prototype = {
 	constructor: FirefoxConfig,
-	version: '0.9.0',
+	version: '0.11.1',
 	baseUrl: 'https://github.com/mozilla/geckodriver/releases/download',
+	arch: process.arch,
 	platform: process.platform,
 	get artifact() {
 		var platform = this.platform;
 		if (platform === 'linux') {
-			platform = 'linux64';
+			platform = 'linux' + (this.arch === 'x64' ? '64' : '32');
 		}
 		else if (platform === 'win32') {
-			platform = 'win64';
+			platform = 'win' + (this.arch === 'x64' ? '64' : '32');
 		}
 		else if (platform === 'darwin') {
-			platform = 'mac';
+			platform = 'macos';
 		}
-		var extension = (platform === 'win64' ? '.zip' : '.tar.gz');
+		var extension = /^win/.test(platform) ? '.zip' : '.tar.gz';
 		return format('geckodriver-v%s-%s%s', this.version, platform, extension);
 	},
 	get url() {
@@ -235,9 +244,9 @@ SeleniumTunnel.prototype = util.mixin(Object.create(_super), /** @lends module:d
 	 * The desired version of selenium to install.
 	 *
 	 * @type {string}
-	 * @default 2.53.1
+	 * @default 3.0.1
 	 */
-	version: '2.53.1',
+	version: '3.0.1',
 
 	/**
 	 * Timeout in milliseconds for communicating with the Selenium server
@@ -333,12 +342,7 @@ SeleniumTunnel.prototype = util.mixin(Object.create(_super), /** @lends module:d
 	_makeArgs: function () {
 		var directory = this.directory;
 		var driverConfigs = this._getDriverConfigs();
-		var args = [
-			'-jar',
-			pathUtil.join(this.directory, this.artifact),
-			'-port',
-			this.port
-		];
+		var args = [];
 		
 		driverConfigs.reduce(function (args, config) {
 			var file = pathUtil.join(directory, config.executable);
@@ -349,6 +353,13 @@ SeleniumTunnel.prototype = util.mixin(Object.create(_super), /** @lends module:d
 		if (this.seleniumArgs) {
 			args = args.concat(this.seleniumArgs);
 		}
+
+		args = args.concat([
+			'-jar',
+			pathUtil.join(this.directory, this.artifact),
+			'-port',
+			this.port
+		]);
 
 		if (this.verbose) {
 			args.push('-debug');
@@ -382,7 +393,7 @@ SeleniumTunnel.prototype = util.mixin(Object.create(_super), /** @lends module:d
 				dfd.resolve();
 			}
 			if (self.verbose) {
-				console.log(data);
+				process.stderr.write(data);
 			}
 		});
 		var removeHandle = handle.remove.bind(handle);

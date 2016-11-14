@@ -23,6 +23,10 @@
 	<a href="module-digdug_BrowserStackTunnel.html">digdug/BrowserStackTunnel</a>
 </li>
 
+<li data-member-id="module:digdug/CrossBrowserTestingTunnel" class="">
+	<a href="module-digdug_CrossBrowserTestingTunnel.html">digdug/CrossBrowserTestingTunnel</a>
+</li>
+
 <li data-member-id="module:digdug/NullTunnel" class="">
 	<a href="module-digdug_NullTunnel.html">digdug/NullTunnel</a>
 </li>
@@ -58,6 +62,7 @@ the REST APIs of these services.</p>
 <p>Dig Dug can run a local Selenium server, and it supports the following cloud testing services:</p>
 <ul>
 <li><a href="http://www.browserstack.com">BrowserStack</a></li>
+<li><a href="http://www.crossbrowsertesting.com">CrossBrowserTesting</a></li>
 <li><a href="http://www.saucelabs.com">Sauce Labs</a></li>
 <li><a href="http://www.testingbot.com">TestingBot</a></li>
 </ul>
@@ -73,6 +78,10 @@ the REST APIs of these services.</p>
 <tr>
 <td><code>BrowserStackTunnel</code></td>
 <td><code>BROWSERSTACK_USERNAME</code>, <code>BROWSERSTACK_ACCESS_KEY</code></td>
+</tr>
+<tr>
+<td><code>CrossBrowserTestingTunnel</code></td>
+<td><code>CBT_USERNAME</code>, <code>CBT_APIKEY</code></td>
 </tr>
 <tr>
 <td><code>SauceLabsTunnel</code></td>
@@ -95,7 +104,17 @@ tunnel.start().then(function () {
 <pre class="prettyprint source lang-js"><code>tunnel.sendJobState(sessionId, { success: true });</code></pre><p>When testing is finished, call the tunnel's <code>stop</code> method to cleanly shut it down. This method returns a Promise that is resolved when the service tunnel executable has exited.</p>
 <pre class="prettyprint source lang-js"><code>tunnel.stop().then(function () {
     // the tunnel has been shut down
-});</code></pre><h2>API documentation</h2><p><a href="https://theintern.github.io/digdug/">View API documentation</a></p>
+});</code></pre><h2>Utilities</h2><p>Dig Dug includes a utility script, <code>digdugEnvironmnents</code>. After the digdug package has been installed, run this script to get a list of environments provided by a particular testing service.</p>
+<pre class="prettyprint source"><code>$ ./node_modules/.bin/digdugEnvironments SauceLabsTunnel
+{&quot;platform&quot;:&quot;OS X 10.9&quot;,&quot;browserName&quot;:&quot;firefox&quot;,&quot;version&quot;:&quot;4&quot;}
+{&quot;platform&quot;:&quot;OS X 10.9&quot;,&quot;browserName&quot;:&quot;firefox&quot;,&quot;version&quot;:&quot;5&quot;}
+{&quot;platform&quot;:&quot;OS X 10.9&quot;,&quot;browserName&quot;:&quot;firefox&quot;,&quot;version&quot;:&quot;6&quot;}
+{&quot;platform&quot;:&quot;OS X 10.9&quot;,&quot;browserName&quot;:&quot;firefox&quot;,&quot;version&quot;:&quot;7&quot;}
+{&quot;platform&quot;:&quot;OS X 10.9&quot;,&quot;browserName&quot;:&quot;firefox&quot;,&quot;version&quot;:&quot;8&quot;}
+{&quot;platform&quot;:&quot;OS X 10.9&quot;,&quot;browserName&quot;:&quot;firefox&quot;,&quot;version&quot;:&quot;9&quot;}
+{&quot;platform&quot;:&quot;OS X 10.9&quot;,&quot;browserName&quot;:&quot;firefox&quot;,&quot;version&quot;:&quot;10&quot;}
+...</code></pre><p>Note that BrowserStackTunnel requires that the <code>BROWSERSTACK_ACCESS_KEY</code> and <code>BROWSERSTACK_USERNAME</code> environment variables exist and are set to a user's account access key and username. The other tunnels do not (currently) require authentication to request an environment list.</p>
+<h2>API documentation</h2><p><a href="https://theintern.github.io/digdug/">View API documentation</a></p>
 <h2>License</h2><p>Dig Dug is a Dojo Foundation project offered under the <a href="LICENSE">New BSD</a> license.</p>
 <p>© <a href="http://sitepen.com">SitePen, Inc.</a> and its <a href="https://github.com/theintern/digdug/graphs/contributors">contributors</a></p></div>
 

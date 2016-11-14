@@ -23,6 +23,10 @@
 	<a href="module-digdug_BrowserStackTunnel.html">digdug/BrowserStackTunnel</a>
 </li>
 
+<li data-member-id="module:digdug/CrossBrowserTestingTunnel" class="">
+	<a href="module-digdug_CrossBrowserTestingTunnel.html">digdug/CrossBrowserTestingTunnel</a>
+</li>
+
 <li data-member-id="module:digdug/NullTunnel" class="">
 	<a href="module-digdug_NullTunnel.html">digdug/NullTunnel</a>
 </li>
@@ -49,7 +53,7 @@
 	
 </nav>
 <div class="persistentTitle hidden"><a href="#overview">util.js</a></div><main class="mainContent doc-source"><h1 class="title header">util.js</h1>
-<pre class="prettyprint source linenums"><code>var decompress = require('decompress');
+<pre class="prettyprint source linenums"><code>var Decompress = require('decompress');
 var Promise = require('dojo/Promise');
 var fs = require('fs');
 var path = require('path');
@@ -118,7 +122,21 @@ module.exports = {
 	 * @returns {Promise.&lt;void>} A Promise that resolves when the data is decompressed
 	 */
 	decompress: function (data, directory) {
-		return decompress(data, directory);
+		return new Promise(function (resolve, reject) {
+			var decompressor = new Decompress()
+				.src(data)
+				.dest(directory)
+				.use(Decompress.zip())
+				.use(Decompress.targz());
+			decompressor.run(function (error, files) {
+				if (error) {
+					reject(error);
+				}
+				else {
+					resolve(files);
+				}
+			});
+		});
 	},
 
 	/**

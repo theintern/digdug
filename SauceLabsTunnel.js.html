@@ -23,6 +23,10 @@
 	<a href="module-digdug_BrowserStackTunnel.html">digdug/BrowserStackTunnel</a>
 </li>
 
+<li data-member-id="module:digdug/CrossBrowserTestingTunnel" class="">
+	<a href="module-digdug_CrossBrowserTestingTunnel.html">digdug/CrossBrowserTestingTunnel</a>
+</li>
+
 <li data-member-id="module:digdug/NullTunnel" class="">
 	<a href="module-digdug_NullTunnel.html">digdug/NullTunnel</a>
 </li>
@@ -559,16 +563,26 @@ SauceLabsTunnel.prototype = util.mixin(Object.create(_super), /** @lends module:
 			platformVersion = os.slice('Mac '.length);
 		}
 
+		var platform = platformName + (platformVersion ? ' ' + platformVersion : '');
+		var browserName = browserMap[environment.api_name] || environment.api_name;
+		var version = environment.short_version;
+
 		return {
-			platform: platformName + (platformVersion ? ' ' + platformVersion : ''),
+			platform: platform,
 			platformName: platformName,
 			platformVersion: platformVersion,
 
-			browserName: browserMap[environment.api_name] || environment.api_name,
-			browserVersion: environment.short_version,
-			version: environment.short_version,
+			browserName: browserName,
+			browserVersion: version,
+			version: version,
 
-			descriptor: environment
+			descriptor: environment,
+
+			intern: {
+				platform: platform,
+				browserName: browserName,
+				version: version
+			}
 		};
 	}
 });
