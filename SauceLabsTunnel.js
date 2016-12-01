@@ -22,7 +22,7 @@ var SC_VERSION = '4.4.1';
  */
 function SauceLabsTunnel() {
 	this.accessKey = process.env.SAUCE_ACCESS_KEY;
-	this.scVersion = SC_VERSION;
+	this.scVersion = process.env.SC_VERSION || SC_VERSION;
 	this.directDomains = [];
 	this.tunnelDomains = [];
 	this.domainAuthentication = [];
