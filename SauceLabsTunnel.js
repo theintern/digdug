@@ -11,7 +11,7 @@ var Tunnel = require('./Tunnel');
 var urlUtil = require('url');
 var util = require('./util');
 
-var SC_VERSION = '4.4.1';
+var SC_VERSION = '4.4.2';
 
 /**
  * A Sauce Labs tunnel. This tunnel uses Sauce Connect 4 on platforms where it is supported, and Sauce Connect 3
@@ -22,7 +22,7 @@ var SC_VERSION = '4.4.1';
  */
 function SauceLabsTunnel() {
 	this.accessKey = process.env.SAUCE_ACCESS_KEY;
-	this.scVersion = SC_VERSION;
+	this.scVersion = process.env.SC_VERSION || SC_VERSION;
 	this.directDomains = [];
 	this.tunnelDomains = [];
 	this.domainAuthentication = [];
