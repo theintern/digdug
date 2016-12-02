@@ -23,7 +23,7 @@ Tunnel class                | Environment variables
 ----------------------------|----------------------------------------------------
 `BrowserStackTunnel`        | `BROWSERSTACK_USERNAME`, `BROWSERSTACK_ACCESS_KEY`
 `CrossBrowserTestingTunnel` | `CBT_USERNAME`, `CBT_APIKEY`
-`SauceLabsTunnel`           | `SAUCE_USERNAME`, `SAUCE_ACCESS_KEY`
+`SauceLabsTunnel`           | `SAUCE_USERNAME`, `SAUCE_ACCESS_KEY`, `SC_VERSION`(optional)
 `TestingBotTunnel`          | `TESTINGBOT_KEY`, `TESTINGBOT_SECRET`
 
 Other properties, such as the local port the tunnel should serve on or the URL of a proxy server the tunnel should go through, can be passed to a tunnel constructor or set on a tunnel instance. See the pages for [Tunnel](Tunnel.html) and the tunnel subclasses for available properties.
