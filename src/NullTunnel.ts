@@ -17,12 +17,12 @@ export default class NullTunnel extends Tunnel {
 		return Task.resolve();
 	}
 	start() {
-		this.isRunning = true;
+		this._state = 'running';
 		return Task.resolve();
 	}
 	stop() {
-		this.isRunning = false;
-		return Promise.resolve<number>(undefined);
+		this._state = 'stopped';
+		return Promise.resolve<number>(0);
 	}
 	sendJobState() {
 		return Task.resolve();

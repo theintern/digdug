@@ -60,9 +60,6 @@ export interface TunnelProperties extends DownloadOptions {
 	auth: string;
 	executable: string;
 	hostname: string;
-	isRunning: boolean;
-	isStarting: boolean;
-	isStopping: boolean;
 	pathname: string;
 	platform: string;
 	port: string;
@@ -72,6 +69,16 @@ export interface TunnelProperties extends DownloadOptions {
 }
 
 export type TunnelOptions = Partial<TunnelProperties>;
+
+function proxyIOEvent(target: Tunnel, type: 'stdout' | 'stderr') {
+	return function (data: any) {
+		target.emit<IOEvent>({
+			type,
+			target,
+			data: String(data)
+		});
+	};
+}
 
 /**
  * A Tunnel is a mechanism for connecting to a WebDriver service provider that securely exposes local services for
@@ -163,30 +170,6 @@ export default class Tunnel extends Evented implements TunnelProperties, Url {
 	hostname: string;
 
 	/**
-	 * Whether or not the tunnel is currently running.
-	 *
-	 * @type {boolean}
-	 * @readonly
-	 */
-	isRunning: boolean;
-
-	/**
-	 * Whether or not the tunnel is currently starting up.
-	 *
-	 * @type {boolean}
-	 * @readonly
-	 */
-	isStarting: boolean;
-
-	/**
-	 * Whether or not the tunnel is currently stopping.
-	 *
-	 * @type {boolean}
-	 * @readonly
-	 */
-	isStopping: boolean;
-
-	/**
 	 * The path that a WebDriver client should use to access the service provided by the tunnel.
 	 *
 	 * @type {string}
@@ -248,8 +231,10 @@ export default class Tunnel extends Evented implements TunnelProperties, Url {
 	verbose: boolean;
 
 	protected _startTask: Task<any>;
+	protected  _stopTask: Promise<number>;
 	protected _handle: Handle = null;
 	protected _process: ChildProcess = null;
+	protected _state: 'stopped' | 'starting' | 'running' | 'stopping' = 'stopped';
 
 	/**
 	 * The URL that a WebDriver client should used to interact with this service.
@@ -285,6 +270,36 @@ export default class Tunnel extends Evented implements TunnelProperties, Url {
 	 */
 	get isDownloaded(): boolean {
 		return util.fileExists(pathUtil.join(this.directory, this.executable));
+	}
+
+	/**
+	 * Whether or not the tunnel is currently running.
+	 *
+	 * @type {boolean}
+	 * @readonly
+	 */
+	get isRunning(): boolean {
+		return this._state === 'running';
+	}
+
+	/**
+	 * Whether or not the tunnel is currently starting up.
+	 *
+	 * @type {boolean}
+	 * @readonly
+	 */
+	get isStarting(): boolean {
+		return this._state === 'starting';
+	}
+
+	/**
+	 * Whether or not the tunnel is currently stopping.
+	 *
+	 * @type {boolean}
+	 * @readonly
+	 */
+	get isStopping(): boolean {
+		return this._state === 'stopping';
 	}
 
 	on(type: 'stderr' | 'stdout', listener: (event: IOEvent) => void): Handle;
@@ -479,17 +494,14 @@ export default class Tunnel extends Evented implements TunnelProperties, Url {
 	 * @returns {Promise.<void>} A promise that resolves once the tunnel has been established.
 	 */
 	start() {
-		if (this.isRunning) {
-			throw new Error('Tunnel is already running');
-		}
-		else if (this.isStopping) {
+		switch (this._state) {
+		case 'stopping':
 			throw new Error('Previous tunnel is still terminating');
-		}
-		else if (this.isStarting) {
+		case 'starting':
 			return this._startTask;
 		}
 
-		this.isStarting = true;
+		this._state = 'starting';
 
 		this._startTask = this
 			.download()
@@ -498,23 +510,10 @@ export default class Tunnel extends Evented implements TunnelProperties, Url {
 					this._process = child;
 					this._handle = createCompositeHandle(
 						this._handle || { destroy: function () {} },
-						util.on(child.stdout, 'data', (data: any) => {
-							this.emit<IOEvent>({
-								type: 'stdout',
-								target: this,
-								data: String(data)
-							});
-						}),
-						util.on(child.stderr, 'data', (data: any) => {
-							this.emit<IOEvent>({
-								type: 'stderr',
-								target: this,
-								data: String(data)
-							});
-						}),
+						util.on(child.stdout, 'data', proxyIOEvent(this, 'stdout')),
+						util.on(child.stderr, 'data', proxyIOEvent(this, 'stderr')),
 						util.on(child, 'exit', () => {
-							this.isStarting = false;
-							this.isRunning = false;
+							this._state = 'stopped';
 						})
 					);
 				});
@@ -524,8 +523,7 @@ export default class Tunnel extends Evented implements TunnelProperties, Url {
 		this._startTask
 			.then(() => {
 				this._startTask = null;
-				this.isStarting = false;
-				this.isRunning = true;
+				this._state = 'running';
 				this.emit<StatusEvent>({
 					type: 'status',
 					target: this,
@@ -534,7 +532,7 @@ export default class Tunnel extends Evented implements TunnelProperties, Url {
 			})
 			.catch((error: Error) => {
 				this._startTask = null;
-				this.isStarting = false;
+				this._state = 'stopped';
 				this.emit<StatusEvent>({
 					type: 'status',
 					target: this,
@@ -581,34 +579,31 @@ export default class Tunnel extends Evented implements TunnelProperties, Url {
 	 * @returns {Promise.<integer>}
 	 * A promise that resolves to the exit code for the tunnel once it has been terminated.
 	 */
-	stop() {
-		if (this.isStopping) {
-			throw new Error('Tunnel is already terminating');
-		}
-		else if (this.isStarting) {
+	stop(): Promise<number> {
+		switch (this._state) {
+		case 'starting':
 			this._startTask.cancel();
-			return;
-		}
-		else if (!this.isRunning) {
-			throw new Error('Tunnel is not running');
+			return this._startTask.finally(() => null);
+		case 'stopping':
+			return this._stopTask;
 		}
 
-		this.isRunning = false;
-		this.isStopping = true;
+		this._state = 'stopping';
 
-		return this._stop()
+		this._stopTask = this._stop()
 			.then(returnValue => {
 				this._handle.destroy();
 				this._process = this._handle = null;
-				this.isRunning = this.isStopping = false;
+				this._state = 'stopped';
 				return returnValue;
 			})
 			.catch(error => {
-				this.isRunning = true;
-				this.isStopping = false;
+				this._state = 'running';
 				throw error;
 			})
 		;
+
+		return this._stopTask;
 	}
 
 	/**
@@ -689,9 +684,6 @@ util.assign(Tunnel.prototype, <TunnelProperties> {
 	directory: null,
 	executable: null,
 	hostname: 'localhost',
-	isRunning: false,
-	isStarting: false,
-	isStopping: false,
 	pathname: '/wd/hub/',
 	platform: process.platform,
 	port: '4444',
