@@ -20,8 +20,9 @@
     "@types/shelljs": "0.3.33",
     "dojo-loader": "2.0.0-beta.7",
     "intern": "~3.4.2",
-    "intern-dev": "https://github.com/theintern/intern-dev/releases/download/0.1.1/intern-dev-0.1.1.tgz",
+    "intern-dev": "https://github.com/theintern/intern-dev/releases/download/0.1.2/intern-dev-0.1.2.tgz",
     "shelljs": "0.7.5",
+    "tslint": "~4.0.0",
     "typescript": "~2.1.4"
   },
   "scripts": {
