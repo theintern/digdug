@@ -2,42 +2,64 @@
  * @module digdug/Tunnel
  */
 
-var Evented = require('dojo/Evented');
-var pathUtil = require('path');
-var Promise = require('dojo/Promise');
-var sendRequest = require('dojo/request');
-var childProcess = require('child_process');
-var urlUtil = require('url');
-var util = require('./util');
+import Evented from 'dojo-core/Evented';
+import { createCompositeHandle, assign } from 'dojo-core/lang';
+import { Handle } from 'dojo-core/interfaces';
+import * as pathUtil from 'path';
+import Task, { State } from 'dojo-core/async/Task';
+import sendRequest, { ResponsePromise, Response } from 'dojo-core/request';
+import { NodeRequestOptions } from 'dojo-core/request/node';
+import { spawn, ChildProcess } from 'child_process';
+import { format as formatUrl, Url } from 'url';
+import * as util from './util';
+import * as decompress from 'decompress';
+import { JobState } from './interfaces';
 
 // TODO: Spawned processes are not getting cleaned up if there is a crash
 
-/**
- * Clears an array of remover handles.
- *
- * @param {Handle[]} handles
- * @private
- */
-function clearHandles(handles) {
-	var handle;
-	while ((handle = handles.pop())) {
-		handle.remove();
-	}
+export interface ChildExecutor {
+	(child: ChildProcess, resolve: () => void, reject: (reason?: any) => void): Handle | void;
 }
 
-/**
- * Creates a new function that emits an event of type `type` on `target` every time the returned function is called.
- *
- * @param {module:dojo/Evented} target A target event emitter.
- * @param {string} type The type of event to emit.
- * @returns {Function} The function to call to trigger an event.
- * @private
- */
-function proxyEvent(target, type) {
-	return function (data) {
-		target.emit(type, data);
+export interface DownloadOptions {
+	directory: string;
+	proxy: string;
+	url: string;
+}
+
+export interface NormalizedEnvironment {
+	browserName: string;
+	browserVersion?: string;
+	descriptor: Object;
+	platform: string;
+	platformName?: string;
+	platformVersion?: string;
+	version: string;
+
+	intern: {
+		platform: string;
+		browserName: string;
+		version: string;
 	};
 }
+
+export interface TunnelProperties extends DownloadOptions {
+	architecture: string;
+	auth: string;
+	executable: string;
+	hostname: string;
+	isRunning: boolean;
+	isStarting: boolean;
+	isStopping: boolean;
+	pathname: string;
+	platform: string;
+	port: string;
+	protocol: string;
+	tunnelId: string;
+	verbose: boolean;
+}
+
+export type TunnelOptions = Partial<TunnelProperties>;
 
 /**
  * A Tunnel is a mechanism for connecting to a WebDriver service provider that securely exposes local services for
@@ -46,16 +68,14 @@ function proxyEvent(target, type) {
  * @constructor module:digdug/Tunnel
  * @param {Object} kwArgs A map of properties that should be set on the new instance.
  */
-function Tunnel(kwArgs) {
-	Evented.apply(this, arguments);
-	for (var key in kwArgs) {
-		Object.defineProperty(this, key, Object.getOwnPropertyDescriptor(kwArgs, key));
+export default class Tunnel extends Evented implements TunnelProperties, Url {
+	constructor(kwArgs?: TunnelOptions) {
+		super();
+		for (let key in kwArgs) {
+			Object.defineProperty(this, key, Object.getOwnPropertyDescriptor(kwArgs, key));
+		}
 	}
-}
 
-var _super = Evented.prototype;
-
-Tunnel.prototype = util.mixin(Object.create(_super), /** @lends module:digdug/Tunnel# */ {
 	/**
 	 * Part of the tunnel has been downloaded from the server.
 	 *
@@ -86,7 +106,9 @@ Tunnel.prototype = util.mixin(Object.create(_super), /** @lends module:digdug/Tu
 	 * @type {string}
 	 */
 
-	constructor: Tunnel,
+	environmentUrl: string;
+	accessKey: string;
+	username: string;
 
 	/**
 	 * The architecture the tunnel will run against. This information is automatically retrieved for the current
@@ -94,7 +116,7 @@ Tunnel.prototype = util.mixin(Object.create(_super), /** @lends module:digdug/Tu
 	 *
 	 * @type {string}
 	 */
-	architecture: process.arch,
+	architecture: string;
 
 	/**
 	 * An HTTP authorization string to use when initiating connections to the tunnel. This value of this property is
@@ -102,7 +124,7 @@ Tunnel.prototype = util.mixin(Object.create(_super), /** @lends module:digdug/Tu
 	 *
 	 * @type {string}
 	 */
-	auth: null,
+	auth: string;
 
 	/**
 	 * The directory where the tunnel software will be extracted. If the directory does not exist, it will be
@@ -110,14 +132,14 @@ Tunnel.prototype = util.mixin(Object.create(_super), /** @lends module:digdug/Tu
 	 *
 	 * @type {string}
 	 */
-	directory: null,
+	directory: string;
 
 	/**
 	 * The executable to spawn in order to create a tunnel. This value is set by the tunnel subclasses.
 	 *
 	 * @type {string}
 	 */
-	executable: null,
+	executable: string;
 
 	/**
 	 * The host on which a WebDriver client can access the service provided by the tunnel. This may or may not be
@@ -126,7 +148,7 @@ Tunnel.prototype = util.mixin(Object.create(_super), /** @lends module:digdug/Tu
 	 * @type {string}
 	 * @default
 	 */
-	hostname: 'localhost',
+	hostname: string;
 
 	/**
 	 * Whether or not the tunnel is currently running.
@@ -134,7 +156,7 @@ Tunnel.prototype = util.mixin(Object.create(_super), /** @lends module:digdug/Tu
 	 * @type {boolean}
 	 * @readonly
 	 */
-	isRunning: false,
+	isRunning: boolean;
 
 	/**
 	 * Whether or not the tunnel is currently starting up.
@@ -142,7 +164,7 @@ Tunnel.prototype = util.mixin(Object.create(_super), /** @lends module:digdug/Tu
 	 * @type {boolean}
 	 * @readonly
 	 */
-	isStarting: false,
+	isStarting: boolean;
 
 	/**
 	 * Whether or not the tunnel is currently stopping.
@@ -150,7 +172,7 @@ Tunnel.prototype = util.mixin(Object.create(_super), /** @lends module:digdug/Tu
 	 * @type {boolean}
 	 * @readonly
 	 */
-	isStopping: false,
+	isStopping: boolean;
 
 	/**
 	 * The path that a WebDriver client should use to access the service provided by the tunnel.
@@ -158,7 +180,7 @@ Tunnel.prototype = util.mixin(Object.create(_super), /** @lends module:digdug/Tu
 	 * @type {string}
 	 * @default
 	 */
-	pathname: '/wd/hub/',
+	pathname: string;
 
 	/**
 	 * The operating system the tunnel will run on. This information is automatically retrieved for the current
@@ -166,15 +188,15 @@ Tunnel.prototype = util.mixin(Object.create(_super), /** @lends module:digdug/Tu
 	 *
 	 * @type {string}
 	 */
-	platform: process.platform,
+	platform: string;
 
 	/**
 	 * The local port where the WebDriver server should be exposed by the tunnel.
 	 *
-	 * @type {number}
+	 * @type {string}
 	 * @default
 	 */
-	port: 4444,
+	port: string;
 
 	/**
 	 * The protocol (e.g., 'http') that a WebDriver client should use to access the service provided by the tunnel.
@@ -182,28 +204,28 @@ Tunnel.prototype = util.mixin(Object.create(_super), /** @lends module:digdug/Tu
 	 * @type {string}
 	 * @default
 	 */
-	protocol: 'http',
+	protocol: string;
 
 	/**
 	 * The URL of a proxy server for the tunnel to go through. Only the hostname, port, and auth are used.
 	 *
 	 * @type {string}
 	 */
-	proxy: null,
+	proxy: string;
 
 	/**
 	 * A unique identifier for the newly created tunnel.
 	 *
 	 * @type {string=}
 	 */
-	tunnelId: null,
+	tunnelId: string;
 
 	/**
 	 * The URL where the tunnel software can be downloaded.
 	 *
 	 * @type {string}
 	 */
-	url: null,
+	url: string;
 
 	/**
 	 * Whether or not to tell the tunnel to provide verbose logging output.
@@ -211,10 +233,11 @@ Tunnel.prototype = util.mixin(Object.create(_super), /** @lends module:digdug/Tu
 	 * @type {boolean}
 	 * @default
 	 */
-	verbose: false,
+	verbose: boolean;
 
-	_handles: null,
-	_process: null,
+	protected _startTask: Task<any>;
+	protected _handle: Handle = null;
+	protected _process: ChildProcess = null;
 
 	/**
 	 * The URL that a WebDriver client should used to interact with this service.
@@ -224,9 +247,9 @@ Tunnel.prototype = util.mixin(Object.create(_super), /** @lends module:digdug/Tu
 	 * @type {string}
 	 * @readonly
 	 */
-	get clientUrl() {
-		return urlUtil.format(this);
-	},
+	get clientUrl(): string {
+		return formatUrl(this);
+	}
 
 	/**
 	 * A map of additional capabilities that need to be sent to the provider when a new session is being created.
@@ -236,9 +259,9 @@ Tunnel.prototype = util.mixin(Object.create(_super), /** @lends module:digdug/Tu
 	 * @type {Object}
 	 * @readonly
 	 */
-	get extraCapabilities() {
+	get extraCapabilities(): Object {
 		return {};
-	},
+	}
 
 	/**
 	 * Whether or not the tunnel software has already been downloaded.
@@ -248,9 +271,9 @@ Tunnel.prototype = util.mixin(Object.create(_super), /** @lends module:digdug/Tu
 	 * @type {boolean}
 	 * @readonly
 	 */
-	get isDownloaded() {
+	get isDownloaded(): boolean {
 		return util.fileExists(pathUtil.join(this.directory, this.executable));
-	},
+	}
 
 	/**
 	 * Downloads and extracts the tunnel software if it is not already downloaded.
@@ -261,49 +284,55 @@ Tunnel.prototype = util.mixin(Object.create(_super), /** @lends module:digdug/Tu
 	 * @param {boolean} forceDownload Force downloading the software even if it already has been downloaded.
 	 * @returns {Promise.<void>} A promise that resolves once the download and extraction process has completed.
 	 */
-	download: function (forceDownload) {
+	download(forceDownload = false): Task<any> {
 		if (!forceDownload && this.isDownloaded) {
-			return Promise.resolve();
+			return Task.resolve();
 		}
 		return this._downloadFile(this.url, this.proxy);
-	},
+	}
 
-	_downloadFile: function (url, proxy, options) {
-		var self = this;
+	protected _downloadFile(url: string, proxy: string, options?: DownloadOptions): Task<any> {
+		let request: ResponsePromise<any>;
 
-		return new Promise(function (resolve, reject, progress, setCanceler) {
-			setCanceler(function (reason) {
-				request && request.cancel(reason);
-			});
+		return new Task<any>(
+			(resolve, reject) => {
+				// TODO: progress events
+				// function (info) {
+				// 	self.emit('downloadprogress', util.mixin({}, info, { url: url }));
+				// 	progress(info);
+				// }
+				request = sendRequest(url, <NodeRequestOptions<any>> { proxy });
+				request
+					.then(response => {
+						resolve(this._postDownloadFile(response, options));
+					})
+					.catch((error: Error) => {
+						if (util.isRequestError(error) && error.response.statusCode >= 400) {
+							error = new Error(`Download server returned status code ${error.response.statusCode}`);
+						}
+						reject(error);
+					})
+				;
+			},
+			() => {
+				request && request.cancel();
+			}
+		);
+	}
 
-			var request = sendRequest(url, { proxy: proxy });
-			request.then(
-				function (response) {
-					resolve(self._postDownloadFile(response, options));
-				},
-				function (error) {
-					if (error.response && error.response.statusCode >= 400) {
-						error = new Error('Download server returned status code ' + error.response.statusCode);
-					}
-					reject(error);
-				},
-				function (info) {
-					self.emit('downloadprogress', util.mixin({}, info, { url: url }));
-					progress(info);
-				}
-			).catch(function (error) {
-				reject(error);
-			});
-		});
-	},
-	
 	/**
 	 * Called with the response after a file download has completed
 	 */
-	_postDownloadFile: function (response) {
-		return util.decompress(response.data, this.directory);
-	},
-	
+	protected _postDownloadFile(response: Response<any>, options?: DownloadOptions): Promise<void>;
+	protected _postDownloadFile(response: Response<any>): Promise<void> {
+		return new Promise<void>((resolve, reject) => {
+			decompress(response.data, this.directory)
+				.then(() => resolve())
+				.catch(reject)
+			;
+		});
+	}
+
 	/**
 	 * Creates the list of command-line arguments to be passed to the spawned tunnel. Implementations should
 	 * override this method to provide the appropriate command-line arguments.
@@ -313,9 +342,9 @@ Tunnel.prototype = util.mixin(Object.create(_super), /** @lends module:digdug/Tu
 	 * @protected
 	 * @returns {string[]} A list of command-line arguments.
 	 */
-	_makeArgs: function () {
+	protected _makeArgs(...values: string[]): string[] {
 		return [];
-	},
+	}
 
 	/**
 	 * Creates a newly spawned child process for the tunnel software. Implementations should call this method to
@@ -329,69 +358,76 @@ Tunnel.prototype = util.mixin(Object.create(_super), /** @lends module:digdug/Tu
 	 * An object containing a newly spawned Process and a Deferred that will be resolved once the tunnel has started
 	 * successfully.
 	 */
-	_makeChild: function () {
-		function handleChildExit() {
-			if (dfd.promise.state === Promise.State.PENDING) {
-				var message = 'Tunnel failed to start: ' + (errorMessage || ('Exit code: ' + exitCode));
-				dfd.reject(new Error(message));
-			}
-		}
+	protected _makeChild(executor: ChildExecutor, ...values: string[]): Task<any> {
+		const command = this.executable;
+		const args = this._makeArgs(...values);
+		const options = this._makeOptions(...values);
 
-		var command = this.executable;
-		var args = this._makeArgs.apply(this, arguments);
-		var options = this._makeOptions.apply(this, arguments);
-
-		var dfd = new Promise.Deferred(function (reason) {
-			child.kill('SIGINT');
-			return new Promise(function (resolve, reject) {
-				child.once('exit', function () {
-					reject(reason);
-				});
-			});
-		});
-		var child = childProcess.spawn(command, args, options);
+		const child = spawn(command, args, options);
 
 		child.stdout.setEncoding('utf8');
-		child.stderr.setEncoding('utf8');
+		child.stdout.setEncoding('utf8');
 
-		// Detect and reject on common errors, but only until the promise is fulfilled, at which point we should
-		// no longer be managing any events since it means the process has started successfully and is underway
-		var errorMessage = '';
-		var exitCode = null;
-		var stderrClosed = false;
+		let handle: Handle;
+		const task = new Task(
+			(resolve, reject) => {
+				let errorMessage = '';
+				let exitCode: number = null;
+				let stderrClosed = false;
 
-		var handles = [
-			util.on(child, 'error', dfd.reject.bind(dfd)),
-			util.on(child.stderr, 'data', function (data) {
-				errorMessage += data;
-			}),
-			util.on(child, 'exit', function (code) {
-				exitCode = code;
-				if (stderrClosed) {
-					handleChildExit();
+				function handleChildExit() {
+					if (task.state === State.Pending) {
+						reject(new Error(`Tunnel failed to start: ${errorMessage || `Exit code: ${exitCode}`}`));
+					}
 				}
-			}),
-			// stderr might still have data in buffer at the time the exit event is sent, so we have to store data
-			// from stderr and the exit code and reject only once stderr closes
-			util.on(child.stderr, 'close', function () {
-				stderrClosed = true;
-				if (exitCode !== null) {
-					handleChildExit();
+				handle = createCompositeHandle(
+					util.on(child, 'error', reject),
+					util.on(child.stderr, 'data', (data: string) => {
+						errorMessage += data;
+					}),
+					util.on(child, 'exit', (code: number) => {
+						exitCode = code;
+						if (stderrClosed) {
+							handleChildExit();
+						}
+					}),
+					// stderr might still have data in buffer at the time the exit event is sent, so we have to store data
+					// from stderr and the exit code and reject only once stderr closes
+					util.on(child.stderr, 'close', () => {
+						stderrClosed = true;
+						if (exitCode !== null) {
+							handleChildExit();
+						}
+					})
+				);
+
+				const result = executor(child, resolve, reject);
+				if (result) {
+					handle = createCompositeHandle(handle, result);
 				}
+			},
+			() => {
+				child.kill('SIGINT');
+			}
+		);
+
+		return task
+			.then(() => {
+				handle.destroy();
 			})
-		];
-
-		dfd.promise.then(function () {
-			clearHandles(handles);
-		}).catch(function () {
-			clearHandles(handles);
-		});
-
-		return {
-			process: child,
-			deferred: dfd
-		};
-	},
+			.catch(() => {
+				handle.destroy();
+			})
+			.finally(() => {
+				handle.destroy();
+				return new Promise(resolve => {
+					child.once('exit', () => {
+						resolve();
+					});
+				});
+			})
+		;
+	}
 
 	/**
 	 * Creates the set of options to use when spawning the tunnel process. Implementations should override this
@@ -402,12 +438,12 @@ Tunnel.prototype = util.mixin(Object.create(_super), /** @lends module:digdug/Tu
 	 * @protected
 	 * @returns {Object} A set of options matching those provided to Node.js {@link module:child_process.spawn}.
 	 */
-	_makeOptions: function () {
+	protected _makeOptions(...values: string[]) {
 		return {
 			cwd: this.directory,
 			env: process.env
 		};
-	},
+	}
 
 	/**
 	 * Sends information about a job to the tunnel provider.
@@ -416,18 +452,16 @@ Tunnel.prototype = util.mixin(Object.create(_super), /** @lends module:digdug/Tu
 	 * @param {JobState} data Data to send to the tunnel provider about the job.
 	 * @returns {Promise.<void>} A promise that resolves once the job state request is complete.
 	 */
-	sendJobState: function () {
-		var dfd = new Promise.Deferred();
-		dfd.reject(new Error('Job state is not supported by this tunnel.'));
-		return dfd.promise;
-	},
+	sendJobState(jobId: string, data: JobState): Task<void> {
+		return Task.reject<void>(new Error('Job state is not supported by this tunnel.'));
+	}
 
 	/**
 	 * Starts the tunnel, automatically downloading dependencies if necessary.
 	 *
 	 * @returns {Promise.<void>} A promise that resolves once the tunnel has been established.
 	 */
-	start: function () {
+	start() {
 		if (this.isRunning) {
 			throw new Error('Tunnel is already running');
 		}
@@ -440,43 +474,47 @@ Tunnel.prototype = util.mixin(Object.create(_super), /** @lends module:digdug/Tu
 
 		this.isStarting = true;
 
-		var self = this;
 		this._startTask = this
 			.download()
-			.then(function () {
-				self._handles = [];
-				return self._start();
+			.then(() => {
+				return this._start((child, resolve, reject) => {
+					this._process = child;
+					this._handle = createCompositeHandle(
+						this._handle || { destroy: function () {} },
+						util.on(child.stdout, 'data', (data: any) => {
+							this.emit({ type: 'stdout', data: data });
+						}),
+						util.on(child.stderr, 'data', (data: any) => {
+							this.emit({ type: 'stderr', data: data });
+						}),
+						util.on(child, 'exit', () => {
+							this.isStarting = false;
+							this.isRunning = false;
+						})
+					);
+				});
 			})
-			.then(function (child) {
-				var childProcess = child.process;
-				self._process = childProcess;
-				self._handles.push(
-					util.on(childProcess.stdout, 'data', proxyEvent(self, 'stdout')),
-					util.on(childProcess.stderr, 'data', proxyEvent(self, 'stderr')),
-					util.on(childProcess, 'exit', function () {
-						self.isStarting = false;
-						self.isRunning = false;
-					})
-				);
-				return child.deferred.promise;
-			});
+		;
 
-		this._startTask.then(
-			function () {
-				self._startTask = null;
-				self.isStarting = false;
-				self.isRunning = true;
-				self.emit('status', 'Ready');
-			},
-			function (error) {
-				self._startTask = null;
-				self.isStarting = false;
-				self.emit('status', error.name === 'CancelError' ? 'Start cancelled' : 'Failed to start tunnel');
-			}
-		);
+		this._startTask
+			.then(() => {
+				this._startTask = null;
+				this.isStarting = false;
+				this.isRunning = true;
+				this.emit({ type: 'status', status: 'Ready' });
+			})
+			.catch((error: Error) => {
+				this._startTask = null;
+				this.isStarting = false;
+				this.emit({
+					type: 'status',
+					status: error.name === 'CancelError' ? 'Start cancelled' : 'Failed to start tunnel'
+				});
+			})
+		;
 
 		return this._startTask;
-	},
+	}
 
 	/**
 	 * This method provides the implementation that actually starts the tunnel and any other logic for emitting
@@ -491,26 +529,21 @@ Tunnel.prototype = util.mixin(Object.create(_super), /** @lends module:digdug/Tu
 	 * An object containing a reference to the child process, and a Deferred that is resolved once the tunnel is
 	 * ready for use. Normally this will be the object returned from a call to `Tunnel#_makeChild`.
 	 */
-	_start: function () {
-		function resolve() {
-			clearHandles(handles);
-			dfd.resolve();
-		}
+	protected _start(executor: ChildExecutor) {
+		return this._makeChild((child, resolve, reject) => {
+			const handle = createCompositeHandle(
+				util.on(child.stdout, 'data', resolve),
+				util.on(child.stderr, 'data', resolve),
+				util.on(child, 'error', (error: Error) => {
+					reject(error);
+				})
+			);
 
-		var childHandle = this._makeChild();
-		var child = childHandle.process;
-		var dfd = childHandle.deferred;
-		var handles = [
-			util.on(child.stdout, 'data', resolve),
-			util.on(child.stderr, 'data', resolve),
-			util.on(child, 'error', function (error) {
-				clearHandles(handles);
-				dfd.reject(error);
-			})
-		];
+			executor(child, resolve, reject);
 
-		return childHandle;
-	},
+			return handle;
+		});
+	}
 
 	/**
 	 * Stops the tunnel.
@@ -518,7 +551,7 @@ Tunnel.prototype = util.mixin(Object.create(_super), /** @lends module:digdug/Tu
 	 * @returns {Promise.<integer>}
 	 * A promise that resolves to the exit code for the tunnel once it has been terminated.
 	 */
-	stop: function () {
+	stop() {
 		if (this.isStopping) {
 			throw new Error('Tunnel is already terminating');
 		}
@@ -533,21 +566,20 @@ Tunnel.prototype = util.mixin(Object.create(_super), /** @lends module:digdug/Tu
 		this.isRunning = false;
 		this.isStopping = true;
 
-		var self = this;
-		return this._stop().then(
-			function (returnValue) {
-				clearHandles(self._handles);
-				self._process = self._handles = null;
-				self.isRunning = self.isStopping = false;
+		return this._stop()
+			.then(returnValue => {
+				this._handle.destroy();
+				this._process = this._handle = null;
+				this.isRunning = this.isStopping = false;
 				return returnValue;
-			},
-			function (error) {
-				self.isRunning = true;
-				self.isStopping = false;
+			})
+			.catch(error => {
+				this.isRunning = true;
+				this.isStopping = false;
 				throw error;
-			}
-		);
-	},
+			})
+		;
+	}
 
 	/**
 	 * This method provides the implementation that actually stops the tunnel.
@@ -558,17 +590,17 @@ Tunnel.prototype = util.mixin(Object.create(_super), /** @lends module:digdug/Tu
 	 * @protected
 	 * @returns {Promise.<void>} A promise that resolves once the tunnel has shut down.
 	 */
-	_stop: function () {
-		var dfd = new Promise.Deferred();
-		var childProcess = this._process;
+	protected _stop(): Promise<number> {
+		return new Promise(resolve => {
+			const childProcess = this._process;
 
-		childProcess.once('exit', function (code) {
-			dfd.resolve(code);
+			childProcess.once('exit', code => {
+				resolve(code);
+			});
+
+			childProcess.kill('SIGINT');
 		});
-		childProcess.kill('SIGINT');
-
-		return dfd.promise;
-	},
+	}
 
 	/**
 	 * Get a list of environments available on the service.
@@ -585,28 +617,28 @@ Tunnel.prototype = util.mixin(Object.create(_super), /** @lends module:digdug/Tu
 	 *
 	 * @returns An object containing the response and helper functions
 	 */
-	getEnvironments: function () {
+	getEnvironments(): Task<NormalizedEnvironment[]> {
 		if (!this.environmentUrl) {
-			return Promise.resolve([]);
+			return Task.resolve([]);
 		}
 
-		var self = this;
-
-		return sendRequest(this.environmentUrl, {
+		return <Task<any>> sendRequest(this.environmentUrl, <NodeRequestOptions<any>> {
 			password: this.accessKey,
 			user: this.username,
 			proxy: this.proxy
-		}).then(function (response) {
+		}).then(response => {
 			if (response.statusCode >= 200 && response.statusCode < 400) {
-				return JSON.parse(response.data.toString()).reduce(function (environments, environment) {
-					return environments.concat(self._normalizeEnvironment(environment));
-				}, []);
+				return JSON.parse(response.data.toString())
+					.reduce((environments: NormalizedEnvironment[], environment: any) => {
+						return environments.concat(this._normalizeEnvironment(environment));
+					}, [])
+				;
 			}
 			else {
-				throw new Error('Server replied with a status of ' + response.statusCode);
+				throw new Error(`Server replied with a status of ${response.statusCode}`);
 			}
 		});
-	},
+	}
 
 	/**
 	 * Normalizes a specific Tunnel environment descriptor to a general form. To be overriden by a child implementation.
@@ -614,9 +646,26 @@ Tunnel.prototype = util.mixin(Object.create(_super), /** @lends module:digdug/Tu
 	 * @returns a normalized environment
 	 * @protected
 	 */
-	_normalizeEnvironment: function (environment) {
-		return environment;
+	protected _normalizeEnvironment(environment: Object): NormalizedEnvironment {
+		return <any> environment;
 	}
-});
+}
 
-module.exports = Tunnel;
+assign(Tunnel.prototype, <TunnelProperties> {
+	architecture: process.arch,
+	auth: null,
+	directory: null,
+	executable: null,
+	hostname: 'localhost',
+	isRunning: false,
+	isStarting: false,
+	isStopping: false,
+	pathname: '/wd/hub/',
+	platform: process.platform,
+	port: '4444',
+	protocol: 'http',
+	proxy: null,
+	tunnelId: null,
+	url: null,
+	verbose: false
+});

@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "declaration": true,
+    "experimentalDecorators": true,
+	"lib": [ "ES5", "ES2015.Promise", "ES2015.Symbol", "ES2015.Iterable" ],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": false,
+    "outDir": "./_build",
+    "preserveConstEnums": true,
+    "removeComments": false,
+    "rootDir": ".",
+    "sourceMap": true,
+	"inlineSources": true,
+    "target": "ES5"
+  },
+  "include": [
+    "./src/**/*.ts"
+  ]
+}
