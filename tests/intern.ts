@@ -17,15 +17,15 @@ export const loaderOptions = {
 			// ensure the `dojo` being used in the tests is the
 			// same `dojo` being used by the commonjs library
 			// with the exception of `dojo/node`
-			'dojo': 'dojo/node!dojo',
-			'dojo/node': 'dojo/node',
+			'dojo': 'intern/dojo/node!dojo',
+			'intern/dojo/node': 'intern/browser_modules/dojo/node',
 
-			'fs': 'dojo/node!fs',
-			'path': 'dojo/node!path',
-			'util': 'dojo/node!util',
-			'url': 'dojo/node!url',
-			'https': 'dojo/node!https',
-			'shelljs': 'dojo/node!shelljs'
+			'fs': 'intern/dojo/node!fs',
+			'path': 'intern/dojo/node!path',
+			'util': 'intern/dojo/node!util',
+			'url': 'intern/dojo/node!url',
+			'https': 'intern/dojo/node!https',
+			'shelljs': 'intern/dojo/node!shelljs'
 		},
 		'tests/srcLoader': {
 			'src': 'src'

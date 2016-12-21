@@ -20,7 +20,7 @@ export function normalize(id: string): string {
 }
 
 export function load(id: string, pluginRequire: IRequire, callback: Function) {
-	pluginRequire([ 'dojo/node!' + require.toUrl(id) ], function (module) {
+	pluginRequire([ 'intern/dojo/node!' + require.toUrl(id) ], function (module) {
 		callback(module);
 	});
 }
