@@ -4,7 +4,7 @@
 
 import Task from 'dojo-core/async/Task';
 import Tunnel from './Tunnel';
-import { assign } from 'dojo-core/lang';
+import { assign } from './util';
 
 /**
  * A no-op tunnel.

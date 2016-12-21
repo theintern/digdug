@@ -8,7 +8,6 @@ import * as pathUtil from 'path';
 import Task from 'dojo-core/async/Task';
 import request, { Response } from 'dojo-core/request';
 import * as util from './util';
-import { assign } from 'dojo-core/lang';
 import { Handle } from 'dojo-core/interfaces';
 
 export interface DriverFile extends RemoteFile {
@@ -136,7 +135,7 @@ export default class SeleniumTunnel extends Tunnel implements SeleniumProperties
 	}
 
 	constructor(options?: SeleniumOptions) {
-		super(assign({
+		super(util.assign({
 			drivers: [ 'chrome' ]
 		}, options));
 	}
@@ -262,6 +261,8 @@ export default class SeleniumTunnel extends Tunnel implements SeleniumProperties
 					process.stderr.write(data);
 				}
 			});
+
+			executor(child, resolve, reject);
 		});
 
 		task.then(handle.destroy.bind(handle), handle.destroy.bind(handle));
@@ -294,7 +295,7 @@ export default class SeleniumTunnel extends Tunnel implements SeleniumProperties
 	}
 }
 
-assign(SeleniumTunnel.prototype, <SeleniumProperties> {
+util.assign(SeleniumTunnel.prototype, <SeleniumProperties> {
 	seleniumArgs: null,
 	drivers: null,
 	baseUrl: 'https://selenium-release.storage.googleapis.com',
@@ -304,17 +305,9 @@ assign(SeleniumTunnel.prototype, <SeleniumProperties> {
 
 type DriverConstructor = { new (config?: any): DriverFile; };
 
-const driverNameMap: {
-	[key: string]: DriverConstructor;
-} = {
-	chrome: ChromeConfig,
-	firefox: FirefoxConfig,
-	ie: IEConfig
-};
-
 abstract class Config<T> {
 	constructor(config: T) {
-		assign(this, config);
+		util.assign(this, config);
 	}
 
 	readonly abstract executable: string;
@@ -440,3 +433,9 @@ class IEConfig extends Config<IEOptions> implements IEProperties, DriverFile {
 		return 'webdriver.ie.driver';
 	}
 }
+
+const driverNameMap: { [key: string]: DriverConstructor; } = {
+	chrome: ChromeConfig,
+	firefox: FirefoxConfig,
+	ie: IEConfig
+};

@@ -2,7 +2,7 @@
  * @module digdug/TestingBotTunnel
  */
 
-import Tunnel, { TunnelProperties, ChildExecutor, NormalizedEnvironment } from './Tunnel';
+import Tunnel, { TunnelProperties, ChildExecutor, NormalizedEnvironment, StatusEvent } from './Tunnel';
 
 import * as fs from 'fs';
 import UrlSearchParams from 'dojo-core/UrlSearchParams';
@@ -12,7 +12,6 @@ import request from 'dojo-core/request';
 import { NodeRequestOptions } from 'dojo-core/request/node';
 import * as urlUtil from 'url';
 import * as util from './util';
-import { assign } from 'dojo-core/lang';
 import { JobState } from './interfaces';
 import Task from 'dojo-core/async/Task';
 
@@ -112,7 +111,7 @@ export default class TestingBotTunnel extends Tunnel implements TunnelProperties
 	}
 
 	constructor(options?: TestingBotOptions) {
-		super(assign({
+		super(util.assign({
 			fastFailDomains: []
 		}, options));
 	}
@@ -214,7 +213,11 @@ export default class TestingBotTunnel extends Tunnel implements TunnelProperties
 							message.indexOf('>> [') === -1 &&
 							message.indexOf('<< [') === -1
 						) {
-							this.emit({ type: 'status', status: message });
+							this.emit<StatusEvent>({
+								type: 'status',
+								target: this,
+								status: message
+							});
 							lastMessage = message;
 						}
 					}
@@ -223,7 +226,9 @@ export default class TestingBotTunnel extends Tunnel implements TunnelProperties
 					}
 				});
 			});
-		});
+
+			executor(child, resolve, reject);
+		}, readyFile);
 	}
 
 	/**
@@ -267,7 +272,7 @@ export default class TestingBotTunnel extends Tunnel implements TunnelProperties
 	}
 }
 
-assign(TestingBotTunnel.prototype, <TestingBotOptions> {
+util.assign(TestingBotTunnel.prototype, <TestingBotOptions> {
 	apiKey: process.env.TESTINGBOT_KEY,
 	apiSecret: process.env.TESTINGBOT_SECRET,
 	directory: pathUtil.join(__dirname, 'testingbot'),
@@ -282,5 +287,3 @@ assign(TestingBotTunnel.prototype, <TestingBotOptions> {
 	useSsl: false,
 	environmentUrl: 'https://api.testingbot.com/v1/browsers'
 });
-
-module.exports = TestingBotTunnel;

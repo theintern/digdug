@@ -4,6 +4,20 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { RequestError } from 'dojo-core/request';
 
+const hasOwnProperty = Object.prototype.hasOwnProperty;
+
+export function assign<T, U>(target: T, ...sources: U[]): T & U {
+	for (let source of sources) {
+		for (let key in source) {
+			if (hasOwnProperty.call(source, key)) {
+				Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+			}
+		}
+	}
+
+	return <any> target;
+}
+
 /**
  * Attaches an event to a Node.js EventEmitter and returns a handle for removing the listener later.
  *

@@ -3,7 +3,8 @@
  */
 
 import Evented from 'dojo-core/Evented';
-import { createCompositeHandle, assign } from 'dojo-core/lang';
+import { EventObject, EventTargettedObject } from 'dojo-interfaces/core';
+import { createCompositeHandle } from 'dojo-core/lang';
 import { Handle } from 'dojo-core/interfaces';
 import * as pathUtil from 'path';
 import Task, { State } from 'dojo-core/async/Task';
@@ -16,6 +17,17 @@ import * as decompress from 'decompress';
 import { JobState } from './interfaces';
 
 // TODO: Spawned processes are not getting cleaned up if there is a crash
+
+// tslint:disable-next-line:interface-name
+export interface IOEvent extends EventTargettedObject<Tunnel> {
+	readonly type: 'stdout' | 'stderr';
+	readonly data: string;
+}
+
+export interface StatusEvent extends EventTargettedObject<Tunnel> {
+	readonly type: 'status';
+	readonly status: string;
+}
 
 export interface ChildExecutor {
 	(child: ChildProcess, resolve: () => void, reject: (reason?: any) => void): Handle | void;
@@ -275,6 +287,12 @@ export default class Tunnel extends Evented implements TunnelProperties, Url {
 		return util.fileExists(pathUtil.join(this.directory, this.executable));
 	}
 
+	on(type: 'stderr' | 'stdout', listener: (event: IOEvent) => void): Handle;
+	on(type: 'status', listener: (event: StatusEvent) => void): Handle;
+	on(type: string, listener: (event: EventObject) => void): Handle {
+		return super.on(type, listener);
+	}
+
 	/**
 	 * Downloads and extracts the tunnel software if it is not already downloaded.
 	 *
@@ -366,9 +384,10 @@ export default class Tunnel extends Evented implements TunnelProperties, Url {
 		const child = spawn(command, args, options);
 
 		child.stdout.setEncoding('utf8');
-		child.stdout.setEncoding('utf8');
+		child.stderr.setEncoding('utf8');
 
 		let handle: Handle;
+		let canceled = false;
 		const task = new Task(
 			(resolve, reject) => {
 				let errorMessage = '';
@@ -407,24 +426,22 @@ export default class Tunnel extends Evented implements TunnelProperties, Url {
 				}
 			},
 			() => {
+				canceled = true;
 				child.kill('SIGINT');
 			}
 		);
 
 		return task
-			.then(() => {
-				handle.destroy();
-			})
-			.catch(() => {
-				handle.destroy();
-			})
 			.finally(() => {
 				handle.destroy();
-				return new Promise(resolve => {
-					child.once('exit', () => {
-						resolve();
+				if (canceled) {
+					// We only want this to run when cancelation has occurred
+					return new Promise(resolve => {
+						child.once('exit', () => {
+							resolve();
+						});
 					});
-				});
+				}
 			})
 		;
 	}
@@ -482,10 +499,18 @@ export default class Tunnel extends Evented implements TunnelProperties, Url {
 					this._handle = createCompositeHandle(
 						this._handle || { destroy: function () {} },
 						util.on(child.stdout, 'data', (data: any) => {
-							this.emit({ type: 'stdout', data: data });
+							this.emit<IOEvent>({
+								type: 'stdout',
+								target: this,
+								data: String(data)
+							});
 						}),
 						util.on(child.stderr, 'data', (data: any) => {
-							this.emit({ type: 'stderr', data: data });
+							this.emit<IOEvent>({
+								type: 'stderr',
+								target: this,
+								data: String(data)
+							});
 						}),
 						util.on(child, 'exit', () => {
 							this.isStarting = false;
@@ -501,13 +526,18 @@ export default class Tunnel extends Evented implements TunnelProperties, Url {
 				this._startTask = null;
 				this.isStarting = false;
 				this.isRunning = true;
-				this.emit({ type: 'status', status: 'Ready' });
+				this.emit<StatusEvent>({
+					type: 'status',
+					target: this,
+					status: 'Ready'
+				});
 			})
 			.catch((error: Error) => {
 				this._startTask = null;
 				this.isStarting = false;
-				this.emit({
+				this.emit<StatusEvent>({
 					type: 'status',
+					target: this,
 					status: error.name === 'CancelError' ? 'Start cancelled' : 'Failed to start tunnel'
 				});
 			})
@@ -651,7 +681,9 @@ export default class Tunnel extends Evented implements TunnelProperties, Url {
 	}
 }
 
-assign(Tunnel.prototype, <TunnelProperties> {
+delete Tunnel.prototype.on;
+
+util.assign(Tunnel.prototype, <TunnelProperties> {
 	architecture: process.arch,
 	auth: null,
 	directory: null,

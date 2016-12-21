@@ -11,7 +11,7 @@ import Tunnel, { TunnelProperties, ChildExecutor, NormalizedEnvironment } from '
 import { JobState } from './interfaces';
 import * as util from './util';
 import Task from 'dojo-core/async/Task';
-import { createCompositeHandle, assign } from 'dojo-core/lang';
+import { createCompositeHandle } from 'dojo-core/lang';
 import { exec } from 'child_process';
 
 const CBT_VERSION = '0.0.27';
@@ -190,7 +190,9 @@ export default class CrossBrowserTestingTunnel extends Tunnel implements CrossBr
 			});
 
 			this._handle = createCompositeHandle(readHandle, exitHandle);
-		});
+
+			executor(child, resolve, reject);
+		}, readyFile);
 	}
 
 	/**
@@ -233,7 +235,7 @@ export default class CrossBrowserTestingTunnel extends Tunnel implements CrossBr
 	}
 }
 
-assign(CrossBrowserTestingTunnel.prototype, <CrossBrowserTestingOptions> {
+util.assign(CrossBrowserTestingTunnel.prototype, <CrossBrowserTestingOptions> {
 	apiKey: process.env.CBT_APIKEY,
 	environmentUrl: 'https://crossbrowsertesting.com/api/v3/selenium/browsers?format=json',
 	executable: 'node',

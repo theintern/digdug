@@ -7,10 +7,9 @@ import * as pathUtil from 'path';
 import Task from 'dojo-core/async/Task';
 import request, { Response } from 'dojo-core/request';
 import { NodeRequestOptions } from 'dojo-core/request/node';
-import Tunnel, { TunnelProperties, DownloadOptions, ChildExecutor, NormalizedEnvironment } from './Tunnel';
+import Tunnel, { TunnelProperties, DownloadOptions, ChildExecutor, NormalizedEnvironment, StatusEvent } from './Tunnel';
 import { parse as parseUrl, Url } from 'url';
 import * as util from './util';
-import { assign } from 'dojo-core/lang';
 import { JobState } from './interfaces';
 
 export interface BrowserStackProperties extends TunnelProperties {
@@ -146,7 +145,7 @@ export default class BrowserStackTunnel extends Tunnel {
 	}
 
 	constructor(kwArgs?: BrowserStackOptions) {
-		super(assign({
+		super(util.assign({
 			servers: []
 		}, kwArgs));
 	}
@@ -238,10 +237,16 @@ export default class BrowserStackTunnel extends Tunnel {
 						/^Connecting to BrowserStack/.test(line) ||
 						/^Connected/.test(line)
 					) {
-						this.emit({ type: 'status', status: line });
+						this.emit<StatusEvent>({
+							type: 'status',
+							target: this,
+							status: line
+						});
 					}
 				}
 			});
+
+			executor(child, resolve, reject);
 		});
 	}
 
@@ -302,35 +307,35 @@ export default class BrowserStackTunnel extends Tunnel {
 		};
 
 		// Create the BS platform name for a given os + version
-		var platform = platformMap[environment.os] || environment.os;
+		let platform = platformMap[environment.os] || environment.os;
 		if (typeof platform === 'object') {
 			platform = platform[environment.os_version];
 		}
 
-		var browserName = browserMap[environment.browser] || environment.browser;
-		var version = environment.browser_version;
+		const browserName = browserMap[environment.browser] || environment.browser;
+		const version = environment.browser_version;
 
 		return {
-			platform: platform,
+			platform,
 			platformName: environment.os,
 			platformVersion: environment.os_version,
 
-			browserName: browserName,
+			browserName,
 			browserVersion: version,
 			version: environment.browser_version,
 
 			descriptor: environment,
 
 			intern: {
-				platform: platform,
-				browserName: browserName,
-				version: version
+				platform,
+				browserName,
+				version
 			}
 		};
 	}
 };
 
-assign(BrowserStackTunnel.prototype, <BrowserStackProperties> {
+util.assign(BrowserStackTunnel.prototype, <BrowserStackProperties> {
 	accessKey: process.env.BROWSERSTACK_ACCESS_KEY,
 	automateOnly: true,
 	directory: pathUtil.join(__dirname, 'browserstack'),

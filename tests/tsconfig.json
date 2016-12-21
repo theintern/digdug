@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "baseUrl": "..",
+	"lib": [ "DOM", "ES5", "ES2015.Promise", "ES2015.Symbol", "ES2015.Iterable" ],
+    "module": "umd",
+    "paths": {
+      "src/*": [
+        "./_build/src/*",
+        "./src/*"
+      ]
+    }
+  },
+  "extends": "../tsconfig.json",
+  "files": [
+    "../node_modules/intern/typings/intern/intern.d.ts",
+    "../src/types/decompress/decompress.d.ts"
+  ],
+  "include": [
+    "./**/*.ts"
+  ]
+}

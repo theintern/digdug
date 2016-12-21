@@ -1,86 +1,81 @@
-define([
-	'intern/dojo/node!../../Tunnel',
-	'intern!object',
-	'intern/chai!assert'
-], function (
-	Tunnel,
-	registerSuite,
-	assert
-) {
-	var tunnel;
+import Tunnel from 'src/Tunnel';
+import * as registerSuite from 'intern!object';
+import * as assert from 'intern/chai!assert';
+import Test = require('intern/lib/Test');
 
-	registerSuite({
-		name: 'unit/Tunnel',
+let tunnel: Tunnel;
 
-		beforeEach: function () {
-			tunnel = new Tunnel({ foo: 'bar' });
-		},
+registerSuite({
+	name: 'unit/Tunnel',
 
-		'#clientUrl': function () {
-			tunnel.port = 4446;
-			tunnel.hostname = 'foo.com';
-			tunnel.protocol = 'https';
-			tunnel.pathname = 'bar/baz/';
-			assert.strictEqual(tunnel.clientUrl, 'https://foo.com:4446/bar/baz/');
-		},
+	beforeEach: function () {
+		tunnel = new Tunnel(<any> { foo: 'bar' });
+	},
 
-		'#extraCapabilities': function () {
-			assert.deepEqual(tunnel.extraCapabilities, {});
-		},
+	'#clientUrl': function () {
+		tunnel.port = '4446';
+		tunnel.hostname = 'foo.com';
+		tunnel.protocol = 'https';
+		tunnel.pathname = 'bar/baz/';
+		assert.strictEqual(tunnel.clientUrl, 'https://foo.com:4446/bar/baz/');
+	},
 
-		'#start': function () {
-			try {
-				tunnel.isRunning = true;
-				assert.throws(function () {
-					tunnel.start();
-				});
-				tunnel.isRunning = false;
+	'#extraCapabilities': function () {
+		assert.deepEqual(tunnel.extraCapabilities, {});
+	},
 
-				tunnel.isStopping = true;
-				assert.throws(function () {
-					tunnel.start();
-				});
-				tunnel.isStopping = false;
-			}
-			finally {
-				tunnel.isRunning = false;
-				tunnel.isStoppping = false;
-				tunnel.isStarting = false;
-			}
-		},
-
-		'#stop': function () {
-			try {
-				tunnel.isStopping = true;
-				assert.throws(function () {
-					tunnel.stop();
-				});
-				tunnel.isStopping = false;
-
-				tunnel.isStarting = true;
-				assert.throws(function () {
-					tunnel.stop();
-				});
-				tunnel.isStarting = false;
-
-				tunnel.isRunning = false;
-				assert.throws(function () {
-					tunnel.stop();
-				});
-				tunnel.isRunning = true;
-			}
-			finally {
-				tunnel.isStopping = false;
-				tunnel.isStarting = false;
-				tunnel.isRunning = false;
-			}
-		},
-
-		'#sendJobState': function () {
-			var dfd = this.async();
-			tunnel.sendJobState().catch(function () {
-				dfd.resolve();
+	'#start': function () {
+		try {
+			tunnel.isRunning = true;
+			assert.throws(function () {
+				tunnel.start();
 			});
+			tunnel.isRunning = false;
+
+			tunnel.isStopping = true;
+			assert.throws(function () {
+				tunnel.start();
+			});
+			tunnel.isStopping = false;
 		}
-	});
+		finally {
+			tunnel.isRunning = false;
+			tunnel.isStopping = false;
+			tunnel.isStarting = false;
+		}
+	},
+
+	'#stop': function () {
+		try {
+			tunnel.isStopping = true;
+			assert.throws(function () {
+				tunnel.stop();
+			});
+			tunnel.isStopping = false;
+
+			tunnel.isStarting = true;
+			assert.throws(function () {
+				tunnel.stop();
+			});
+			tunnel.isStarting = false;
+
+			tunnel.isRunning = false;
+			assert.throws(function () {
+				tunnel.stop();
+			});
+			tunnel.isRunning = true;
+		}
+		finally {
+			tunnel.isStopping = false;
+			tunnel.isStarting = false;
+			tunnel.isRunning = false;
+		}
+	},
+
+	'#sendJobState': function (this: Test) {
+		const dfd = this.async();
+		tunnel.sendJobState('0', { success: true }).catch(function () {
+			dfd.resolve();
+		});
+	}
 });

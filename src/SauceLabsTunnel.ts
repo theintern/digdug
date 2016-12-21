@@ -2,7 +2,7 @@
  * @module digdug/SauceLabsTunnel
  */
 
-import Tunnel, { TunnelProperties, DownloadOptions, ChildExecutor, NormalizedEnvironment } from './Tunnel';
+import Tunnel, { TunnelProperties, DownloadOptions, ChildExecutor, NormalizedEnvironment, StatusEvent } from './Tunnel';
 
 import { JobState } from './interfaces';
 import * as fs from 'fs';
@@ -13,7 +13,6 @@ import request, { Response } from 'dojo-core/request';
 import { NodeRequestOptions } from 'dojo-core/request/node';
 import { format as formatUrl, parse as parseUrl, Url } from 'url';
 import * as util from './util';
-import { assign } from 'dojo-core/lang';
 
 const SC_VERSION = '4.4.1';
 
@@ -235,7 +234,7 @@ export default class SauceLabsTunnel extends Tunnel implements SauceLabsProperti
 	}
 
 	constructor(kwArgs?: SauceLabsOptions) {
-		super(assign(<SauceLabsOptions> {
+		super(util.assign(<SauceLabsOptions> {
 			directDomains: [],
 			tunnelDomains: [],
 			domainAuthentication: [],
@@ -443,7 +442,11 @@ export default class SauceLabsTunnel extends Tunnel implements SauceLabsProperti
 					// Sauce Connect 3
 					message.indexOf('You may start your tests') === -1
 				) {
-					this.emit({ type: 'status', status: message });
+					this.emit<StatusEvent>({
+						type: 'status',
+						target: this,
+						status: message
+					});
 				}
 			};
 
@@ -469,6 +472,9 @@ export default class SauceLabsTunnel extends Tunnel implements SauceLabsProperti
 			// Sauce Connect exits with a zero status code when there is a failure, and outputs error messages to
 			// stdout, like a boss. Even better, it uses the "Error:" tag for warnings.
 			this._handle = util.on(child.stdout, 'data', function (data: string) {
+				if (!readMessage) {
+					return;
+				}
 				String(data).split('\n').some(function (message) {
 					// Get rid of the date/time prefix on each message
 					const delimiter = message.indexOf(' - ');
@@ -478,7 +484,9 @@ export default class SauceLabsTunnel extends Tunnel implements SauceLabsProperti
 					return readMessage(message.trim());
 				});
 			});
-		});
+
+			executor(child, resolve, reject);
+		}, readyFile);
 
 		task.then(function () {
 			readRunningMessage('');
@@ -557,7 +565,7 @@ export default class SauceLabsTunnel extends Tunnel implements SauceLabsProperti
 	}
 };
 
-assign(SauceLabsTunnel.prototype, {
+util.assign(SauceLabsTunnel.prototype, {
 	accessKey: process.env.SAUCE_ACCESS_KEY,
 	directDomains: null,
 	tunnelDomains: null,
