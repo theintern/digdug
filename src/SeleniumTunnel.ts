@@ -229,7 +229,7 @@ export default class SeleniumTunnel extends Tunnel implements SeleniumProperties
 
 		if (this.verbose) {
 			args.push('-debug');
-			console.log('starting with arguments: ', args.join(' '));
+			console.log('Starting with arguments: ', args.join(' '));
 		}
 
 		return args;
@@ -284,6 +284,8 @@ export default class SeleniumTunnel extends Tunnel implements SeleniumProperties
 			request('http://' + this.hostname + ':' + this.port +
 				'/selenium-server/driver/?cmd=shutDownSeleniumServer', {
 				timeout: this.seleniumTimeout
+			}).catch(function (error) {
+				// ignore failures here
 			});
 
 			// Give Selenium a few seconds, then forcefully tell it to shutdown
