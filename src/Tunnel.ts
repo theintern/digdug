@@ -304,6 +304,7 @@ export default class Tunnel extends Evented implements TunnelProperties, Url {
 
 	on(type: 'stderr' | 'stdout', listener: (event: IOEvent) => void): Handle;
 	on(type: 'status', listener: (event: StatusEvent) => void): Handle;
+	on(type: string, listener: (event: EventObject) => void): Handle;
 	on(type: string, listener: (event: EventObject) => void): Handle {
 		return super.on(type, listener);
 	}
