@@ -6,7 +6,7 @@ import Tunnel, { TunnelProperties, DownloadOptions, ChildExecutor } from './Tunn
 import { format } from 'util';
 import * as pathUtil from 'path';
 import Task from 'dojo-core/async/Task';
-import request, { Response } from 'dojo-core/request';
+import { Response } from 'dojo-core/request';
 import * as util from './util';
 import { Handle } from 'dojo-core/interfaces';
 
@@ -257,6 +257,13 @@ export default class SeleniumTunnel extends Tunnel implements SeleniumProperties
 				if (data.indexOf('Selenium Server is up and running') > -1) {
 					resolve();
 				}
+				else if (data.indexOf('Address already in use') !== -1) {
+					reject(new Error('Address is already in use'));
+
+					// Kill the child since we're reporting that startup failed
+					child.kill('SIGINT');
+				}
+
 				if (this.verbose) {
 					process.stderr.write(data);
 				}
@@ -268,32 +275,6 @@ export default class SeleniumTunnel extends Tunnel implements SeleniumProperties
 		task.then(handle.destroy.bind(handle), handle.destroy.bind(handle));
 
 		return task;
-	}
-
-	protected _stop(): Promise<number> {
-		return new Promise((resolve, reject) => {
-			const childProcess = this._process;
-			let timeout: NodeJS.Timer;
-
-			childProcess.once('exit', function (code) {
-				resolve(code);
-				clearTimeout(timeout);
-			});
-
-			// Nicely ask the Selenium server to shutdown
-			request('http://' + this.hostname + ':' + this.port +
-				'/selenium-server/driver/?cmd=shutDownSeleniumServer', {
-				timeout: this.seleniumTimeout
-			}).catch(function (error) {
-				// ignore failures here
-			});
-
-			// Give Selenium a few seconds, then forcefully tell it to shutdown
-			timeout = setTimeout(function () {
-				childProcess.kill('SIGTERM');
-			}, 5000);
-
-		});
 	}
 }
 
