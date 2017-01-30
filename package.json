@@ -48,5 +48,12 @@
   "homepage": "https://github.com/theintern/digdug",
   "bin": {
     "digdugEnvironments": "./bin/digdugEnvironments.js"
+  },
+  "internDev": {
+    "resources": {
+      ".": [
+        "src/*.d.ts"
+      ]
+    }
   }
 }
