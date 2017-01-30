@@ -32,7 +32,7 @@
     "dist": "intern-dev-clean && npm run ci",
     "lint": "intern-dev-lint",
     "release": "intern-dev-release",
-    "test": "intern-dev-test"
+    "test": "npm run build && intern-dev-test"
   },
   "bugs": "https://github.com/theintern/digdug/issues",
   "keywords": [
