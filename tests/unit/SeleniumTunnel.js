@@ -52,10 +52,10 @@ define([
 				function createTest(version, hasDebugArg) {
 					return function() {
 						const tunnel = new SeleniumTunnel({
-							version,
+							version: version,
 							verbose: true
 						});
-						console.log = () => {};
+						console.log = function () {};
 						const args = tunnel['_makeArgs']();
 						console.log = oldLog;
 						const indexOfDebug = args.indexOf('-debug');
@@ -80,10 +80,10 @@ define([
 					};
 				}
 
-				let oldLog = console.log;
+				var oldLog = console.log;
 
 				return {
-					afterEach() {
+					afterEach: function () {
 						console.log = oldLog;
 					},
 					'3.0.0': createTest('3.0.0', false),
