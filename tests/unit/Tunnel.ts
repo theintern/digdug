@@ -48,7 +48,7 @@ registerSuite({
 		},
 
 		'stop a starting tunnnel'(this: Test) {
-			let timeout: NodeJS.Timer;
+			let timeout: number;
 			const startTask = new Task(
 				resolve => {
 					timeout = setTimeout(resolve, 500);
