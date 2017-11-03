@@ -2,6 +2,7 @@
 	"extends": "./node_modules/@theintern/dev/tsconfig-base.json",
 	"compilerOptions": {
 		"declaration": true,
+		"importHelpers": true,
 		"lib": [
 			"es5",
 			"es2015.symbol",
@@ -11,7 +12,8 @@
 			"dom"
 		],
 		"outDir": "./_build",
-		"rootDir": "."
+		"rootDir": ".",
+		"sourceRoot": "intern:///digdug"
 	},
 	"include": ["./src/**/*.ts"]
 }
