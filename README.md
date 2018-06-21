@@ -82,10 +82,10 @@ constructor or set on a tunnel instance. See the API docs for [Tunnel] and its
 subclasses for available properties:
 
 -   [BrowserStackTunnel](https://theintern.io/docs.html#Dig%20Dug/2/api/BrowserStackTunnel/browserstackproperties)
--   [CrossBrowserTestingTunnel](http://localhost:3000/docs.html#dig%20dug/2/api/crossbrowsertestingtunnel/crossbrowsertestingproperties)
--   [SauceLabsTunnel](http://localhost:3000/docs.html#dig%20dug/2/api/saucelabstunnel/saucelabsproperties)
--   [SeleniumTunnel](http://localhost:3000/docs.html#dig%20dug/2/api/seleniumtunnel/seleniumproperties)
--   [TestingBotTunnel](http://localhost:3000/docs.html#dig%20dug/2/api/testingbottunnel/testingbotproperties)
+-   [CrossBrowserTestingTunnel](https://theintern.io/docs.html#dig%20dug/2/api/crossbrowsertestingtunnel/crossbrowsertestingproperties)
+-   [SauceLabsTunnel](https://theintern.io/docs.html#dig%20dug/2/api/saucelabstunnel/saucelabsproperties)
+-   [SeleniumTunnel](https://theintern.io/docs.html#dig%20dug/2/api/seleniumtunnel/seleniumproperties)
+-   [TestingBotTunnel](https://theintern.io/docs.html#dig%20dug/2/api/testingbottunnel/testingbotproperties)
 
 ## Usage
 
