@@ -184,7 +184,7 @@ export default class SeleniumTunnel extends Tunnel
           });
         });
 
-        resolve(Task.all(tasks).then(() => {}));
+        Task.all(tasks).then(() => resolve());
       },
       () => {
         tasks &&
