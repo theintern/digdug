@@ -5,33 +5,13 @@ import Tunnel, {
 } from './Tunnel';
 import { format } from 'util';
 import { join } from 'path';
-import { Handle, Task, CancellablePromise } from '@theintern/common';
+import { Handle, Task, CancellablePromise, request } from '@theintern/common';
 import { fileExists, kill, on, writeFile } from './lib/util';
 import { satisfies } from 'semver';
 import { sync as commandExistsSync } from 'command-exists';
+import { drivers } from './webdrivers.json';
 
-const driverInfo = {
-  SeleniumVersion: '3.141.59',
-  ChromeVersion: '74.0.3729.6',
-  FirefoxVersion: '0.24.0',
-  IEVersion: '3.141.59',
-
-  EdgeVersion: '17134',
-  EdgeUrls: {
-    '15063':
-      'https://download.microsoft.com/download/3/4/2/342316D7-EBE0-4F10-ABA2-AE8E0CDF36DD/MicrosoftWebDriver.exe',
-    '16299':
-      'https://download.microsoft.com/download/D/4/1/D417998A-58EE-4EFE-A7CC-39EF9E020768/MicrosoftWebDriver.exe',
-    '17134':
-      'https://download.microsoft.com/download/F/8/A/F8AF50AB-3C3A-4BC4-8773-DC27B32988DD/MicrosoftWebDriver.exe',
-    '75.0.137.0': {
-      x86:
-        'https://az813057.vo.msecnd.net/webdriver/msedgedriver_x86/msedgedriver.exe',
-      x64:
-        'https://az813057.vo.msecnd.net/webdriver/msedgedriver_x64/msedgedriver.exe'
-    }
-  }
-};
+const webdriverConfigUrl = 'https://theintern.io/webdrivers.json';
 
 /**
  * A Selenium tunnel. This tunnel downloads the
@@ -119,19 +99,29 @@ export default class SeleniumTunnel extends Tunnel
    */
   seleniumTimeout!: number;
 
+  /**
+   * URL where webdriver config information can be retrieved from. If set to
+   * `false`, no attempt will be made to download webdriver information.
+   */
+  webdriverConfigUrl!: string | false;
+
   constructor(options?: SeleniumOptions) {
     super(
       Object.assign(
         {
           seleniumArgs: [],
           drivers: ['chrome'],
-          baseUrl: 'https://selenium-release.storage.googleapis.com',
-          version: driverInfo.SeleniumVersion,
+          baseUrl: drivers.selenium.baseUrl,
+          version: drivers.selenium.latest,
           seleniumTimeout: 5000
         },
         options || {}
       )
     );
+
+    if (this.webdriverConfigUrl == null) {
+      this.webdriverConfigUrl = webdriverConfigUrl;
+    }
 
     // Emit a meaningful error if Java isn't available
     if (!commandExistsSync('java')) {
@@ -170,51 +160,55 @@ export default class SeleniumTunnel extends Tunnel
   }
 
   download(forceDownload = false): CancellablePromise<void> {
-    if (!forceDownload && this.isDownloaded) {
-      return Task.resolve();
-    }
+    return this._getWebdriverConfig()
+      .then(data => this._updateConfig(data))
+      .then(() => {
+        if (!forceDownload && this.isDownloaded) {
+          return;
+        }
 
-    let tasks: CancellablePromise<void>[];
+        let tasks: CancellablePromise<void>[];
 
-    return new Task(
-      resolve => {
-        const configs: RemoteFile[] = [
-          {
-            url: this.url,
-            executable: this.artifact,
-            dontExtract: true
+        return new Task(
+          resolve => {
+            const configs: RemoteFile[] = [
+              {
+                url: this.url,
+                executable: this.artifact,
+                dontExtract: true
+              },
+              ...this._getDriverConfigs()
+            ];
+
+            tasks = configs.map(config => {
+              const executable = config.executable;
+              const dontExtract = Boolean(config.dontExtract);
+              const directory = config.directory;
+
+              if (fileExists(join(this.directory, executable))) {
+                return Task.resolve();
+              }
+
+              // TODO: progress events
+              return this._downloadFile(config.url, this.proxy, <
+                SeleniumDownloadOptions
+              >{
+                executable,
+                dontExtract,
+                directory
+              });
+            });
+
+            resolve(Task.all(tasks).then(() => {}));
           },
-          ...this._getDriverConfigs()
-        ];
-
-        tasks = configs.map(config => {
-          const executable = config.executable;
-          const dontExtract = Boolean(config.dontExtract);
-          const directory = config.directory;
-
-          if (fileExists(join(this.directory, executable))) {
-            return Task.resolve();
+          () => {
+            tasks &&
+              tasks.forEach(task => {
+                task.cancel();
+              });
           }
-
-          // TODO: progress events
-          return this._downloadFile(config.url, this.proxy, <
-            SeleniumDownloadOptions
-          >{
-            executable,
-            dontExtract,
-            directory
-          });
-        });
-
-        resolve(Task.all(tasks).then(() => {}));
-      },
-      () => {
-        tasks &&
-          tasks.forEach(task => {
-            task.cancel();
-          });
-      }
-    );
+        );
+      });
   }
 
   sendJobState(): CancellablePromise<void> {
@@ -243,6 +237,42 @@ export default class SeleniumTunnel extends Tunnel
       // data is a driver definition
       return <DriverFile>data;
     });
+  }
+
+  protected _getWebdriverConfig(): CancellablePromise<
+    WebdriverConfig | undefined
+  > {
+    let req: CancellablePromise<void>;
+
+    if (this.webdriverConfigUrl === false) {
+      return Task.resolve(undefined);
+    }
+
+    const url = this.webdriverConfigUrl;
+
+    return new Task<WebdriverConfig | undefined>(
+      resolve => {
+        req = request(url, { proxy: this.proxy })
+          .then(async response => {
+            if (response.status >= 400) {
+              throw new Error(
+                `Server returned status code ${response.status} for ${url}`
+              );
+            }
+            const cfg = await response.json<WebdriverConfig>();
+            resolve({
+              drivers: {},
+              ...cfg
+            });
+          })
+          .catch(() => {
+            resolve({ drivers: {} });
+          });
+      },
+      () => {
+        req && req.cancel();
+      }
+    );
   }
 
   protected _makeArgs(): string[] {
@@ -323,6 +353,20 @@ export default class SeleniumTunnel extends Tunnel
 
     return task;
   }
+
+  /**
+   * Additively merrge the given config into the current webdriverConfig, and
+   * update the version and baseUrl for this instance if the config has updated
+   * values.
+   */
+  protected _updateConfig(data: WebdriverConfig | undefined) {
+    if (data == null) {
+      return;
+    }
+
+    this.version = getProperty(data, 'drivers.selenium.version', this.version);
+    this.baseUrl = getProperty(data, 'drivers.selenium.baseUrl', this.baseUrl);
+  }
 }
 
 export interface DriverFile extends RemoteFile {
@@ -398,18 +442,31 @@ class ChromeConfig extends Config<ChromeOptions>
   platform!: string;
   version!: string;
 
-  constructor(options: ChromeOptions) {
+  constructor(options: ChromeOptions, extraConfig?: WebdriverConfig) {
     super(
       Object.assign(
         {
           arch: process.arch,
-          baseUrl: 'https://chromedriver.storage.googleapis.com',
+          baseUrl: drivers.chrome.baseUrl,
           platform: process.platform,
-          version: driverInfo.ChromeVersion
+          version: drivers.chrome.latest
         },
         options
       )
     );
+
+    if (extraConfig) {
+      this.version = getProperty(
+        extraConfig,
+        'drivers.chrome.latest',
+        this.version
+      );
+      this.baseUrl = getProperty(
+        extraConfig,
+        'drivers.chrome.baseUrl',
+        this.baseUrl
+      );
+    }
   }
 
   get artifact() {
@@ -464,18 +521,31 @@ class FirefoxConfig extends Config<FirefoxOptions>
   platform!: string;
   version!: string;
 
-  constructor(options: FirefoxOptions) {
+  constructor(options: FirefoxOptions, extraConfig?: WebdriverConfig) {
     super(
       Object.assign(
         {
           arch: process.arch,
-          baseUrl: 'https://github.com/mozilla/geckodriver/releases/download',
+          baseUrl: drivers.firefox.baseUrl,
           platform: process.platform,
-          version: driverInfo.FirefoxVersion
+          version: drivers.firefox.latest
         },
         options
       )
     );
+
+    if (extraConfig) {
+      this.version = getProperty(
+        extraConfig,
+        'drivers.firefox.latest',
+        this.version
+      );
+      this.baseUrl = getProperty(
+        extraConfig,
+        'drivers.firefox.baseUrl',
+        this.baseUrl
+      );
+    }
   }
 
   get artifact() {
@@ -525,17 +595,30 @@ class IEConfig extends Config<IEOptions> implements IEProperties, DriverFile {
   baseUrl!: string;
   version!: string;
 
-  constructor(options: IEOptions) {
+  constructor(options: IEOptions, extraConfig?: WebdriverConfig) {
     super(
       Object.assign(
         {
           arch: process.arch,
-          baseUrl: 'https://selenium-release.storage.googleapis.com',
-          version: driverInfo.IEVersion
+          baseUrl: drivers.ie.baseUrl,
+          version: drivers.ie.latest
         },
         options
       )
     );
+
+    if (extraConfig) {
+      this.version = getProperty(
+        extraConfig,
+        'drivers.ie.latest',
+        this.version
+      );
+      this.baseUrl = getProperty(
+        extraConfig,
+        'drivers.ie.baseUrl',
+        this.baseUrl
+      );
+    }
   }
 
   get artifact() {
@@ -568,6 +651,11 @@ interface EdgeProperties {
   baseUrl: string;
   uuid: string | undefined;
   version: string;
+  versions: EdgeVersions;
+}
+
+interface EdgeVersions {
+  [version: string]: { url: string };
 }
 
 type EdgeOptions = Partial<EdgeProperties>;
@@ -577,19 +665,39 @@ class EdgeConfig extends Config<EdgeOptions>
   arch!: string;
   baseUrl!: string;
   uuid: string | undefined;
-  version!: keyof typeof driverInfo.EdgeUrls;
+  version!: keyof typeof drivers.edge.versions;
+  versions!: EdgeVersions;
 
-  constructor(options: EdgeOptions) {
+  constructor(options: EdgeOptions, extraConfig?: WebdriverConfig) {
     super(
       Object.assign(
         {
           arch: process.arch,
-          baseUrl: 'https://download.microsoft.com/download',
-          version: driverInfo.EdgeVersion
+          baseUrl: drivers.edge.baseUrl,
+          version: drivers.edge.latest,
+          versions: drivers.edge.versions
         },
         options
       )
     );
+
+    if (extraConfig) {
+      this.version = getProperty(
+        extraConfig,
+        'drivers.edge.latest',
+        this.version
+      );
+      this.baseUrl = getProperty(
+        extraConfig,
+        'drivers.edge.baseUrl',
+        this.baseUrl
+      );
+      this.versions = getProperty(
+        extraConfig,
+        'drivers.edge.versions',
+        this.versions
+      );
+    }
   }
 
   get dontExtract() {
@@ -615,7 +723,7 @@ class EdgeConfig extends Config<EdgeOptions>
       );
     }
 
-    const urlOrObj = driverInfo.EdgeUrls[this.version];
+    const urlOrObj = drivers.edge.versions[this.version].url;
     if (typeof urlOrObj === 'string') {
       return urlOrObj;
     }
@@ -640,11 +748,116 @@ class EdgeConfig extends Config<EdgeOptions>
   }
 }
 
+interface EdgeChromiumProperties {
+  arch: string;
+  baseUrl: string;
+  platform: string;
+  version: string;
+}
+
+class EdgeChromiumConfig extends Config<EdgeOptions>
+  implements EdgeChromiumProperties, DriverFile {
+  arch!: string;
+  baseUrl!: string;
+  platform!: string;
+  version!: string;
+
+  constructor(options: ChromeOptions, extraConfig?: WebdriverConfig) {
+    super(
+      Object.assign(
+        {
+          arch: process.arch,
+          baseUrl: drivers.edgeChromium.baseUrl,
+          platform: edgePlatformNames[process.platform] || process.platform,
+          version: drivers.edgeChromium.latest
+        },
+        options
+      )
+    );
+
+    if (extraConfig) {
+      this.version = getProperty(
+        extraConfig,
+        'drivers.edgeChromium.latest',
+        this.version
+      );
+      this.baseUrl = getProperty(
+        extraConfig,
+        'drivers.edgeChromium.baseUrl',
+        this.baseUrl
+      );
+    }
+  }
+
+  get artifact() {
+    const platform = edgePlatformNames[this.platform] || this.platform;
+    const arch = this.arch === 'x86' ? '32' : '64';
+    return format('edgedriver_%s%s.zip', platform, arch);
+  }
+
+  get directory() {
+    return join(this.version, this.arch);
+  }
+
+  get url() {
+    return format('%s/%s/%s', this.baseUrl, this.version, this.artifact);
+  }
+
+  get executable() {
+    return join(
+      this.directory,
+      this.platform === 'win32' ? 'msedgedriver.exe' : 'msedgedriver'
+    );
+  }
+
+  get seleniumProperty() {
+    return 'webdriver.edge.driver';
+  }
+}
+
+const edgePlatformNames: { [key: string]: string } = {
+  darwin: 'mac',
+  win32: 'win',
+  win64: 'win'
+};
+
 const driverNameMap: { [key: string]: DriverConstructor } = {
   chrome: ChromeConfig,
   firefox: FirefoxConfig,
   ie: IEConfig,
   'internet explorer': IEConfig,
   edge: EdgeConfig,
-  MicrosoftEdge: EdgeConfig
+  MicrosoftEdge: EdgeConfig,
+  edgeChromium: EdgeChromiumConfig,
+  MicrosoftEdgeChromium: EdgeChromiumConfig
 };
+
+// This should match the schema in schemas/webdrivers.json
+interface WebdriverConfig {
+  drivers: {
+    [name: string]: {
+      version: string;
+      baseUrl?: string;
+      versions?: {
+        [version: string]: {
+          url?: string;
+        };
+      };
+    };
+  };
+}
+
+function getProperty<T>(obj: any, key: string, defaultValue: T): T {
+  const parts = key.split('.');
+  const firstPart = parts.shift()!;
+
+  if (!(firstPart in obj)) {
+    return defaultValue;
+  }
+
+  if (parts.length > 0) {
+    return getProperty(obj[firstPart], parts.join('.'), defaultValue);
+  }
+
+  return obj[firstPart];
+}
