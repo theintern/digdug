@@ -1,4 +1,10 @@
-import SeleniumTunnel from '../../src/SeleniumTunnel';
+import * as common from '@theintern/common';
+import { createSandbox, SinonSandbox, SinonStub } from 'sinon';
+
+import * as util from '../../src/lib/util';
+import SeleniumTunnel, {
+  DEFAULT_WEBDRIVER_CONFIG_URL
+} from '../../src/SeleniumTunnel';
 
 registerSuite('unit/SeleniumTunnel', {
   config: {
@@ -80,5 +86,55 @@ registerSuite('unit/SeleniumTunnel', {
         '3.141.59': createTest('3.141.59', false)
       };
     })()
-  }
+  },
+
+  webdriverConfigUrl: (() => {
+    let sandbox: SinonSandbox;
+    let request: SinonStub;
+
+    return {
+      before() {
+        sandbox = createSandbox();
+        request = (sandbox.stub(common, 'request').resolves({
+          status: 200,
+          arrayBuffer: () => Promise.resolve([])
+        } as any) as unknown) as SinonStub;
+        sandbox.stub(util, 'writeFile');
+      },
+
+      afterEach() {
+        sandbox.resetHistory();
+      },
+
+      after() {
+        sandbox.restore();
+      },
+
+      tests: {
+        default() {
+          const tunnel = new SeleniumTunnel();
+          tunnel.download();
+          assert.equal(request.callCount, 1);
+          assert.equal(
+            request.getCall(0).args[0],
+            DEFAULT_WEBDRIVER_CONFIG_URL
+          );
+        },
+
+        custom() {
+          const webdriverConfigUrl = 'http://info.local';
+          const tunnel = new SeleniumTunnel({ webdriverConfigUrl });
+          tunnel.download();
+          assert.equal(request.callCount, 1);
+          assert.equal(request.getCall(0).args[0], webdriverConfigUrl);
+        },
+
+        disabled() {
+          const tunnel = new SeleniumTunnel({ webdriverConfigUrl: false });
+          tunnel.download();
+          assert.equal(request.callCount, 0);
+        }
+      }
+    };
+  })()
 });

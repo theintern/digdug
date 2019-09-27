@@ -5,13 +5,15 @@ import Tunnel, {
 } from './Tunnel';
 import { format } from 'util';
 import { join } from 'path';
-import { Handle, Task, CancellablePromise, request } from '@theintern/common';
-import { fileExists, kill, on, writeFile } from './lib/util';
+import { Handle, Task, CancellablePromise } from '@theintern/common';
+import * as common from '@theintern/common';
+import * as util from './lib/util';
 import { satisfies } from 'semver';
 import { sync as commandExistsSync } from 'command-exists';
 import { drivers } from './webdrivers.json';
 
-const webdriverConfigUrl = 'https://theintern.io/webdrivers.json';
+export const DEFAULT_WEBDRIVER_CONFIG_URL =
+  'https://theintern.io/webdrivers.json';
 
 /**
  * A Selenium tunnel. This tunnel downloads the
@@ -120,7 +122,7 @@ export default class SeleniumTunnel extends Tunnel
     );
 
     if (this.webdriverConfigUrl == null) {
-      this.webdriverConfigUrl = webdriverConfigUrl;
+      this.webdriverConfigUrl = DEFAULT_WEBDRIVER_CONFIG_URL;
     }
 
     // Emit a meaningful error if Java isn't available
@@ -144,9 +146,9 @@ export default class SeleniumTunnel extends Tunnel
   get isDownloaded() {
     const directory = this.directory;
     return (
-      fileExists(join(directory, this.artifact)) &&
+      util.fileExists(join(directory, this.artifact)) &&
       this._getDriverConfigs().every(config => {
-        return fileExists(join(directory, config.executable));
+        return util.fileExists(join(directory, config.executable));
       })
     );
   }
@@ -185,7 +187,7 @@ export default class SeleniumTunnel extends Tunnel
               const dontExtract = Boolean(config.dontExtract);
               const directory = config.directory;
 
-              if (fileExists(join(this.directory, executable))) {
+              if (util.fileExists(join(this.directory, executable))) {
                 return Task.resolve();
               }
 
@@ -252,7 +254,8 @@ export default class SeleniumTunnel extends Tunnel
 
     return new Task<WebdriverConfig | undefined>(
       resolve => {
-        req = request(url, { proxy: this.proxy })
+        req = common
+          .request(url, { proxy: this.proxy })
           .then(async response => {
             if (response.status >= 400) {
               throw new Error(
@@ -306,7 +309,7 @@ export default class SeleniumTunnel extends Tunnel
   protected _postDownloadFile(data: Buffer, options: SeleniumDownloadOptions) {
     const executable = options.executable!;
     if (options.dontExtract) {
-      return writeFile(data, join(this.directory, executable));
+      return util.writeFile(data, join(this.directory, executable));
     }
     return super._postDownloadFile(data, options);
   }
@@ -314,7 +317,7 @@ export default class SeleniumTunnel extends Tunnel
   protected _start(executor: ChildExecutor) {
     let handle: Handle;
     const task = this._makeChild((child, resolve, reject) => {
-      handle = on(child.stderr!, 'data', (data: string) => {
+      handle = util.on(child.stderr!, 'data', (data: string) => {
         // Selenium recommends that we poll the hub looking for a status
         // response
         // https://github.com/seleniumhq/selenium-google-code-issue-archive/issues/7957
@@ -336,12 +339,12 @@ export default class SeleniumTunnel extends Tunnel
           reject(new Error('Address is already in use'));
 
           // Kill the child since we're reporting that startup failed
-          kill(child.pid);
+          util.kill(child.pid);
         }
       });
 
       if (this.verbose) {
-        on(child.stderr!, 'data', (data: string) => {
+        util.on(child.stderr!, 'data', (data: string) => {
           process.stderr.write(data);
         });
       }
@@ -405,6 +408,9 @@ export interface SeleniumProperties extends TunnelProperties {
 
   /** [[SeleniumTunnel.SeleniumTunnel.seleniumTimeout|More info]] */
   seleniumTimeout: number;
+
+  /** [[SeleniumTunnel.SeleniumTunnel.webdriverConfigUrl|More info]] */
+  webdriverConfigUrl: string | false;
 }
 
 export type SeleniumOptions = Partial<SeleniumProperties>;
