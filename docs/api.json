@@ -21562,7 +21562,7 @@
 												"type": "intrinsic",
 												"name": "string"
 											},
-											"defaultValue": "\"83.0.4103.39\""
+											"defaultValue": "\"85.0.4183.87\""
 										}
 									],
 									"groups": [
@@ -21880,7 +21880,7 @@
 												"type": "intrinsic",
 												"name": "string"
 											},
-											"defaultValue": "\"81.0.416.72\""
+											"defaultValue": "\"85.0.564.41\""
 										}
 									],
 									"groups": [
