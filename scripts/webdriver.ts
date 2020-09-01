@@ -1,19 +1,22 @@
-import { writeFileSync } from 'fs';
+import { readFileSync, writeFileSync } from 'fs';
 import { resolve } from 'path';
 import SeleniumTunnel from '../src/SeleniumTunnel';
-import * as webdrivers from '../src/webdrivers.json';
+import * as webdriversJson from '../src/webdrivers.json';
 import { ask, init, isVersion, print, stop } from './lib/rl';
 
 const projectRoot = resolve(__dirname, '..');
 process.chdir(projectRoot);
+const webdriversFilename = resolve(__dirname, '..', 'src', 'webdrivers.json');
 
-type WebDriverData = typeof webdrivers;
+type WebDriverData = typeof webdriversJson;
 
-async function saveWebdriverJson(data: WebDriverData, filename?: string) {
-  if (!filename) {
-    filename = resolve(__dirname, '..', 'src', 'webdrivers.json');
-  }
-  writeFileSync(filename, JSON.stringify(data, null, '  '));
+function loadWebdriverJson(): WebDriverData {
+  const data = readFileSync(webdriversFilename, { encoding: 'utf8' });
+  return JSON.parse(data);
+}
+
+function saveWebdriverJson(data: WebDriverData): void {
+  writeFileSync(webdriversFilename, JSON.stringify(data, null, '  '));
 }
 
 async function verifyDrivers(data: WebDriverData) {
@@ -33,6 +36,7 @@ async function verifyDrivers(data: WebDriverData) {
 }
 
 async function main() {
+  const webdrivers = loadWebdriverJson();
   const updated = JSON.parse(JSON.stringify(webdrivers));
 
   init();
@@ -100,7 +104,7 @@ async function main() {
         await verifyDrivers(webdrivers);
         print('Everything seems good');
 
-        await saveWebdriverJson(webdrivers);
+        saveWebdriverJson(webdrivers);
         print('Updated webdrivers.json');
       } catch (error) {
         console.error(error);
