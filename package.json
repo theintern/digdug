@@ -1,6 +1,6 @@
 {
   "name": "@theintern/digdug",
-  "version": "2.5.1-pre",
+  "version": "2.6.0",
   "description": "Dig Dug. A simple abstraction library for downloading and launching WebDriver service tunnels.",
   "repository": {
     "type": "git",
@@ -8,28 +8,27 @@
   },
   "license": "BSD-3-Clause",
   "dependencies": {
-    "@theintern/common": "~0.2.3",
-    "command-exists": "~1.2.6",
-    "decompress": "~4.2.0",
-    "tslib": "~1.9.3"
+    "@theintern/common": "~0.3.0",
+    "command-exists": "~1.2.9",
+    "decompress": "~4.2.1",
+    "tslib": "~2.3.0"
   },
   "devDependencies": {
-    "@theintern/dev": "~0.10.2",
-    "@types/command-exists": "~1.2.0",
-    "@types/decompress": "~4.2.2",
-    "@types/execa": "~2.0.0",
-    "@types/node": "~12.0.12",
-    "@types/semver": "~6.0.0",
-    "@types/shelljs": "~0.8.5",
-    "concurrently": "~4.1.0",
-    "execa": "~4.0.2",
-    "intern": "~4.4.3",
-    "lint-staged": "~8.2.0",
-    "pre-commit": "~1.2.2",
-    "prettier": "~1.17.1",
-    "semver": "~6.1.1",
-    "shelljs": "~0.8.1",
-    "ts-node": "~8.10.1"
+    "@theintern/dev": "^0.11.0",
+    "@types/command-exists": "^1.2.0",
+    "@types/decompress": "^4.2.4",
+    "@types/node": "^16.0.0",
+    "@types/semver": "^7.3.7",
+    "@types/shelljs": "^0.8.9",
+    "concurrently": "^6.2.0",
+    "execa": "^5.1.1",
+    "intern": "^4.9.1",
+    "lint-staged": "^11.0.0",
+    "pre-commit": "^1.2.2",
+    "prettier": "^2.3.2",
+    "semver": "^7.3.5",
+    "shelljs": "^0.8.4",
+    "ts-node": "^10.0.0"
   },
   "scripts": {
     "build": "npm run clean && concurrently intern-dev-build intern-dev-api",

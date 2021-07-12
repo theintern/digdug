@@ -5,7 +5,7 @@ import Tunnel, {
   TunnelProperties,
   DownloadOptions,
   ChildExecutor,
-  NormalizedEnvironment
+  NormalizedEnvironment,
 } from './Tunnel';
 import { parse as parseUrl, Url } from 'url';
 import { JobState } from './interfaces';
@@ -17,8 +17,10 @@ import { kill, on } from './lib/util';
  * The accessKey and username properties will be initialized using
  * BROWSERSTACK_ACCESS_KEY and BROWSERSTACK_USERNAME.
  */
-export default class BrowserStackTunnel extends Tunnel
-  implements BrowserStackProperties {
+export default class BrowserStackTunnel
+  extends Tunnel
+  implements BrowserStackProperties
+{
   /**
    * Whether or not to start the tunnel with only WebDriver support. Setting
    * this value to `false` is not supported.
@@ -67,17 +69,19 @@ export default class BrowserStackTunnel extends Tunnel
           protocol: 'https',
           servers: [],
           skipServerValidation: true,
-          username: process.env.BROWSERSTACK_USERNAME
+          username: process.env.BROWSERSTACK_USERNAME,
         },
         options || {}
       )
     );
   }
 
+  // @ts-ignore
   get auth() {
     return `${this.username || ''}:${this.accessKey || ''}`;
   }
 
+  // @ts-ignore
   get executable() {
     return join(
       this.directory,
@@ -87,7 +91,7 @@ export default class BrowserStackTunnel extends Tunnel
 
   get extraCapabilities(): Object {
     const capabilities: any = {
-      'browserstack.local': 'true'
+      'browserstack.local': 'true',
     };
 
     if (this.tunnelId) {
@@ -97,6 +101,7 @@ export default class BrowserStackTunnel extends Tunnel
     return capabilities;
   }
 
+  // @ts-ignore
   get url() {
     const platform = this.platform;
     const architecture = this.architecture;
@@ -138,15 +143,15 @@ export default class BrowserStackTunnel extends Tunnel
     const args = [
       this.accessKey,
       this.servers
-        .map(function(server) {
+        .map(function (server) {
           const url = parseUrl(String(server));
           return [
             url.hostname,
             url.port,
-            url.protocol === 'https:' ? 1 : 0
+            url.protocol === 'https:' ? 1 : 0,
           ].join(',');
         })
-        .join(',')
+        .join(','),
     ];
 
     this.automateOnly && args.push('-onlyAutomate');
@@ -174,7 +179,7 @@ export default class BrowserStackTunnel extends Tunnel
 
   sendJobState(jobId: string, data: JobState): CancellablePromise<void> {
     const payload = JSON.stringify({
-      status: data.status || data.success ? 'completed' : 'error'
+      status: data.status || data.success ? 'completed' : 'error',
     });
 
     const url = `https://www.browserstack.com/automate/sessions/${jobId}.json`;
@@ -183,14 +188,14 @@ export default class BrowserStackTunnel extends Tunnel
       data: payload,
       headers: {
         'Content-Length': String(Buffer.byteLength(payload, 'utf8')),
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
       password: this.accessKey,
       username: this.username,
-      proxy: this.proxy
-    }).then<void>(response => {
+      proxy: this.proxy,
+    }).then<void>((response) => {
       if (response.status < 200 || response.status >= 300) {
-        return response.text().then(text => {
+        return response.text().then((text) => {
           throw new Error(
             text || `Server reported ${response.status} with no other data.`
           );
@@ -224,7 +229,7 @@ export default class BrowserStackTunnel extends Tunnel
             this.emit({
               type: 'status',
               target: this,
-              status: line
+              status: line,
             });
           }
         }
@@ -234,17 +239,17 @@ export default class BrowserStackTunnel extends Tunnel
     });
   }
 
-  protected _stop(): Promise<number> {
-    return new Promise(resolve => {
+  protected _stop(): Promise<number | undefined> {
+    return new Promise((resolve) => {
       const childProcess = this._process;
       if (!childProcess) {
-        resolve();
+        resolve(undefined);
         return;
       }
 
       let exited = false;
 
-      childProcess.once('exit', function(code) {
+      childProcess.once('exit', function (code) {
         exited = true;
         resolve(code == null ? undefined : code);
       });
@@ -255,7 +260,7 @@ export default class BrowserStackTunnel extends Tunnel
       // Node doesn't provide an easy way to get the PID of the secondary
       // process, so we'll just wait a few seconds, then kill the process
       // if it hasn't ended cleanly.
-      setTimeout(function() {
+      setTimeout(function () {
         if (!exited) {
           kill(childProcess.pid);
         }
@@ -287,14 +292,14 @@ export default class BrowserStackTunnel extends Tunnel
         '8.1': 'WIN8',
         '8': 'WIN8',
         '7': 'WINDOWS',
-        XP: 'XP'
+        XP: 'XP',
       },
 
-      'OS X': 'MAC'
+      'OS X': 'MAC',
     };
 
     const browserMap: any = {
-      ie: 'internet explorer'
+      ie: 'internet explorer',
     };
 
     // Create the BS platform name for a given os + version
@@ -320,8 +325,8 @@ export default class BrowserStackTunnel extends Tunnel
       intern: {
         platform,
         browserName,
-        version
-      }
+        version,
+      },
     };
   }
 }

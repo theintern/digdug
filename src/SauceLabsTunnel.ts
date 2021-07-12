@@ -2,7 +2,7 @@ import Tunnel, {
   TunnelProperties,
   DownloadOptions,
   ChildExecutor,
-  NormalizedEnvironment
+  NormalizedEnvironment,
 } from './Tunnel';
 import { JobState } from './interfaces';
 import { chmodSync, watchFile, unwatchFile } from 'fs';
@@ -24,8 +24,10 @@ const scVersion = '4.5.3';
  * See [[SauceLabsTunnel.SauceLabsProperties]] for a list of options specific to
  * this tunnel class.
  */
-export default class SauceLabsTunnel extends Tunnel
-  implements SauceLabsProperties {
+export default class SauceLabsTunnel
+  extends Tunnel
+  implements SauceLabsProperties
+{
   accessKey!: string;
 
   /**
@@ -137,17 +139,19 @@ export default class SauceLabsTunnel extends Tunnel
           skipSslDomains: [],
           tunnelDomains: [],
           useProxyForTunnel: false,
-          username: process.env.SAUCE_USERNAME
+          username: process.env.SAUCE_USERNAME,
         },
         options || {}
       )
     );
   }
 
+  // @ts-ignore
   get auth() {
     return `${this.username || ''}:${this.accessKey || ''}`;
   }
 
+  // @ts-ignore
   get executable() {
     const platform = this.platform === 'darwin' ? 'osx' : this.platform;
     const architecture = this.architecture;
@@ -189,6 +193,7 @@ export default class SauceLabsTunnel extends Tunnel
     );
   }
 
+  // @ts-ignore
   get url() {
     const platform = this.platform === 'darwin' ? 'osx' : this.platform;
     const architecture = this.architecture;
@@ -235,7 +240,7 @@ export default class SauceLabsTunnel extends Tunnel
     }
 
     if (this.domainAuthentication.length) {
-      this.domainAuthentication.forEach(function(domain) {
+      this.domainAuthentication.forEach(function (domain) {
         const url = parseUrl(domain);
         args.push('-a', `${url.hostname}:${url.port}:${url.auth}`);
       });
@@ -314,7 +319,7 @@ export default class SauceLabsTunnel extends Tunnel
       name: data.name,
       passed: data.success,
       public: data.visibility,
-      tags: data.tags
+      tags: data.tags,
     });
 
     return request(formatUrl(url), {
@@ -322,13 +327,13 @@ export default class SauceLabsTunnel extends Tunnel
       data: payload,
       headers: {
         'Content-Length': String(Buffer.byteLength(payload, 'utf8')),
-        'Content-Type': 'application/x-www-form-urlencoded'
+        'Content-Type': 'application/x-www-form-urlencoded',
       },
       password: this.accessKey,
       username: this.username,
-      proxy: this.proxy
-    }).then(function(response) {
-      return response.text().then(text => {
+      proxy: this.proxy,
+    }).then(function (response) {
+      return response.text().then((text) => {
         if (text) {
           const data = JSON.parse(text);
 
@@ -404,7 +409,7 @@ export default class SauceLabsTunnel extends Tunnel
         return readStatus(message);
       };
 
-      readRunningMessage = function(message: string) {
+      readRunningMessage = function (message: string) {
         // Sauce Connect 3
         if (message.indexOf('Problem connecting to Sauce Labs REST API') > -1) {
           // It will just keep trying and trying and trying for a
@@ -428,7 +433,7 @@ export default class SauceLabsTunnel extends Tunnel
           this.emit({
             type: 'status',
             target: this,
-            status: message
+            status: message,
           });
         }
 
@@ -440,29 +445,30 @@ export default class SauceLabsTunnel extends Tunnel
       // Polling API is used because we are only watching for one file, so
       // efficiency is not a big deal, and the `fs.watch` API has extra
       // restrictions which are best avoided
-      watchFile(readyFile, { persistent: false, interval: 1007 }, function(
-        current,
-        previous
-      ) {
-        if (Number(current.mtime) === Number(previous.mtime)) {
-          // readyFile hasn't been modified, so ignore the event
-          return;
-        }
+      watchFile(
+        readyFile,
+        { persistent: false, interval: 1007 },
+        function (current, previous) {
+          if (Number(current.mtime) === Number(previous.mtime)) {
+            // readyFile hasn't been modified, so ignore the event
+            return;
+          }
 
-        resolve();
-      });
+          resolve();
+        }
+      );
 
       // Sauce Connect exits with a zero status code when there is a
       // failure, and outputs error messages to stdout, like a boss. Even
       // better, it uses the "Error:" tag for warnings.
-      this._handle = on(child.stdout!, 'data', function(data: string) {
+      this._handle = on(child.stdout!, 'data', function (data: string) {
         if (!readMessage) {
           return;
         }
 
         String(data)
           .split('\n')
-          .some(message => {
+          .some((message) => {
             // Get rid of the date/time prefix on each message
             const delimiter = message.indexOf(' - ');
             if (delimiter > -1) {
@@ -519,11 +525,11 @@ export default class SauceLabsTunnel extends Tunnel
       'Windows 2008': 'Windows 7',
       'Windows 2012': 'Windows 8',
       'Windows 2012 R2': 'Windows 8.1',
-      'Windows 10': 'Windows 10'
+      'Windows 10': 'Windows 10',
     };
 
     const browserMap: any = {
-      microsoftedge: 'MicrosoftEdge'
+      microsoftedge: 'MicrosoftEdge',
     };
 
     let os = environment.os;
@@ -558,8 +564,8 @@ export default class SauceLabsTunnel extends Tunnel
       intern: {
         platform,
         browserName,
-        version
-      }
+        version,
+      },
     };
   }
 }

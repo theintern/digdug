@@ -1,7 +1,7 @@
 import Tunnel, {
   TunnelProperties,
   DownloadOptions,
-  ChildExecutor
+  ChildExecutor,
 } from './Tunnel';
 import { readFileSync } from 'fs';
 import { format } from 'util';
@@ -12,7 +12,7 @@ import {
   CancellablePromise,
   RequestOptions,
   deepMixin,
-  request
+  request,
 } from '@theintern/common';
 import { fileExists, kill, on, writeFile } from './lib/util';
 import { satisfies } from 'semver';
@@ -41,8 +41,10 @@ const webdrivers = webdriversJson.drivers;
  * - `internet explorer`
  * - `safari`
  */
-export default class SeleniumTunnel extends Tunnel
-  implements SeleniumProperties {
+export default class SeleniumTunnel
+  extends Tunnel
+  implements SeleniumProperties
+{
   /** Additional arguments to send to the Selenium server at startup */
   seleniumArgs!: string[];
 
@@ -126,7 +128,7 @@ export default class SeleniumTunnel extends Tunnel
           drivers: ['chrome'],
           baseUrl: webdrivers.selenium.baseUrl,
           version: webdrivers.selenium.latest,
-          seleniumTimeout: 5000
+          seleniumTimeout: 5000,
         },
         options || {}
       )
@@ -142,10 +144,12 @@ export default class SeleniumTunnel extends Tunnel
     return `selenium-server-standalone-${this.version}.jar`;
   }
 
+  // @ts-ignore
   get directory() {
     return join(__dirname, 'selenium-standalone');
   }
 
+  // @ts-ignore
   get executable() {
     return 'java';
   }
@@ -154,12 +158,13 @@ export default class SeleniumTunnel extends Tunnel
     const directory = this.directory;
     return (
       fileExists(join(directory, this.artifact)) &&
-      this._getDriverConfigs().every(config => {
+      this._getDriverConfigs().every((config) => {
         return fileExists(join(directory, config.executable));
       })
     );
   }
 
+  // @ts-ignore
   get url() {
     const majorMinorVersion = this.version.slice(
       0,
@@ -177,17 +182,17 @@ export default class SeleniumTunnel extends Tunnel
       let tasks: CancellablePromise<void>[];
 
       return new Task(
-        resolve => {
+        (resolve) => {
           const configs: RemoteFile[] = [
             {
               url: this.url,
               executable: this.artifact,
-              dontExtract: true
+              dontExtract: true,
             },
-            ...this._getDriverConfigs()
+            ...this._getDriverConfigs(),
           ];
 
-          tasks = configs.map(config => {
+          tasks = configs.map((config) => {
             const executable = config.executable;
             const dontExtract = Boolean(config.dontExtract);
             const directory = config.directory;
@@ -202,7 +207,7 @@ export default class SeleniumTunnel extends Tunnel
             >{
               executable,
               dontExtract,
-              directory
+              directory,
             });
           });
 
@@ -210,7 +215,7 @@ export default class SeleniumTunnel extends Tunnel
         },
         () => {
           tasks &&
-            tasks.forEach(task => {
+            tasks.forEach((task) => {
               task.cancel();
             });
         }
@@ -241,11 +246,11 @@ export default class SeleniumTunnel extends Tunnel
 
     return request(this.webDriverDataUrl, {
       proxy: this.proxy,
-      timeout: 3000
+      timeout: 3000,
     } as RequestOptions)
-      .then(resp => {
+      .then((resp) => {
         if (resp.status === 200) {
-          return resp.json<typeof webdriversJson>().then(data => {
+          return resp.json<typeof webdriversJson>().then((data) => {
             updatedData = data;
             this._webDriverDataLoaded = true;
             // Save the downloaded data for use if a download fails in a future
@@ -254,7 +259,7 @@ export default class SeleniumTunnel extends Tunnel
           });
         }
       })
-      .catch(error => {
+      .catch((error) => {
         if (this.verbose) {
           console.warn(error);
         }
@@ -282,7 +287,7 @@ export default class SeleniumTunnel extends Tunnel
       return new Constructor(options);
     }
 
-    return this.drivers.map(function(data) {
+    return this.drivers.map(function (data) {
       if (typeof data === 'string') {
         return getDriverConfig(data);
       }
@@ -301,7 +306,7 @@ export default class SeleniumTunnel extends Tunnel
     const driverConfigs = this._getDriverConfigs();
     const args: string[] = [];
 
-    driverConfigs.reduce(function(args: string[], config) {
+    driverConfigs.reduce(function (args: string[], config) {
       const file = join(directory, config.executable);
       args.push('-D' + config.seleniumProperty + '=' + file);
       return args;
@@ -370,7 +375,10 @@ export default class SeleniumTunnel extends Tunnel
       executor(child, resolve, reject);
     });
 
-    task.then(() => handle.destroy(), () => handle.destroy());
+    task.then(
+      () => handle.destroy(),
+      () => handle.destroy()
+    );
 
     return task;
   }
@@ -440,8 +448,10 @@ interface ChromeProperties {
 
 type ChromeOptions = Partial<ChromeProperties>;
 
-class ChromeConfig extends Config<ChromeOptions>
-  implements ChromeProperties, DriverFile {
+class ChromeConfig
+  extends Config<ChromeOptions>
+  implements ChromeProperties, DriverFile
+{
   arch!: string;
   baseUrl!: string;
   platform!: string;
@@ -454,7 +464,7 @@ class ChromeConfig extends Config<ChromeOptions>
           arch: process.arch,
           baseUrl: webdrivers.chrome.baseUrl,
           platform: process.platform,
-          version: webdrivers.chrome.latest
+          version: webdrivers.chrome.latest,
         },
         options
       )
@@ -466,10 +476,8 @@ class ChromeConfig extends Config<ChromeOptions>
     if (platform === 'linux') {
       platform = 'linux' + (this.arch === 'x86' ? '32' : '64');
     } else if (platform === 'darwin') {
-      const parts = String(this.version)
-        .split('.')
-        .map(Number);
-      const isGreater = [2, 22].some(function(part, i) {
+      const parts = String(this.version).split('.').map(Number);
+      const isGreater = [2, 22].some(function (part, i) {
         return parts[i] > part;
       });
       platform = isGreater ? 'mac64' : 'mac32';
@@ -506,8 +514,10 @@ interface FirefoxProperties {
 
 type FirefoxOptions = Partial<FirefoxProperties>;
 
-class FirefoxConfig extends Config<FirefoxOptions>
-  implements FirefoxProperties, DriverFile {
+class FirefoxConfig
+  extends Config<FirefoxOptions>
+  implements FirefoxProperties, DriverFile
+{
   arch!: string;
   baseUrl!: string;
   platform!: string;
@@ -520,7 +530,7 @@ class FirefoxConfig extends Config<FirefoxOptions>
           arch: process.arch,
           baseUrl: webdrivers.firefox.baseUrl,
           platform: process.platform,
-          version: webdrivers.firefox.latest
+          version: webdrivers.firefox.latest,
         },
         options
       )
@@ -580,7 +590,7 @@ class IEConfig extends Config<IEOptions> implements IEProperties, DriverFile {
         {
           arch: process.arch,
           baseUrl: webdrivers.ie.baseUrl,
-          version: webdrivers.ie.latest
+          version: webdrivers.ie.latest,
         },
         options
       )
@@ -626,8 +636,10 @@ interface EdgeVersions {
 
 type EdgeOptions = Partial<EdgeProperties>;
 
-class EdgeConfig extends Config<EdgeOptions>
-  implements EdgeProperties, DriverFile {
+class EdgeConfig
+  extends Config<EdgeOptions>
+  implements EdgeProperties, DriverFile
+{
   arch!: string;
   baseUrl!: string;
   uuid: string | undefined;
@@ -641,7 +653,7 @@ class EdgeConfig extends Config<EdgeOptions>
           arch: process.arch,
           baseUrl: webdrivers.edge.baseUrl,
           version: webdrivers.edge.latest,
-          versions: webdrivers.edge.versions
+          versions: webdrivers.edge.versions,
         },
         options
       )
@@ -703,8 +715,10 @@ interface EdgeChromiumProperties {
   version: string;
 }
 
-class EdgeChromiumConfig extends Config<EdgeOptions>
-  implements EdgeChromiumProperties, DriverFile {
+class EdgeChromiumConfig
+  extends Config<EdgeOptions>
+  implements EdgeChromiumProperties, DriverFile
+{
   arch!: string;
   baseUrl!: string;
   platform!: string;
@@ -717,7 +731,7 @@ class EdgeChromiumConfig extends Config<EdgeOptions>
           arch: process.arch,
           baseUrl: webdrivers.edgeChromium.baseUrl,
           platform: process.platform,
-          version: webdrivers.edgeChromium.latest
+          version: webdrivers.edgeChromium.latest,
         },
         options
       )
@@ -753,7 +767,7 @@ class EdgeChromiumConfig extends Config<EdgeOptions>
 const edgePlatformNames: { [key: string]: string } = {
   darwin: 'mac',
   win32: 'win',
-  win64: 'win'
+  win64: 'win',
 };
 
 const driverNameMap: { [key: string]: DriverConstructor } = {
@@ -764,5 +778,5 @@ const driverNameMap: { [key: string]: DriverConstructor } = {
   edge: EdgeConfig,
   MicrosoftEdge: EdgeConfig,
   edgeChromium: EdgeChromiumConfig,
-  MicrosoftEdgeChromium: EdgeChromiumConfig
+  MicrosoftEdgeChromium: EdgeChromiumConfig,
 };

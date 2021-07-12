@@ -7,14 +7,14 @@ import { ObjectSuiteDescriptor, Tests } from 'intern/lib/interfaces/object';
 import SeleniumTunnel, { DriverFile } from '../../src/SeleniumTunnel';
 import { addStartStopTest } from '../support/integration';
 import { cleanup, deleteTunnelFiles, getDigdugArgs } from '../support/util';
-import * as webdriversJson from '../../src/webdrivers.json';
+import webdriversJson from '../../src/webdrivers.json';
 
 const origWebdriversJson = JSON.parse(JSON.stringify(webdriversJson));
 
 function createDownloadTest(config: any) {
   return () => {
     tunnel = new SeleniumTunnel();
-    Object.keys(config).forEach(key => {
+    Object.keys(config).forEach((key) => {
       Object.defineProperty(tunnel, key, { value: config[key] });
     });
 
@@ -37,7 +37,7 @@ function createDownloadTest(config: any) {
       progressed = true;
     });
 
-    return tunnel.download().then(function() {
+    return tunnel.download().then(function () {
       for (const file of expected) {
         assert.isTrue(
           existsSync(join(tunnel.directory, file)),
@@ -52,9 +52,9 @@ function createDownloadTest(config: any) {
 let tunnel: SeleniumTunnel;
 
 let tests: Tests = {
-  download: (function() {
+  download: (function () {
     const tests: any = {
-      'selenium standalone': createDownloadTest({ drivers: [] })
+      'selenium standalone': createDownloadTest({ drivers: [] }),
     };
 
     [
@@ -72,8 +72,8 @@ let tests: Tests = {
       { name: 'MicrosoftEdgeChromium', platform: 'darwin' },
       { name: 'firefox', platform: 'linux' },
       { name: 'firefox', platform: 'darwin' },
-      { name: 'firefox', platform: 'win32' }
-    ].forEach(function(config: any) {
+      { name: 'firefox', platform: 'win32' },
+    ].forEach(function (config: any) {
       let testName = config.name;
       if (config.platform) {
         testName += '-' + config.platform;
@@ -89,7 +89,7 @@ let tests: Tests = {
         // to change the Selenium configuration so isDownloaded() should
         // always report true for Selenium
         artifact: '.',
-        drivers: [config]
+        drivers: [config],
       });
     });
 
@@ -108,11 +108,11 @@ let tests: Tests = {
     assert.isFalse(tunnel.isDownloaded);
   },
 
-  'version check': function() {
+  'version check': function () {
     const version = '2.25';
     const { arch } = process;
     tunnel = new SeleniumTunnel({
-      drivers: [{ name: 'chrome', version }]
+      drivers: [{ name: 'chrome', version }],
     });
     return tunnel.download().then(() => {
       const driver = join(tunnel.directory, version, arch, 'chromedriver');
@@ -134,7 +134,7 @@ let tests: Tests = {
     tests: {
       async 'bad url'() {
         tunnel = new SeleniumTunnel({
-          drivers: [{ name: 'chrome' }, { name: 'firefox' }]
+          drivers: [{ name: 'chrome' }, { name: 'firefox' }],
         });
 
         webdriversJson.drivers.chrome.latest = '2.46';
@@ -184,7 +184,7 @@ let tests: Tests = {
 
       async 'good url'() {
         tunnel = new SeleniumTunnel({
-          drivers: [{ name: 'chrome' }, { name: 'firefox' }]
+          drivers: [{ name: 'chrome' }, { name: 'firefox' }],
         });
 
         const resp = await request(tunnel.webDriverDataUrl!);
@@ -224,13 +224,13 @@ let tests: Tests = {
 
         const dataFile = join(tunnel.directory, 'webdrivers.json');
         assert.isTrue(existsSync(dataFile), `expected ${dataFile} to exist`);
-      }
-    }
-  }
+      },
+    },
+  },
 };
 
 tests = addStartStopTest(tests, SeleniumTunnel, {
-  needsAuthData: false
+  needsAuthData: false,
 });
 
 const suite: ObjectSuiteDescriptor = {
@@ -242,7 +242,7 @@ const suite: ObjectSuiteDescriptor = {
     return cleanup(tunnel);
   },
 
-  tests
+  tests,
 };
 
 registerSuite('integration/SeleniumTunnel', suite);

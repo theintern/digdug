@@ -6,22 +6,24 @@ import {
   Task,
   CancellablePromise,
   request,
-  Response
+  Response,
 } from '@theintern/common';
 import { spawn, ChildProcess } from 'child_process';
 import { join } from 'path';
 import { format as formatUrl } from 'url';
 import { fileExists, kill, on } from './lib/util';
 import { JobState } from './interfaces';
-import * as decompress from 'decompress';
+import decompress from 'decompress';
 
 /**
  * A Tunnel is a mechanism for connecting to a WebDriver service provider that
  * securely exposes local services for testing within the service provider’s
  * network.
  */
-export default class Tunnel extends Evented<TunnelEvents, string>
-  implements TunnelProperties {
+export default class Tunnel
+  extends Evented<TunnelEvents, string>
+  implements TunnelProperties
+{
   /**
    * The URL of a service that provides a list of environments supported by
    * the tunnel.
@@ -139,7 +141,7 @@ export default class Tunnel extends Evented<TunnelEvents, string>
         port: 4444,
         protocol: 'http',
         verbose: false,
-        state: 'stopped'
+        state: 'stopped',
       },
       options || {}
     );
@@ -234,10 +236,10 @@ export default class Tunnel extends Evented<TunnelEvents, string>
     return request(this.environmentUrl, {
       password: this.accessKey,
       username: this.username,
-      proxy: this.proxy
-    }).then(response => {
+      proxy: this.proxy,
+    }).then((response) => {
       if (response.status >= 200 && response.status < 400) {
-        return response.json<any[]>().then(data => {
+        return response.json<any[]>().then((data) => {
           return data.reduce(
             (environments: NormalizedEnvironment[], environment: any) => {
               return environments.concat(
@@ -284,10 +286,10 @@ export default class Tunnel extends Evented<TunnelEvents, string>
     this._state = 'starting';
 
     this._startTask = this.download().then(() => {
-      return this._start(child => {
+      return this._start((child) => {
         this._process = child;
         this._handle = createCompositeHandle(
-          this._handle || { destroy: function() {} },
+          this._handle || { destroy: function () {} },
           on(child.stdout!, 'data', proxyIOEvent(this, 'stdout')),
           on(child.stderr!, 'data', proxyIOEvent(this, 'stderr')),
           on(child, 'exit', () => {
@@ -304,10 +306,10 @@ export default class Tunnel extends Evented<TunnelEvents, string>
         this.emit({
           type: 'status',
           target: this,
-          status: 'Ready'
+          status: 'Ready',
         });
       })
-      .catch(error => {
+      .catch((error) => {
         this._startTask = undefined;
         this._state = 'stopped';
         this.emit({
@@ -316,7 +318,7 @@ export default class Tunnel extends Evented<TunnelEvents, string>
           status:
             error.name === 'CancelError'
               ? 'Start cancelled'
-              : 'Failed to start tunnel'
+              : 'Failed to start tunnel',
         });
       });
 
@@ -343,11 +345,11 @@ export default class Tunnel extends Evented<TunnelEvents, string>
     this.emit({
       type: 'status',
       target: this,
-      status: 'Stopping'
+      status: 'Stopping',
     });
 
     this._stopTask = this._stop()
-      .then(returnValue => {
+      .then((returnValue) => {
         if (this._handle) {
           this._handle.destroy();
         }
@@ -356,11 +358,11 @@ export default class Tunnel extends Evented<TunnelEvents, string>
         this.emit({
           type: 'status',
           target: this,
-          status: 'Stopped'
+          status: 'Stopped',
         });
         return returnValue;
       })
-      .catch(error => {
+      .catch((error) => {
         this._state = 'running';
         throw error;
       });
@@ -383,32 +385,30 @@ export default class Tunnel extends Evented<TunnelEvents, string>
       (resolve, reject) => {
         req = request(url, {
           proxy,
-          onDownloadProgress: event => {
+          onDownloadProgress: (event) => {
             this.emit({
               type: 'downloadprogress',
               target: this,
               url,
               total: event.total,
-              received: event.received
+              received: event.received,
             });
-          }
+          },
         });
 
         req
-          .then(response => {
+          .then((response) => {
             if (response.status >= 400) {
               throw new Error(
-                `Download server returned status code ${
-                  response.status
-                } for ${url}`
+                `Download server returned status code ${response.status} for ${url}`
               );
             } else {
-              response.arrayBuffer().then(data => {
+              response.arrayBuffer().then((data) => {
                 resolve(this._postDownloadFile(Buffer.from(data), options));
               });
             }
           })
-          .catch(error => {
+          .catch((error) => {
             reject(error);
           });
       },
@@ -471,8 +471,9 @@ export default class Tunnel extends Evented<TunnelEvents, string>
         function handleChildExit() {
           reject(
             new Error(
-              `Tunnel failed to start: ${errorMessage ||
-                `Exit code: ${exitCode}`}`
+              `Tunnel failed to start: ${
+                errorMessage || `Exit code: ${exitCode}`
+              }`
             )
           );
         }
@@ -522,9 +523,9 @@ export default class Tunnel extends Evented<TunnelEvents, string>
       handle.destroy();
       if (canceled) {
         // We only want this to run when cancelation has occurred
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
           child.once('exit', () => {
-            resolve();
+            resolve(undefined);
           });
         });
       }
@@ -626,7 +627,7 @@ export default class Tunnel extends Evented<TunnelEvents, string>
         return;
       }
 
-      childProcess.once('exit', code => {
+      childProcess.once('exit', (code) => {
         resolve(code == null ? undefined : code);
       });
 
@@ -773,13 +774,14 @@ export interface TunnelProperties extends DownloadProperties {
 export type TunnelOptions = Partial<TunnelProperties>;
 
 function proxyIOEvent(target: Tunnel, type: 'stdout' | 'stderr') {
-  return function(data: any) {
+  return function (data: any) {
     target.emit({
       type,
       target,
-      data: String(data)
+      data: String(data),
     });
   };
 }
 
+// @ts-ignore
 delete Tunnel.prototype.on;

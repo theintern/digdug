@@ -43,10 +43,14 @@ export function fileExists(filename: string): boolean {
  * This function will attempt to kill all processes that it should, and will
  * report an error at the end if any process could not be killed.
  */
-export function kill(pid: number) {
+export function kill(pid: number | undefined) {
   let error: Error | undefined;
 
-  getChildProcesses(pid).forEach(childPid => {
+  if (pid === undefined) {
+    return;
+  }
+
+  getChildProcesses(pid).forEach((childPid) => {
     try {
       killProcess(childPid);
     } catch (err) {
@@ -89,7 +93,7 @@ function killProcess(pid: number) {
  * @returns A Promise that resolves when the file has been written
  */
 export function writeFile(data: any, filename: string) {
-  return new Promise<void>(function(resolve, reject) {
+  return new Promise<void>(function (resolve, reject) {
     function mkdirp(dir: string) {
       if (!dir) {
         return;
@@ -111,7 +115,7 @@ export function writeFile(data: any, filename: string) {
     }
 
     mkdirp(dirname(filename));
-    fsWriteFile(filename, data, function(error) {
+    fsWriteFile(filename, data, function (error) {
       if (error) {
         reject(error);
       } else {
@@ -134,9 +138,9 @@ function getChildProcesses(pid: number) {
     .trim()
     .split('\n')
     .slice(1)
-    .map(line => line.trim())
-    .map(line => line.split(/\s+/).map(word => word.trim()))
-    .map(words => ({ parent: Number(words[0]), child: Number(words[1]) }))
-    .filter(entry => entry.parent === pid)
-    .map(entry => entry.child);
+    .map((line) => line.trim())
+    .map((line) => line.split(/\s+/).map((word) => word.trim()))
+    .map((words) => ({ parent: Number(words[0]), child: Number(words[1]) }))
+    .filter((entry) => entry.parent === pid)
+    .map((entry) => entry.child);
 }

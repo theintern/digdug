@@ -5,12 +5,12 @@ import {
   Task,
   CancellablePromise,
   createCompositeHandle,
-  request
+  request,
 } from '@theintern/common';
 import Tunnel, {
   ChildExecutor,
   NormalizedEnvironment,
-  TunnelProperties
+  TunnelProperties,
 } from './Tunnel';
 import { JobState } from './interfaces';
 import { on } from './lib/util';
@@ -48,8 +48,10 @@ const cbtVersion = '0.9.12';
  * The username and accessKey properties will be initialized using CBT_USERNAME
  * and CBT_APIKEY.
  */
-export default class CrossBrowserTestingTunnel extends Tunnel
-  implements CrossBrowserTestingProperties {
+export default class CrossBrowserTestingTunnel
+  extends Tunnel
+  implements CrossBrowserTestingProperties
+{
   /** The version of the cbt_tunnels package to use */
   cbtVersion!: string;
 
@@ -64,13 +66,14 @@ export default class CrossBrowserTestingTunnel extends Tunnel
           executable: 'node',
           hostname: 'hub.crossbrowsertesting.com',
           port: '80',
-          username: process.env.CBT_USERNAME
+          username: process.env.CBT_USERNAME,
         },
         options || {}
       )
     );
   }
 
+  // @ts-ignore
   get auth() {
     return `${this.username || ''}:${this.accessKey || ''}`;
   }
@@ -78,7 +81,7 @@ export default class CrossBrowserTestingTunnel extends Tunnel
   get extraCapabilities() {
     return {
       username: this.username,
-      password: this.accessKey
+      password: this.accessKey,
     };
   }
 
@@ -124,14 +127,14 @@ export default class CrossBrowserTestingTunnel extends Tunnel
       '--username',
       this.username,
       '--ready',
-      readyFile
+      readyFile,
     ];
   }
 
   sendJobState(jobId: string, data: JobState): CancellablePromise<void> {
     const payload = JSON.stringify({
       action: 'set_score',
-      score: data.status || data.success ? 'pass' : 'fail'
+      score: data.status || data.success ? 'pass' : 'fail',
     });
 
     const url = `https://crossbrowsertesting.com/api/v3/selenium/${jobId}`;
@@ -140,14 +143,14 @@ export default class CrossBrowserTestingTunnel extends Tunnel
       data: payload,
       headers: {
         'Content-Length': String(Buffer.byteLength(payload, 'utf8')),
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
       username: this.username,
       password: this.accessKey,
-      proxy: this.proxy
-    }).then<void>(response => {
+      proxy: this.proxy,
+    }).then<void>((response) => {
       if (response.status !== 200) {
-        return response.text().then(text => {
+        return response.text().then((text) => {
           if (text) {
             const data = JSON.parse(text);
 
@@ -175,21 +178,22 @@ export default class CrossBrowserTestingTunnel extends Tunnel
       // Polling API is used because we are only watching for one file, so
       // efficiency is not a big deal, and the `fs.watch` API has extra
       // restrictions which are best avoided
-      watchFile(readyFile, { persistent: false, interval: 1007 }, function(
-        current,
-        previous
-      ) {
-        if (Number(current.mtime) === Number(previous.mtime)) {
-          // readyFile hasn't been modified, so ignore the event
-          return;
-        }
+      watchFile(
+        readyFile,
+        { persistent: false, interval: 1007 },
+        function (current, previous) {
+          if (Number(current.mtime) === Number(previous.mtime)) {
+            // readyFile hasn't been modified, so ignore the event
+            return;
+          }
 
-        unwatchFile(readyFile);
-        readHandle.destroy();
-        exitHandle.destroy();
-        stdout = null;
-        resolve();
-      });
+          unwatchFile(readyFile);
+          readHandle.destroy();
+          exitHandle.destroy();
+          stdout = null;
+          resolve();
+        }
+      );
 
       // The cbt tunnel outputs its startup error messages on stdout.
       // Capture any data on stdout and display it if the process exits
@@ -197,7 +201,7 @@ export default class CrossBrowserTestingTunnel extends Tunnel
       const readHandle = on(child.stdout!, 'data', (data: any) => {
         stdout!.push(String(data));
       });
-      const exitHandle = on(child, 'exit', function() {
+      const exitHandle = on(child, 'exit', function () {
         process.stderr.write(stdout!.join(''));
       });
 
@@ -226,7 +230,7 @@ export default class CrossBrowserTestingTunnel extends Tunnel
   protected _normalizeEnvironment(environment: any): NormalizedEnvironment {
     const platform = environment.api_name;
 
-    return environment.browsers.map(function(browser: any) {
+    return environment.browsers.map(function (browser: any) {
       const browserName = browser.type.toLowerCase();
 
       return {
@@ -240,8 +244,8 @@ export default class CrossBrowserTestingTunnel extends Tunnel
           browserName,
           version: browser.version,
           browser_api_name: browser.api_name,
-          os_api_name: platform
-        }
+          os_api_name: platform,
+        },
       };
     });
   }

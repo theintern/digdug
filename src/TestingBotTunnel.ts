@@ -1,7 +1,7 @@
 import Tunnel, {
   TunnelProperties,
   ChildExecutor,
-  NormalizedEnvironment
+  NormalizedEnvironment,
 } from './Tunnel';
 import { existsSync, watchFile, unlinkSync, unwatchFile } from 'fs';
 import { stringify } from 'querystring';
@@ -18,8 +18,10 @@ import { JobState } from './interfaces';
  * The username and accessKey properties will be initialized using
  * TESTINGBOT_API_KEY and TESTINGBOT_API_SECRET.
  */
-export default class TestingBotTunnel extends Tunnel
-  implements TestingBotProperties {
+export default class TestingBotTunnel
+  extends Tunnel
+  implements TestingBotProperties
+{
   directory!: string;
 
   /**
@@ -61,13 +63,14 @@ export default class TestingBotTunnel extends Tunnel
           useCompression: false,
           useJettyProxy: true,
           useSquidProxy: true,
-          useSsl: false
+          useSsl: false,
         },
         options || {}
       )
     );
   }
 
+  // @ts-ignore
   get auth() {
     return `${this.username || ''}:${this.accessKey || ''}`;
   }
@@ -91,7 +94,7 @@ export default class TestingBotTunnel extends Tunnel
       '-P',
       this.port,
       '-f',
-      readyFile
+      readyFile,
     ];
 
     this.fastFailDomains.length &&
@@ -139,13 +142,13 @@ export default class TestingBotTunnel extends Tunnel
       data: payload,
       headers: {
         'Content-Length': String(Buffer.byteLength(payload, 'utf8')),
-        'Content-Type': 'application/x-www-form-urlencoded'
+        'Content-Type': 'application/x-www-form-urlencoded',
       },
       password: this.accessKey,
       username: this.username,
-      proxy: this.proxy
-    }).then(function(response) {
-      return response.text().then(text => {
+      proxy: this.proxy,
+    }).then(function (response) {
+      return response.text().then((text) => {
         if (text) {
           const data = JSON.parse(text);
 
@@ -182,23 +185,24 @@ export default class TestingBotTunnel extends Tunnel
       // Polling API is used because we are only watching for one file, so
       // efficiency is not a big deal, and the `fs.watch` API has extra
       // restrictions which are best avoided
-      watchFile(readyFile, { persistent: false, interval: 1007 }, function(
-        current,
-        previous
-      ) {
-        if (Number(current.mtime) === Number(previous.mtime)) {
-          // readyFile hasn't been modified, so ignore the event
-          return;
-        }
+      watchFile(
+        readyFile,
+        { persistent: false, interval: 1007 },
+        function (current, previous) {
+          if (Number(current.mtime) === Number(previous.mtime)) {
+            // readyFile hasn't been modified, so ignore the event
+            return;
+          }
 
-        unwatchFile(readyFile);
-        resolve();
-      });
+          unwatchFile(readyFile);
+          resolve();
+        }
+      );
 
       let lastMessage: string;
       this._handle = on(child.stderr!, 'data', (data: string) => {
         data = String(data);
-        data.split('\n').forEach(message => {
+        data.split('\n').forEach((message) => {
           if (message.indexOf('INFO: ') === 0) {
             message = message.slice('INFO: '.length);
             // the tunnel produces a lot of repeating messages
@@ -212,7 +216,7 @@ export default class TestingBotTunnel extends Tunnel
               this.emit({
                 type: 'status',
                 target: this,
-                status: message
+                status: message,
               });
               lastMessage = message;
             }
@@ -247,7 +251,7 @@ export default class TestingBotTunnel extends Tunnel
   protected _normalizeEnvironment(environment: any): NormalizedEnvironment {
     const browserMap: any = {
       googlechrome: 'chrome',
-      iexplore: 'internet explorer'
+      iexplore: 'internet explorer',
     };
 
     const platform = environment.platform;
@@ -263,8 +267,8 @@ export default class TestingBotTunnel extends Tunnel
       intern: {
         platform,
         browserName,
-        version
-      }
+        version,
+      },
     };
   }
 }
