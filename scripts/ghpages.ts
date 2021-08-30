@@ -1,9 +1,9 @@
 // Publish assets to gh-pages
 
-import * as execa from 'execa';
+import execa from 'execa';
 import { join, resolve } from 'path';
 import { cp, mkdir, rm } from 'shelljs';
-import * as packageJson from '../package.json';
+import packageJson from '../package.json';
 import { ask, init, isYesNo, print, stop } from './lib/rl';
 
 const ghpagesDir = '_ghpages';
@@ -64,6 +64,6 @@ async function main() {
 }
 
 main()
-  .catch(error => console.error(error))
+  .catch((error) => console.error(error))
   .finally(() => stop())
   .finally(() => print('Done'));
