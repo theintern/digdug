@@ -60,20 +60,16 @@
   },
   "lint-staged": {
     "src/**/*.{ts,json,css}": [
-      "prettier --write",
-      "git add"
+      "prettier --write"
     ],
     "tests/**/*.{ts,json,css}": [
-      "prettier --write",
-      "git add"
+      "prettier --write"
     ],
     "*.ts": [
-      "prettier --write",
-      "git add"
+      "prettier --write"
     ],
     "{intern,tsconfig}.json": [
-      "prettier --write",
-      "git add"
+      "prettier --write"
     ]
   },
   "pre-commit": "precommit",
