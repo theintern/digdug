@@ -7,7 +7,7 @@
     },
     "chrome": {
       "baseUrl": "https://chromedriver.storage.googleapis.com",
-      "latest": "95.0.4638.69"
+      "latest": "96.0.4664.45"
     },
     "firefox": {
       "baseUrl": "https://github.com/mozilla/geckodriver/releases/download",
@@ -34,7 +34,7 @@
     },
     "edgeChromium": {
       "baseUrl": "https://msedgedriver.azureedge.net",
-      "latest": "95.0.1020.44"
+      "latest": "96.0.1054.34"
     }
   }
 }
