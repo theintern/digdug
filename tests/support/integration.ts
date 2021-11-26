@@ -12,10 +12,7 @@ function writeIOEvent(event: IOEvent) {
 function addVerboseListeners(tunnel: Tunnel) {
   return createCompositeHandle(
     tunnel.on('stdout', writeIOEvent),
-    tunnel.on(
-      'stderr',
-      writeIOEvent
-    ) /*,
+    tunnel.on('stderr', writeIOEvent) /*,
 		TODO: enable when we figure out progress events
 		tunnel.on('downloadprogress', function (info) {
 			process.stdout.write('.');
@@ -27,7 +24,7 @@ function addVerboseListeners(tunnel: Tunnel) {
 }
 
 function assertNormalizedProperties(environment: NormalizedEnvironment) {
-  const message = ' undefined for ' + nodeUtil.inspect(environment.descriptor);
+  const message = ' undefined for ' + nodeUtil.inspect(environment);
   assert.isDefined(environment.browserName, 'browserName' + message);
   assert.isDefined(environment.version, 'version' + message);
   assert.isDefined(environment.platform, 'platform' + message);
@@ -74,27 +71,27 @@ export function addEnvironmentTest(
       const cleanup = getCleanup(tunnel, handle);
       return tunnel
         .getEnvironments()
-        .then(function(environments) {
+        .then(function (environments) {
           assert.isArray(environments);
           assert.isAbove(
             environments.length,
             0,
             'Expected at least 1 environment'
           );
-          environments.forEach(function(environment) {
+          environments.forEach(function (environment) {
             assertNormalizedProperties(environment);
             assert.property(environment, 'descriptor');
             checkEnvironment(environment.descriptor);
           });
         })
         .then(cleanup)
-        .catch(reason => {
+        .catch((reason) => {
           return cleanup().then(() => {
             throw reason;
           });
         })
         .finally(cleanup);
-    }
+    },
   };
 }
 
@@ -133,11 +130,11 @@ export function addStartStopTest(
 
       return tunnel
         .start()!
-        .then(function() {
+        .then(function () {
           clearTimeout(cleanupTimer);
           return tunnel.stop();
         })
         .finally(cleanup);
-    }
+    },
   };
 }

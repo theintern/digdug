@@ -1416,7 +1416,7 @@
 					"sources": [
 						{
 							"fileName": "src/BrowserStackTunnel.ts",
-							"line": 138,
+							"line": 141,
 							"character": 12
 						}
 					],
@@ -1650,7 +1650,7 @@
 					"sources": [
 						{
 							"fileName": "src/BrowserStackTunnel.ts",
-							"line": 288,
+							"line": 291,
 							"character": 12
 						}
 					],
@@ -1710,7 +1710,7 @@
 					"sources": [
 						{
 							"fileName": "src/BrowserStackTunnel.ts",
-							"line": 128,
+							"line": 131,
 							"character": 12
 						}
 					],
@@ -1790,7 +1790,7 @@
 					"sources": [
 						{
 							"fileName": "src/BrowserStackTunnel.ts",
-							"line": 207,
+							"line": 210,
 							"character": 12
 						}
 					],
@@ -1852,7 +1852,7 @@
 					"sources": [
 						{
 							"fileName": "src/BrowserStackTunnel.ts",
-							"line": 242,
+							"line": 245,
 							"character": 12
 						}
 					],
@@ -2437,7 +2437,7 @@
 					"sources": [
 						{
 							"fileName": "src/BrowserStackTunnel.ts",
-							"line": 180,
+							"line": 183,
 							"character": 2
 						}
 					],

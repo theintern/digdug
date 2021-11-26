@@ -108,8 +108,11 @@ export default class BrowserStackTunnel
     let url =
       'https://www.browserstack.com/browserstack-local/BrowserStackLocal-';
 
-    if (platform === 'darwin' && architecture === 'x64') {
-      url += platform + '-' + architecture;
+    if (
+      platform === 'darwin' &&
+      (architecture === 'x64' || architecture === 'arm64')
+    ) {
+      url += platform + '-x64';
     } else if (platform === 'win32') {
       url += platform;
     } else if (
@@ -288,6 +291,7 @@ export default class BrowserStackTunnel
   protected _normalizeEnvironment(environment: any): NormalizedEnvironment {
     const platformMap: any = {
       Windows: {
+        '11': 'WINDOWS',
         '10': 'WINDOWS',
         '8.1': 'WIN8',
         '8': 'WIN8',
