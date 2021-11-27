@@ -21,18 +21,19 @@ registerSuite('unit/SauceLabsTunnel', () => {
 
         tunnel.platform = 'osx';
         tunnel.architecture = 'foo';
-        let executable = /\/sc-\d+\.\d+(?:\.\d+)?-osx\/bin\/sc$/;
+        let executable = /(\/|\\)sc-\d+\.\d+(?:\.\d+)?-osx(\/|\\)bin(\/|\\)sc$/;
         assert.match(tunnel.executable, executable);
 
         tunnel.platform = 'linux';
         assert.equal(tunnel.executable, 'java');
 
         tunnel.architecture = 'x64';
-        executable = /\/sc-\d+\.\d+(?:\.\d+)?-linux\/bin\/sc$/;
+        executable = /(\/|\\)sc-\d+\.\d+(?:\.\d+)?-linux\/bin\/sc$/;
         assert.match(tunnel.executable, executable);
 
         tunnel.platform = 'win32';
-        executable = /\/sc-\d+\.\d+(?:\.\d+)?-win32\/bin\/sc\.exe$/;
+        executable =
+          /(\/|\\)sc-\d+\.\d+(?:\.\d+)?-win32(\/|\\)bin(\/|\\)sc\.exe$/;
         assert.match(tunnel.executable, executable);
       },
 
@@ -40,7 +41,7 @@ registerSuite('unit/SauceLabsTunnel', () => {
         assert.deepEqual(tunnel.extraCapabilities, {});
         tunnel.tunnelId = 'foo';
         assert.deepEqual(tunnel.extraCapabilities, {
-          'tunnel-identifier': 'foo'
+          'tunnel-identifier': 'foo',
         });
       },
 
@@ -58,14 +59,16 @@ registerSuite('unit/SauceLabsTunnel', () => {
         );
 
         tunnel.platform = 'darwin';
-        let url = /https:\/\/saucelabs\.com\/downloads\/sc-\d+\.\d+(?:\.\d+)?-osx\.zip/;
+        let url =
+          /https:\/\/saucelabs\.com\/downloads\/sc-\d+\.\d+(?:\.\d+)?-osx\.zip/;
         assert.match(tunnel.url, url);
 
         tunnel.platform = 'linux';
         tunnel.architecture = 'x64';
-        url = /https:\/\/saucelabs\.com\/downloads\/sc-\d+\.\d+(?:\.\d+)?-linux\.tar\.gz/;
+        url =
+          /https:\/\/saucelabs\.com\/downloads\/sc-\d+\.\d+(?:\.\d+)?-linux\.tar\.gz/;
         assert.match(tunnel.url, url);
-      }
-    }
+      },
+    },
   };
 });
