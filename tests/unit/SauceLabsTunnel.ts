@@ -28,7 +28,7 @@ registerSuite('unit/SauceLabsTunnel', () => {
         assert.equal(tunnel.executable, 'java');
 
         tunnel.architecture = 'x64';
-        executable = /(\/|\\)sc-\d+\.\d+(?:\.\d+)?-linux\/bin\/sc$/;
+        executable = /(\/|\\)sc-\d+\.\d+(?:\.\d+)?-linux(\/|\\)bin(\/|\\)sc$/;
         assert.match(tunnel.executable, executable);
 
         tunnel.platform = 'win32';
