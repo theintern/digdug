@@ -1,9 +1,5 @@
 # Dig Dug
 
-> ⚠️ This repository has been deprecated. It may still receive bugfixes, but
-> development has been moved into the main
-> [Intern repository](https://github.com/theintern/intern).
-
 <!-- prettier-ignore-start -->
 <!-- start-github-only -->
 ![Build status](https://github.com/theintern/digdug/actions/workflows/ci.yml/badge.svg)
