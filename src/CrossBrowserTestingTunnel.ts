@@ -16,7 +16,7 @@ import { JobState } from './interfaces';
 import { on } from './lib/util';
 import { exec } from 'child_process';
 
-const cbtVersion = '0.9.12';
+const cbtVersion = '1.2.2';
 
 /**
  * A CrossBrowserTesting tunnel.

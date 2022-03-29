@@ -12,7 +12,7 @@ import { CancellablePromise, request } from '@theintern/common';
 import { format as formatUrl, parse as parseUrl, Url } from 'url';
 import { fileExists, kill, on } from './lib/util';
 
-const scVersion = '4.6.5';
+const scVersion = '4.7.1';
 
 /**
  * A Sauce Labs tunnel. This tunnel uses Sauce Connect 4 on platforms where it
