@@ -458,8 +458,8 @@ export default class Tunnel
     let canceled = false;
 
     // Ensure child process is killed when parent exits
+    process.on('SIGINT', () => process.exit(1));
     process.on('exit', () => kill(child.pid));
-    process.on('SIGINT', () => kill(child.pid));
 
     const task = new Task(
       (resolve, reject) => {
