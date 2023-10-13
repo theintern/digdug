@@ -482,7 +482,7 @@ class ChromeConfig
       });
       platform = isGreater ? 'mac64' : 'mac32';
     }
-    return format('chromedriver_%s.zip', platform);
+    return format('chromedriver-%s.zip', platform);
   }
 
   get directory() {
@@ -490,13 +490,14 @@ class ChromeConfig
   }
 
   get url() {
-    return format('%s/%s/%s', this.baseUrl, this.version, this.artifact);
+    return format('%s/%s/%s/%s', this.baseUrl, this.version, this.platform, this.artifact);
   }
 
   get executable() {
     return join(
       this.directory,
-      this.platform === 'win32' ? 'chromedriver.exe' : 'chromedriver'
+      format('chromedriver-%s', this.platform),
+      this.platform === 'win32' || this.platform === 'win64' ? 'chromedriver.exe' : 'chromedriver'
     );
   }
 

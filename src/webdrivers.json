@@ -6,8 +6,8 @@
       "latest": "3.141.59"
     },
     "chrome": {
-      "baseUrl": "https://chromedriver.storage.googleapis.com",
-      "latest": "105.0.5195.52"
+      "baseUrl": "https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing",
+      "latest": "118.0.5993.70"
     },
     "firefox": {
       "baseUrl": "https://github.com/mozilla/geckodriver/releases/download",
