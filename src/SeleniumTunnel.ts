@@ -448,6 +448,13 @@ interface ChromeProperties {
 
 type ChromeOptions = Partial<ChromeProperties>;
 
+function versionGreaterThan(versionStr: String, version: number[]) {
+  const parts = String(versionStr).split('.').map(Number);
+  return version.some(function (part, i) {
+    return parts[i] > part;
+  });
+}
+
 class ChromeConfig
   extends Config<ChromeOptions>
   implements ChromeProperties, DriverFile
@@ -456,19 +463,29 @@ class ChromeConfig
   baseUrl!: string;
   platform!: string;
   version!: string;
+  useNewDriverLocation!: boolean;
 
   constructor(options: ChromeOptions) {
-    super(
-      Object.assign(
-        {
-          arch: process.arch,
-          baseUrl: webdrivers.chrome.baseUrl,
-          platform: process.platform,
-          version: webdrivers.chrome.latest,
-        },
-        options
-      )
+    const opts = Object.assign(
+      {
+        arch: process.arch,
+        baseUrl: webdrivers.chrome.baseUrl,
+        platform: process.platform,
+        version: webdrivers.chrome.latest,
+      },
+      options
     );
+
+    const useNewDriverLocation = versionGreaterThan(opts.version, [114]);
+    if (useNewDriverLocation && opts.baseUrl == webdrivers.chrome.baseUrl) {
+      // A 'new' chrome driver has been requested, but we're being asked to configure using the old default baseUrl.
+      // Therefore use new baseUrl for new driver instead.
+      opts.baseUrl =
+        'https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing';
+    }
+
+    super(Object.assign(opts, options));
+    this.useNewDriverLocation = useNewDriverLocation;
   }
 
   get artifact() {
@@ -482,7 +499,10 @@ class ChromeConfig
       });
       platform = isGreater ? 'mac64' : 'mac32';
     }
-    return format('chromedriver_%s.zip', platform);
+
+    return this.useNewDriverLocation
+      ? format('chromedriver-%s.zip', platform)
+      : format('chromedriver_%s.zip', platform);
   }
 
   get directory() {
@@ -490,14 +510,30 @@ class ChromeConfig
   }
 
   get url() {
-    return format('%s/%s/%s', this.baseUrl, this.version, this.artifact);
+    return this.useNewDriverLocation
+      ? format(
+          '%s/%s/%s/%s',
+          this.baseUrl,
+          this.version,
+          this.platform,
+          this.artifact
+        )
+      : format('%s/%s/%s', this.baseUrl, this.version, this.artifact);
   }
 
   get executable() {
-    return join(
-      this.directory,
-      this.platform === 'win32' ? 'chromedriver.exe' : 'chromedriver'
-    );
+    return this.useNewDriverLocation
+      ? join(
+          this.directory,
+          format('chromedriver-%s', this.platform),
+          this.platform === 'win32' || this.platform === 'win64'
+            ? 'chromedriver.exe'
+            : 'chromedriver'
+        )
+      : join(
+          this.directory,
+          this.platform === 'win32' ? 'chromedriver.exe' : 'chromedriver'
+        );
   }
 
   get seleniumProperty() {
